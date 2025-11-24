@@ -559,3 +559,39 @@ img{
         right: 24%;
     }
 }
+
+@media screen and (max-width: 480px) {
+  .home__img {
+    width: 260px;
+  }
+  .about__img {
+    width: 150px;
+    height: 150px;
+  }
+  .about__img img {
+    width: 120px;
+  }
+  .home__title {
+    font-size: 4rem;
+  }
+  .home__scroll {
+    padding-bottom: var(--mb-2);
+  }
+  .about__subtitle {
+    font-size: 1.5rem;
+  }
+  .skills__subtitle {
+    font-size: 1.5rem;
+  }
+  .experience__subtitle {
+    font-size: 1.5rem;
+  }
+  .skills__container,
+  .portfolio__container,
+  .contact__inputs {
+    grid-template-columns: 1fr;
+  }
+  .skills__box {
+    padding: 0;
+  }
+}
