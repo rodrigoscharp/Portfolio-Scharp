@@ -1,0 +1,94 @@
+/* 3D Effects for Portfolio - Adheres to prefers-reduced-motion */
+
+/* -- 3. Depth Shadow -- */
+/* A subtle, consistent shadow for specified elements */
+.header,
+.footer,
+.button,
+.portfolio__img {
+  transition: box-shadow 0.3s ease-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* On hover, the shadow becomes more pronounced */
+.header:hover,
+.footer:hover,
+.button:hover,
+.portfolio__img:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+
+/* -- Motion-based effects -- */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* -- 1. Parallax Hero -- */
+  /* The container needs to preserve the 3D space for layers */
+  #home {
+    position: relative;
+    overflow: hidden;
+    --mouse-x: 0;
+    --mouse-y: 0;
+  }
+
+  /* Layers for the parallax effect */
+  .home__data { /* Mid-ground */
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translate(calc(var(--mouse-x) * -8px), calc(var(--mouse-y) * -8px));
+  }
+
+  .home__img { /* Foreground */
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translate(calc(var(--mouse-x) * 8px), calc(var(--mouse-y) * 8px));
+  }
+
+  .home__social { /* Background */
+     will-change: transform;
+     transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+     transform: translate(calc(var(--mouse-x) * -4px), calc(var(--mouse-y) * -4px));
+  }
+
+
+  /* -- 2. Card Tilt -- */
+  /* The container needs perspective to create the 3D effect */
+  .portfolio__container {
+    perspective: 1200px;
+  }
+
+  .portfolio__img {
+    will-change: transform;
+    transition:
+      transform 0.28s ease-out,
+      box-shadow 0.28s ease-out;
+  }
+
+  /* -- 4. Specular Highlight -- */
+  /* A subtle shine effect on project images on hover */
+  .portfolio__img {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .portfolio__img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    transform: skewX(-25deg);
+    background: linear-gradient(to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.08) 40%,
+      rgba(255, 255, 255, 0.08) 60%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transition: left 0.4s ease-in-out;
+  }
+
+  .portfolio__img:hover::after {
+    left: 50%;
+  }
+}
