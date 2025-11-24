@@ -2,7 +2,7 @@
 
 Este é o repositório do meu site de portfólio pessoal. Ele foi desenvolvido para mostrar minhas habilidades, experiência e projetos nos quais trabalhei.
 
-![preview img](./preview.png)
+
 
 ## Sobre Mim
 
