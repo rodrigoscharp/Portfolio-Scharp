@@ -420,13 +420,25 @@ img{
 }
 
 .experience__company-subtitle{
-    font-size: var(--normal-font-size);
+    font-size: 1.2rem; /* Increased font size for company name again */
     color: var(--text-color);
     margin-bottom: var(--mb-1);
 }
 
 .experience__text{
     font-size: var(--normal-font-size);
+}
+
+.experience__company-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between logo and text */
+}
+
+.experience__company-logo {
+  width: 40px; /* Increased size again */
+  height: 40px; /* Increased size again */
+  object-fit: contain; /* Ensures the image fits within the bounds without cropping */
 }
 
 .skills__name{
@@ -585,6 +597,16 @@ img{
   }
   .experience__subtitle {
     font-size: 1.5rem;
+  }
+  .experience__company-logo { /* Adjust for smaller screens */
+    width: 30px;
+    height: 30px;
+  }
+  .experience__company-subtitle { /* Adjust for smaller screens */
+    font-size: 1rem;
+  }
+  .experience__company-info { /* Adjust gap for smaller screens */
+    gap: 0.25rem;
   }
   .skills__container,
   .portfolio__container,
