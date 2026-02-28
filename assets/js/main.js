@@ -30,17 +30,17 @@ function scrollActive() {
 
   sections.forEach((current) => {
     const sectionHeight = current.offsetHeight;
-    const sectionTop = current.offsetTop - 50;
-    sectionId = current.getAttribute("id");
+    const sectionTop = current.offsetTop - 58;
+    const sectionId = current.getAttribute("id");
 
     if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
       document
         .querySelector(".nav__menu a[href*=" + sectionId + "]")
-        .classList.add("active");
+        .classList.add("active-link");
     } else {
       document
         .querySelector(".nav__menu a[href*=" + sectionId + "]")
-        .classList.remove("active");
+        .classList.remove("active-link");
     }
   });
 }
@@ -48,33 +48,46 @@ function scrollActive() {
 /*===== SCROLL REVEAL ANIMATION =====*/
 const sr = ScrollReveal({
   origin: "top",
-  distance: "80px",
+  distance: "60px",
   duration: 2000,
-  reset: true,
+  delay: 200,
+  // reset: true,
 });
 
 /*SCROLL HOME*/
-sr.reveal(".home__title", {});
-sr.reveal(".home__scroll", { delay: 200 });
-sr.reveal(".home__img", { origin: "right", delay: 400 });
+sr.reveal(".home__data", {});
+sr.reveal(".home__img", { delay: 400, origin: "bottom", distance: "0px" });
 
-/*SCROLL ABOUT*/
-sr.reveal(".about__img", { delay: 500 });
-sr.reveal(".about__subtitle", { delay: 300 });
-sr.reveal(".about__profession", { delay: 400 });
-sr.reveal(".about__text", { delay: 500 });
-sr.reveal(".about__social-icon", { delay: 600, interval: 200 });
+/*SCROLL SECTIONS*/
+sr.reveal(".section-title", {});
+sr.reveal(".glass-card", { interval: 200, origin: "bottom", distance: "100px" });
+sr.reveal(".timeline__item", { interval: 200, origin: "left", distance: "50px" });
 
-/*SCROLL SKILLS*/
-sr.reveal(".skills__subtitle", {});
-sr.reveal(".skills__name", { distance: "20px", delay: 50, interval: 100 });
-sr.reveal(".skills__img", { delay: 400 });
+/*===== 3D TILT EFFECT =====*/
+const tiltElements = document.querySelectorAll('.glass-card, .timeline__content, .home__img');
 
-/*SCROLL PORTFOLIO*/
-sr.reveal(".portfolio__img", { interval: 200 });
+tiltElements.forEach(el => {
+  el.addEventListener('mousemove', (e) => {
+    const { left, top, width, height } = el.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
 
-/*SCROLL CONTACT*/
-sr.reveal(".contact__subtitle", {});
-sr.reveal(".contact__text", { interval: 200 });
-sr.reveal(".contact__input", { delay: 400 });
-sr.reveal(".contact__button", { delay: 600 });
+    const rotateY = (x / width - 0.5) * 15;
+    const rotateX = (0.5 - y / height) * 15;
+
+    // Preserve centering translate for home__title
+    if (el.classList.contains('home__title')) {
+      el.style.transform = `perspective(1000px) translate(-50%, -50%) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+    } else {
+      el.style.transform = `perspective(1000px) scale(1.02) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+    }
+  });
+
+  el.addEventListener('mouseleave', () => {
+    if (el.classList.contains('home__title')) {
+      el.style.transform = `perspective(1000px) translate(-50%, -50%) rotateY(0) rotateX(0)`;
+    } else {
+      el.style.transform = `perspective(1000px) scale(1) rotateY(0) rotateX(0)`;
+    }
+  });
+});
