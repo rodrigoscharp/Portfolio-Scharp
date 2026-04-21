@@ -64,9 +64,10 @@
         </div>
       </div>
     </section>
+    <div class="wave-divider wave--dtl"></div>
 
     <!--===== ABOUT =====-->
-    <section class="about section" id="about">
+    <section class="about section" id="about" data-theme="light">
       <h2 class="section-title"><span>01</span>About Me</h2>
 
       <div class="about__container bd-grid">
@@ -92,6 +93,7 @@
         </div>
       </div>
     </section>
+    <div class="wave-divider wave--ltd"></div>
 
     <!--===== SKILLS =====-->
     <section class="skills section" id="skills">
@@ -129,9 +131,10 @@
         </div>
       </div>
     </section>
+    <div class="wave-divider wave--dtl"></div>
 
     <!--===== EXPERIENCE =====-->
-    <section class="experience section" id="experience">
+    <section class="experience section" id="experience" data-theme="light">
       <h2 class="section-title"><span>03</span>Experience</h2>
 
       <div class="experience__container bd-grid">
@@ -181,12 +184,24 @@
         </div>
       </div>
     </section>
+    <div class="wave-divider wave--ltd"></div>
 
     <!--===== EDUCATION =====-->
     <section class="experience section" id="education">
       <h2 class="section-title"><span>04</span>Education</h2>
 
       <div class="experience__container bd-grid">
+        <div class="timeline__item timeline__item--latest">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content">
+            <span class="timeline__date">2024 - 2025</span>
+            <div class="timeline__header">
+              <img src="assets/img/rocketseat.jpeg" alt="" class="timeline__logo">
+              <h3 class="timeline__title">Java + Spring Boot</h3>
+            </div>
+            <p class="timeline__text">Rocketseat Specialist Course</p>
+          </div>
+        </div>
         <div class="timeline__item">
           <div class="timeline__dot"></div>
           <div class="timeline__content">
@@ -198,22 +213,12 @@
             <p class="timeline__text">UNICSUL - Cruzeiro do Sul University</p>
           </div>
         </div>
-        <div class="timeline__item">
-          <div class="timeline__dot"></div>
-          <div class="timeline__content">
-            <span class="timeline__date">2024 - 2025</span>
-            <div class="timeline__header">
-              <img src="assets/img/rocketseat.jpeg" alt="" class="timeline__logo">
-              <h3 class="timeline__title">Java + Spring Boot</h3>
-            </div>
-            <p class="timeline__text">Rocketseat Specialist Course</p>
-          </div>
-        </div>
       </div>
     </section>
+    <div class="wave-divider wave--dtl"></div>
 
     <!--===== PORTFOLIO =====-->
-    <section class="portfolio section" id="portfolio">
+    <section class="portfolio section" id="portfolio" data-theme="light">
       <h2 class="section-title">Portfolio</h2>
 
       <div class="portfolio__container bd-grid">
@@ -237,13 +242,15 @@
         </div>
       </div>
     </section>
+    <div class="wave-divider wave--ltd"></div>
 
     <!--===== PARTNERSHIPS =====-->
     <section class="partnerships section" id="partnerships">
       <h2 class="section-title"><span>05</span>Partnerships</h2>
 
       <div class="partnerships__container bd-grid">
-        <a href="https://www.rocketseat.com.br/oferta/influencer/v2/scharp" target="_blank" rel="noopener noreferrer" class="partnership__card">
+        <a href="https://www.rocketseat.com.br/oferta/influencer/v2/scharp" target="_blank" rel="noopener noreferrer"
+          class="partnership__card">
 
           <div class="partnership__brand">
             <div class="partnership__logo-wrap">
@@ -257,7 +264,8 @@
           </div>
 
           <div class="partnership__body">
-            <p class="partnership__description">Plataforma de educação em tecnologia focada em programação e desenvolvimento de software.</p>
+            <p class="partnership__description">Plataforma de educação em tecnologia focada em programação e
+              desenvolvimento de software.</p>
           </div>
 
           <div class="partnership__action">
@@ -273,61 +281,106 @@
         </a>
       </div>
     </section>
+    <div class="wave-divider wave--dtl"></div>
 
     <!--===== CONTACT =====-->
-    <section class="contact section" id="contact">
+    <section class="contact section" id="contact" data-theme="light">
       <h2 class="section-title"><span>06</span>Get In Touch</h2>
 
-      <div class="contact__container bd-grid glass-card">
-        <form action="" class="contact__form">
-          <div class="contact__inputs">
-            <input type="text" placeholder="Your Name" class="contact__input" />
-            <input type="email" placeholder="Your Email" class="contact__input" />
-          </div>
-          <textarea name="" id="" cols="30" rows="10" placeholder="Your Message" class="contact__input"></textarea>
-          <button type="submit" class="contact__button">Send Message</button>
-        </form>
+      <div class="contact__container bd-grid">
 
         <div class="contact__info">
-          <h3 class="contact__subtitle">Contact Details</h3>
-          <span class="contact__text">RODRIGOSHARP99@GMAIL.COM</span>
-          <span class="contact__text">+55 12 99641-9003</span>
-          <span class="contact__text">SÃO PAULO - BRAZIL</span>
+          <p class="contact__intro">Tem um projeto em mente, uma oportunidade ou só quer trocar uma ideia? Me manda uma
+            mensagem.</p>
+
+          <ul class="contact__details">
+            <li class="contact__detail">
+              <span class="contact__detail-icon"><i class='bx bx-envelope'></i></span>
+              <span class="contact__detail-text">rodrigoscharp@gmail.com</span>
+            </li>
+            <li class="contact__detail">
+              <span class="contact__detail-icon"><i class='bx bx-phone'></i></span>
+              <span class="contact__detail-text">+55 12 99641-9003</span>
+            </li>
+            <li class="contact__detail">
+              <span class="contact__detail-icon"><i class='bx bx-map'></i></span>
+              <span class="contact__detail-text">Ubatuba - São Paulo, Brazil</span>
+            </li>
+          </ul>
         </div>
+
+        <form action="" class="contact__form">
+          <div class="contact__row">
+            <div class="contact__field">
+              <label class="contact__label">Nome</label>
+              <input type="text" placeholder="Seu nome" class="contact__input" />
+            </div>
+            <div class="contact__field">
+              <label class="contact__label">E-mail</label>
+              <input type="email" placeholder="seu@email.com" class="contact__input" />
+            </div>
+          </div>
+          <div class="contact__field">
+            <label class="contact__label">Mensagem</label>
+            <textarea rows="6" placeholder="Escreva sua mensagem..."
+              class="contact__input contact__textarea"></textarea>
+          </div>
+          <button type="submit" class="contact__button">
+            Enviar mensagem <i class='bx bx-send contact__send-icon'></i>
+          </button>
+        </form>
+
       </div>
     </section>
+    <div class="wave-divider wave--ltd"></div>
   </main>
 
   <!--===== FOOTER =====-->
-  <footer class="footer section">
-    <div class="footer__container bd-grid">
-      <div class="footer__data">
-        <h2 class="footer__title">RODRIGO SCHARP</h2>
-        <p class="footer__text">©copyright all reserved</p>
+  <footer class="footer">
+    <div class="footer__top bd-grid">
+      <div class="footer__brand">
+        <h2 class="footer__name">Rodrigo Scharp</h2>
+        <p class="footer__tagline">Software Developer & Entrepreneur</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/in/rodrigo-scharp-8728a7277?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener noreferrer" class="footer__social-link">
+            <i class="bx bxl-linkedin"></i>
+          </a>
+          <a href="https://www.instagram.com/rodrigoscharp?igsh=MWJsbG8wODM5Nzljaw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="footer__social-link">
+            <i class="bx bxl-instagram"></i>
+          </a>
+          <a href="https://github.com/rodrigoscharp" target="_blank" rel="noopener noreferrer" class="footer__social-link">
+            <i class="bx bxl-github"></i>
+          </a>
+        </div>
       </div>
 
-      <div class="footer__data">
-        <h2 class="footer__title">EXPLORE</h2>
-        <ul>
+      <nav class="footer__nav">
+        <span class="footer__nav-title">Navegação</span>
+        <ul class="footer__nav-list">
           <li><a href="#home" class="footer__link">Home</a></li>
           <li><a href="#about" class="footer__link">About</a></li>
           <li><a href="#skills" class="footer__link">Skills</a></li>
           <li><a href="#experience" class="footer__link">Experience</a></li>
           <li><a href="#education" class="footer__link">Education</a></li>
           <li><a href="#portfolio" class="footer__link">Portfolio</a></li>
-          <li><a href="#partnerships" class="footer__link">Parcerias</a></li>
-          <li><a href="#Contact" class="footer__link">Contact</a></li>
+          <li><a href="#partnerships" class="footer__link">Partnerships</a></li>
+          <li><a href="#contact" class="footer__link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__contact-col">
+        <span class="footer__nav-title">Contato</span>
+        <ul class="footer__nav-list">
+          <li><a href="mailto:rodrigoscharp@gmail.com" class="footer__link">rodrigoscharp@gmail.com</a></li>
+          <li><span class="footer__link">+55 12 99641-9003</span></li>
+          <li><span class="footer__link">Ubatuba, São Paulo</span></li>
         </ul>
       </div>
+    </div>
 
-      <div class="footer__data">
-        <h2 class="footer__title">FOLLOW</h2>
-        <a href="https://www.linkedin.com/in/rodrigo-scharp-8728a7277?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
-          class="footer__social"><i class="bx bxl-linkedin"></i></a>
-        <a href="https://www.instagram.com/rodrigoscharp?igsh=MWJsbG8wODM5Nzljaw%3D%3D&utm_source=qr"
-          class="footer__social"><i class="bx bxl-instagram"></i></a>
-        <a href="https://github.com/rodrigoscharp" class="footer__social"><i class="bx bxl-github"></i></a>
-      </div>
+    <div class="footer__bottom bd-grid">
+      <span class="footer__copy">© 2026 Rodrigo Scharp. All rights reserved.</span>
+      <span class="footer__copy">Desenvolvido com <span class="footer__heart">♥</span> em São Paulo</span>
     </div>
   </footer>
 
