@@ -509,6 +509,7 @@ img {
     gap: 2rem;
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
 .timeline__item {
