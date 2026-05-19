@@ -1,43 +1,90 @@
-# Portfólio - Rodrigo Scharp
+<h1 align="center">Rodrigo Scharp — Personal Portfolio</h1>
 
-Este é o repositório do meu site de portfólio pessoal. Ele foi desenvolvido para mostrar minhas habilidades, experiência e projetos nos quais trabalhei.
+<p align="center">
+  A modern, responsive personal portfolio showcasing my experience, skills, and projects as a Software Developer.
+</p>
 
-
-
-## Sobre Mim
-
-Sou Rodrigo Scharp, um Desenvolvedor de Software.
-> "Sou um profissional altamente comprometido com sólida expertise em minhas áreas de atuação, trazendo uma vasta experiência em desenvolvimento de software e uma forte dedicação em entregar soluções de alta qualidade."
-
-Você pode me encontrar em:
-- [LinkedIn](https://www.linkedin.com/in/rodrigo-scharp-8728a7277?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app)
-- [GitHub](https://github.com/rodrigoscharp)
-- [Instagram](https://www.instagram.com/rodrigoscharp?igsh=MWJsbG8wODM5Nzljaw%3D%3D&utm_source=qr)
-
-## Tecnologias Utilizadas
-
-O projeto foi construído utilizando as seguintes tecnologias:
-
-- **Frontend:**
-  - HTML5
-  - CSS3
-  - Sass
-  - JavaScript
-- **Bibliotecas:**
-  - [Box Icons](https://boxicons.com/)
-  - [Devicon](https://devicons.github.io/devicon/)
-  - [ScrollReveal](https://scrollrevealjs.org/)
-- **Minhas Habilidades (Skills):**
-  - **Desenvolvimento:** Java, Spring Boot, AWS, Git
-  - **Banco de Dados:** MySQL, SQL Server, Docker
-
-## Como Visualizar
-
-1. Clone este repositório:
-   ```sh
-   git clone https://github.com/rodrigoscharp/Portfolio-Scharp.git
-   ```
-2. Abra o arquivo `index.html` em seu navegador de preferência.
+<p align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" />
+</p>
 
 ---
-*Este layout foi originalmente baseado em um tutorial, mas foi adaptado para refletir minhas informações e habilidades pessoais.*
+
+## Overview
+
+This is the source code for my personal portfolio website. It was built to present my professional background, technical skills, work experience, and selected projects in a clean and engaging interface.
+
+The design features glassmorphism cards, smooth scroll animations, and a wave-based section layout — fully responsive across devices.
+
+## Features
+
+- Animated hero section with 3D effects
+- About section with social links
+- Interactive skills showcase
+- Professional timeline (work experience & education)
+- Portfolio gallery with project highlights
+- Contact form
+- Responsive design for mobile, tablet and desktop
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Markup | HTML5 |
+| Styling | CSS3, Sass |
+| Interactivity | Vanilla JavaScript |
+| Icons | [Box Icons](https://boxicons.com/), [Devicon](https://devicon.dev/) |
+| Animations | [ScrollReveal](https://scrollrevealjs.org/) |
+
+## Skills Showcased
+
+- **Backend:** Java, Spring Boot, AWS Cloud
+- **Database:** MySQL, SQL Server
+- **DevOps:** Docker, Git
+
+## Getting Started
+
+No build step required. Just clone and open.
+
+```bash
+git clone https://github.com/rodrigoscharp/Portfolio-Scharp.git
+cd Portfolio-Scharp
+open index.html
+```
+
+Or serve it with any static file server:
+
+```bash
+npx serve .
+```
+
+## Project Structure
+
+```
+Portfolio-Scharp/
+├── index.html
+└── assets/
+    ├── css/
+    │   ├── styles.css
+    │   └── 3d-effects.css
+    ├── js/
+    │   ├── main.js
+    │   └── 3d-effects.js
+    └── img/
+```
+
+## Contact
+
+| Platform | Link |
+|---|---|
+| LinkedIn | [rodrigo-scharp](https://www.linkedin.com/in/rodrigo-scharp-8728a7277) |
+| GitHub | [@rodrigoscharp](https://github.com/rodrigoscharp) |
+| Instagram | [@rodrigoscharp](https://www.instagram.com/rodrigoscharp) |
+| Email | rodrigoscharp@gmail.com |
+
+---
+
+<p align="center">Designed & built by Rodrigo Scharp</p>
