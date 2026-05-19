@@ -704,6 +704,58 @@ img {
     line-height: 1.5;
 }
 
+.portfolio__img--brand {
+    cursor: pointer;
+}
+
+.portfolio__img--athena {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0e7490 100%);
+}
+
+.portfolio__img--jarvis {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+.portfolio__brand-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+    margin: 0.75rem 0;
+}
+
+.portfolio__brand-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    border-radius: 2rem;
+    padding: 0.2rem 0.65rem;
+}
+
+.portfolio__brand-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 2rem;
+    padding: 0.35rem 1rem;
+    text-decoration: none;
+    transition: background .25s, transform .25s;
+}
+
+.portfolio__brand-github:hover {
+    background: rgba(255,255,255,0.28);
+    transform: translateY(-2px);
+}
+
 /*===== PARTNERSHIPS =====*/
 .partnerships__container {
     grid-template-columns: 1fr;
