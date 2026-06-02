@@ -52,6 +52,10 @@
     color: var(--text-main);
 }
 
+[data-theme="light"] .portfolio__brand-name {
+    color: #fff;
+}
+
 [data-theme="light"] .glass-card {
     background: rgba(0, 0, 0, 0.04);
     border-color: rgba(0, 0, 0, 0.08);
@@ -595,125 +599,109 @@ img {
 
 /*===== PORTFOLIO =====*/
 .portfolio__container {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
 }
 
 .portfolio__img {
     position: relative;
     overflow: hidden;
-    border-radius: 1.5rem;
-    height: 300px;
-}
-
-.portfolio__img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: .5s;
-}
-
-.portfolio__link {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-    display: flex;
-    align-items: flex-end;
-    padding: 2rem;
-    opacity: 0;
-    transition: .4s;
-}
-
-.portfolio__link-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.portfolio__link-role {
-    font-size: var(--small-font-size);
-    color: rgba(255,255,255,0.75);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
-.portfolio__link-name {
-    font-size: 1.25rem;
-    font-weight: var(--font-semi);
-    color: #fff;
-}
-
-.portfolio__img:hover .portfolio__link {
-    opacity: 1;
-}
-
-.portfolio__img:hover img {
-    transform: scale(1.1);
-}
-
-@media (hover: none) {
-    .portfolio__link {
-        opacity: 1;
-    }
-}
-
-.portfolio__img--brand {
+    border-radius: 1.75rem;
+    min-height: 360px;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: default;
+    transition: transform .35s cubic-bezier(.25,.46,.45,.94), box-shadow .35s ease;
+    text-decoration: none;
+}
+
+.portfolio__img:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 60px rgba(0,0,0,0.18);
+}
+
+/* MUNO FOOD — photo background */
+.portfolio__img--muno {
+    background: url('../img/munoart.png') center/cover no-repeat;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.portfolio__img--muno::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05) 100%);
+}
+
+/* Brand cards */
+.portfolio__img--brand {
+    cursor: pointer;
 }
 
 .portfolio__img--helpnote {
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
 }
 
+.portfolio__img--athena {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 55%, #0e7490 100%);
+}
+
+.portfolio__img--jarvis {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 55%, #16213e 100%);
+}
+
+/* Card content */
 .portfolio__brand-content {
+    position: relative;
+    z-index: 1;
     text-align: center;
-    padding: 2rem;
+    padding: 2.5rem;
     color: #fff;
-    transition: transform .3s;
+    width: 100%;
+    transition: transform .3s ease;
+}
+
+.portfolio__brand-content--bottom {
+    align-self: flex-end;
+    text-align: left;
 }
 
 .portfolio__img--brand:hover .portfolio__brand-content {
-    transform: scale(1.05);
+    transform: translateY(-4px);
+}
+
+.portfolio__img--muno:hover .portfolio__brand-content {
+    transform: none;
 }
 
 .portfolio__brand-role {
     display: inline-block;
     font-size: var(--small-font-size);
-    font-weight: var(--font-semi);
+    font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
     border-radius: 2rem;
     padding: 0.25rem 0.85rem;
     margin-bottom: 0.85rem;
+    color: #fff;
 }
 
 .portfolio__brand-name {
-    font-size: 1.75rem;
+    font-size: 1.8rem;
     font-weight: 700;
+    color: #fff;
     margin-bottom: 0.5rem;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .portfolio__brand-desc {
-    font-size: var(--small-font-size);
-    opacity: 0.9;
-    line-height: 1.5;
-}
-
-.portfolio__img--brand {
-    cursor: pointer;
-}
-
-.portfolio__img--athena {
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0e7490 100%);
-}
-
-.portfolio__img--jarvis {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.65;
 }
 
 .portfolio__brand-tags {
@@ -721,39 +709,54 @@ img {
     flex-wrap: wrap;
     gap: 0.4rem;
     justify-content: center;
-    margin: 0.75rem 0;
+    margin: 1rem 0 0.5rem;
+}
+
+.portfolio__brand-content--bottom .portfolio__brand-tags {
+    justify-content: flex-start;
 }
 
 .portfolio__brand-tag {
     font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.04em;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.92);
     border-radius: 2rem;
-    padding: 0.2rem 0.65rem;
+    padding: 0.22rem 0.7rem;
 }
 
 .portfolio__brand-github {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    margin-top: 1rem;
-    font-size: 0.78rem;
+    gap: 0.45rem;
+    margin-top: 1.1rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #fff;
     background: rgba(255,255,255,0.15);
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 2rem;
-    padding: 0.35rem 1rem;
+    padding: 0.45rem 1.1rem;
     text-decoration: none;
-    transition: background .25s, transform .25s;
+    transition: background .25s, border-color .25s;
+    letter-spacing: 0.03em;
 }
 
 .portfolio__brand-github:hover {
-    background: rgba(255,255,255,0.28);
-    transform: translateY(-2px);
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.5);
+}
+
+@media screen and (max-width: 768px) {
+    .portfolio__container {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio__img {
+        min-height: 300px;
+    }
 }
 
 /*===== PARTNERSHIPS =====*/

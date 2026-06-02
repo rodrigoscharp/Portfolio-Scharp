@@ -62,6 +62,7 @@ sr.reveal(".home__img", { delay: 400, origin: "bottom", distance: "0px" });
 sr.reveal(".section-title", {});
 sr.reveal(".glass-card", { interval: 200, origin: "bottom", distance: "100px" });
 sr.reveal(".timeline__item", { interval: 200, origin: "left", distance: "50px" });
+sr.reveal(".portfolio__img", { interval: 130, origin: "bottom", distance: "50px", duration: 800 });
 
 /*===== 3D TILT EFFECT =====*/
 const tiltElements = document.querySelectorAll('.glass-card, .timeline__content, .home__img');
