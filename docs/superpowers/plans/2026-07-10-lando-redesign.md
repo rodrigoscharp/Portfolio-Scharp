@@ -404,7 +404,7 @@ The `<head>`, header, menu overlay and footer below are THE canonical blocks —
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=Caveat:wght@600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/lando-system.css">
-  <link rel="icon" type="image/png" href="assets/img/rodrigo.png">
+  <link rel="icon" type="image/png" href="assets/img/rodrigo_2.png">
   <title>Rodrigo Scharp — Developer & Founder</title>
 </head>
 
