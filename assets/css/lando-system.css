@@ -401,6 +401,31 @@ ul { list-style: none; }
 .xp-item p { margin-top: 0.6rem; max-width: 46em; }
 @media (max-width: 640px) { .xp-item { grid-template-columns: 1fr; gap: 0.4rem; } }
 
+/* experience: horizontal timeline */
+.timeline { margin-top: 3.5rem; overflow-x: auto; scrollbar-width: none; }
+.timeline::-webkit-scrollbar { display: none; }
+.timeline__track { display: flex; min-width: max-content; }
+.tl-item {
+  position: relative;
+  flex: 1 0 clamp(280px, 23vw, 330px); max-width: 380px;
+  padding-right: 2.2rem;
+}
+.tl-item .label { display: block; }
+.tl-item::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 2.1rem;
+  height: 2px; background: rgba(30, 32, 24, 0.15);
+}
+.tl-item:last-child::before { right: 2.2rem; }
+.tl-item::after {
+  content: ''; position: absolute; left: 0; top: calc(2.1rem - 5px);
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--lime); border: 2px solid var(--ink);
+}
+.tl-item__body { margin-top: 3.1rem; display: flex; gap: 0.9rem; align-items: flex-start; }
+.tl-item h3 { font-family: var(--font-display); font-size: 1.35rem; text-transform: uppercase; font-weight: 400; line-height: 1.15; }
+.tl-item .xp-company { font-family: var(--font-serif); font-style: italic; font-size: 1rem; display: block; margin-top: 0.2rem; }
+.tl-item p { font-size: 0.88rem; opacity: 0.85; margin-top: 0.6rem; max-width: 30em; }
+
 /* projects: pinned horizontal gallery on the home */
 .projects {
   min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
