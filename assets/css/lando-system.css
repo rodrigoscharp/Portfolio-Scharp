@@ -235,20 +235,59 @@ ul { list-style: none; }
 
 /* ===== home: hero ===== */
 .hero {
-  min-height: 100svh; display: grid; place-items: center;
-  position: relative; padding-top: var(--header-h);
+  min-height: 100svh;
+  position: relative;
 }
-.hero__stage { position: relative; display: grid; place-items: center; width: 100%; }
-.hero__name {
-  font-size: clamp(4rem, 13vw, 12.5rem); text-align: center;
-  position: relative; z-index: 1;
+.hero__stage { position: absolute; inset: 0; }
+.hero__title {
+  position: absolute; top: calc(var(--header-h) + 1.5svh); inset-inline: 0;
+  text-align: center; z-index: 2;
+}
+.hero__name { font-size: clamp(3rem, 11vw, 11rem); line-height: 1; }
+.hero__role {
+  display: inline-block;
+  font-family: var(--font-body); font-weight: 700;
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  text-transform: uppercase; letter-spacing: 0.35em; text-indent: 0.35em;
+  background: var(--lime); color: var(--ink);
+  padding: 0.55em 1.1em 0.5em; border-radius: 99px;
+  margin-top: 1.1rem;
 }
 .hero__img {
-  width: clamp(240px, 30vw, 430px); margin-top: clamp(-3rem, -6vw, -6rem);
-  position: relative; z-index: 2;
+  position: absolute; bottom: -10svh; left: 50%; translate: -50% 0;
+  height: min(84svh, 115vw); width: auto; max-width: none;
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
 }
 .hero__widget { position: absolute; left: clamp(1rem, 3vw, 2.5rem); bottom: 2rem; z-index: 3; }
 .hero__scroll-hint { position: absolute; right: clamp(1rem, 3vw, 2.5rem); bottom: 2rem; }
+
+/* ===== home: hero outro — photo recedes, signature pops, statement passes ===== */
+.hero__signature {
+  position: absolute; left: 50%; top: 28%; translate: -50% 0;
+  z-index: 4; pointer-events: none; white-space: nowrap;
+  font-family: var(--font-script); font-weight: 700; color: var(--lime);
+  font-size: clamp(3.5rem, 9vw, 7.5rem); line-height: 1;
+  opacity: 0;
+}
+.hero-marquee {
+  position: absolute; left: 0; right: 0; top: 63%;
+  z-index: 4; pointer-events: none; opacity: 0;
+  overflow: hidden; white-space: nowrap;
+  mix-blend-mode: difference; color: var(--cream);
+}
+.hero-marquee__track {
+  display: inline-block;
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(2.4rem, 6vw, 5.5rem); line-height: 1.1;
+  animation: marquee 26s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) { .hero-marquee__track { animation: none; } }
+
+/* circled word (lime scribble) */
+.circled { position: relative; display: inline-block; }
+.circled .scribble--circle { position: absolute; inset: -18% -12%; width: 124%; height: 136%; pointer-events: none; }
 
 /* ===== home: manifesto ===== */
 .manifesto { text-align: center; }
@@ -258,6 +297,7 @@ ul { list-style: none; }
 @media (max-width: 768px) {
   .site-footer__cols { flex-direction: column; gap: 2rem; }
   .card-widget { display: none; }
+  .hero__img { height: min(80svh, 145vw); bottom: -6svh; left: 62%; }
 }
 
 /* ===== home: dev/founder split ===== */
