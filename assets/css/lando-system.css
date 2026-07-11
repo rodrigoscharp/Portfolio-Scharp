@@ -296,3 +296,22 @@ ul { list-style: none; }
   font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
   border: 1px solid rgba(242, 240, 233, 0.35); border-radius: 99px; padding: 0.25rem 0.6rem;
 }
+
+/* ===== founder page ===== */
+.story { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; margin-top: 3rem; }
+.story__img { border-radius: 1rem; overflow: hidden; }
+.story__img img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; }
+@media (max-width: 768px) { .story { grid-template-columns: 1fr; } }
+
+.venture-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 3rem; }
+.venture-card {
+  border: 1px solid rgba(30, 32, 24, 0.25); border-radius: 0.9rem; padding: 1.8rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0.8rem; background: rgba(255, 255, 255, 0.35);
+}
+.venture-card h3 { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; }
+.venture-card .label { color: var(--olive); opacity: 0.7; }
+.venture-card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.venture-card .tags span {
+  font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  border: 1px solid rgba(30, 32, 24, 0.35); border-radius: 99px; padding: 0.25rem 0.6rem;
+}
