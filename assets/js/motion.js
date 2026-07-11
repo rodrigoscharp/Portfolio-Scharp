@@ -94,10 +94,10 @@
     outro
       .to('#hero .hero__title', { yPercent: -50, autoAlpha: 0, ease: 'none', duration: 0.5 }, 0)
       .to('.hero__widget, .hero__scroll-hint', { autoAlpha: 0, ease: 'none', duration: 0.3 }, 0)
-      .to(heroImg, { scale: 0.82, yPercent: 6, ease: 'none', duration: 1 }, 0)
+      .to(heroImg, { scale: 0.68, yPercent: 10, autoAlpha: 0.55, ease: 'none', duration: 1 }, 0)
       .fromTo('.hero__signature',
-        { autoAlpha: 0, scale: 0.4, rotate: -20, yPercent: 30 },
-        { autoAlpha: 1, scale: 1, rotate: -8, yPercent: 0, ease: 'none', duration: 0.55 }, 0.25)
+        { autoAlpha: 0, scale: 0.3, rotate: -22, yPercent: 40 },
+        { autoAlpha: 1, scale: 1, rotate: -8, yPercent: 0, ease: 'none', duration: 0.65 }, 0.25)
       .fromTo('.hero-marquee', { autoAlpha: 0 }, { autoAlpha: 1, ease: 'none', duration: 0.4 }, 0.45);
   }
 
