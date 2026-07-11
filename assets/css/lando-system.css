@@ -192,8 +192,11 @@ ul { list-style: none; }
 .marquee { overflow: hidden; white-space: nowrap; }
 .marquee__track { display: inline-flex; align-items: center; gap: 4.5rem; padding-right: 4.5rem; animation: marquee 32s linear infinite; }
 @keyframes marquee { to { transform: translateX(-100%); } }
-.marquee__item { font-family: var(--font-body); font-weight: 700; font-size: 1.5rem; letter-spacing: 0.04em; opacity: 0.75; }
-.marquee__item img { height: 2.6rem; width: auto; filter: grayscale(1); border-radius: 0.4rem; }
+.marquee__item {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  font-family: var(--font-body); font-weight: 700; font-size: 1.5rem; letter-spacing: 0.04em; opacity: 0.75;
+}
+.marquee__item img { height: 1.5rem; width: auto; }
 @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 
 /* ===== footer ===== */
@@ -323,7 +326,7 @@ ul { list-style: none; }
 
 /* ===== home: partners ===== */
 .partners__head { position: relative; margin-bottom: 3.5rem; }
-.partners__head .script-overlay { position: absolute; left: 8%; top: -35%; font-size: clamp(4rem, 12vw, 10rem); transform: rotate(-8deg); z-index: 2; }
+.partners__head .script-overlay { position: absolute; left: clamp(9rem, 24vw, 23rem); top: -28%; font-size: clamp(3.5rem, 10vw, 8rem); transform: rotate(-8deg); z-index: 2; }
 
 /* ===== dev page ===== */
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-top: 3rem; }
@@ -338,6 +341,14 @@ ul { list-style: none; }
 .xp-item {
   display: grid; grid-template-columns: 8rem 1fr; gap: 1.5rem;
   padding: 2rem 0; border-top: 1px solid rgba(30, 32, 24, 0.2); align-items: baseline;
+}
+.section--olive .xp-item { border-top-color: rgba(242, 240, 233, 0.22); }
+.xp-body { display: flex; gap: 1.3rem; align-items: flex-start; }
+.xp-logo {
+  width: 1.75rem; height: 1.75rem; object-fit: contain; flex-shrink: 0;
+  background: #fff; border-radius: 0.35rem; padding: 0.15rem;
+  border: 1px solid rgba(30, 32, 24, 0.12);
+  margin-top: 0.35rem;
 }
 .xp-item h3 { font-family: var(--font-display); font-size: clamp(1.3rem, 2.4vw, 2rem); text-transform: uppercase; }
 .xp-item .xp-company { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; }
