@@ -55,7 +55,7 @@
   /* auto-reveal: everything not already covered by [data-reveal] animates in on scroll */
   const AUTO_REVEAL = [
     '.label', '.lead', '.btn-pill', '.split__link', '.photo-card', '.marquee',
-    '.events-marquee', '.story__img', '.script-overlay', '.signature',
+    '.events-marquee', '.story__img', '.script-overlay', '.signature', '.partner-card',
     '.site-footer__cols > div', '.site-footer__cta', '.site-footer__legal'
   ].join(',');
   document.querySelectorAll(AUTO_REVEAL).forEach(el => {
