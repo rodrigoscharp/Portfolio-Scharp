@@ -120,6 +120,17 @@
   const timeline = document.querySelector('.timeline');
   if (timeline) {
     let dir = 1, paused = false, resumeT, dragging = false, dragX = 0, dragLeft = 0;
+    let active = false, activateT, pos = 0;
+    /* only start drifting once the whole timeline is on screen, after a short grace,
+       so "Where I started" is always seen first; reset when scrolling back above it */
+    ScrollTrigger.create({
+      trigger: timeline, start: 'bottom 96%',
+      onEnter: () => { clearTimeout(activateT); activateT = setTimeout(() => { active = true; }, 1500); },
+      onLeaveBack: () => {
+        clearTimeout(activateT); active = false;
+        dir = 1; pos = 0; timeline.scrollLeft = 0;
+      }
+    });
     const pause = () => { paused = true; clearTimeout(resumeT); };
     const resume = () => { clearTimeout(resumeT); resumeT = setTimeout(() => { paused = false; }, 1600); };
     timeline.addEventListener('pointerenter', pause);
@@ -138,9 +149,8 @@
     ['pointerup', 'pointercancel'].forEach(ev =>
       timeline.addEventListener(ev, () => { dragging = false; resume(); }));
     /* float accumulator: scrollLeft rounds to whole pixels, so += sub-pixel steps would stall */
-    let pos = 0;
     gsap.ticker.add(() => {
-      if (paused) { pos = timeline.scrollLeft; return; }
+      if (!active || paused) { pos = timeline.scrollLeft; return; }
       const max = timeline.scrollWidth - timeline.clientWidth;
       if (max <= 0) return;
       pos = Math.min(Math.max(pos + 0.4 * dir, 0), max);
