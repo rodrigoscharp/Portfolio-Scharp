@@ -315,3 +315,22 @@ ul { list-style: none; }
   font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
   border: 1px solid rgba(30, 32, 24, 0.35); border-radius: 99px; padding: 0.25rem 0.6rem;
 }
+
+/* ===== network page ===== */
+.net-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.2rem; margin-top: 4rem; }
+.net-item { display: flex; flex-direction: column; gap: 0.6rem; }
+.net-item img { aspect-ratio: 4 / 5; border-radius: 0.6rem; }
+.net-item h3 { font-family: var(--font-display); font-size: 1.3rem; text-transform: uppercase; }
+.net-item p { font-size: 0.85rem; opacity: 0.85; max-width: 30em; }
+.net-item:nth-child(8n+1) { grid-column: 1 / span 4; }
+.net-item:nth-child(8n+2) { grid-column: 7 / span 3; margin-top: 6rem; }
+.net-item:nth-child(8n+3) { grid-column: 10 / span 3; margin-top: 2rem; }
+.net-item:nth-child(8n+4) { grid-column: 2 / span 3; margin-top: 3rem; }
+.net-item:nth-child(8n+5) { grid-column: 6 / span 4; margin-top: 7rem; }
+.net-item:nth-child(8n+6) { grid-column: 1 / span 3; margin-top: 2rem; }
+.net-item:nth-child(8n+7) { grid-column: 5 / span 3; margin-top: 5rem; }
+.net-item:nth-child(8n+8) { grid-column: 9 / span 4; margin-top: 1rem; }
+@media (max-width: 768px) {
+  .net-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; }
+  .net-item:nth-child(n) { grid-column: auto; margin-top: 0; }
+}
