@@ -115,6 +115,41 @@
     });
   }
 
+  /* experience timeline: drifts slowly on its own, pauses while the user interacts,
+     and can be dragged with the mouse (touch scrolls natively) */
+  const timeline = document.querySelector('.timeline');
+  if (timeline) {
+    let dir = 1, paused = false, resumeT, dragging = false, dragX = 0, dragLeft = 0;
+    const pause = () => { paused = true; clearTimeout(resumeT); };
+    const resume = () => { clearTimeout(resumeT); resumeT = setTimeout(() => { paused = false; }, 1600); };
+    timeline.addEventListener('pointerenter', pause);
+    timeline.addEventListener('pointerleave', () => { dragging = false; resume(); });
+    timeline.addEventListener('touchstart', pause, { passive: true });
+    timeline.addEventListener('touchend', resume);
+    timeline.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse') return;
+      dragging = true; dragX = e.clientX; dragLeft = timeline.scrollLeft;
+      timeline.setPointerCapture(e.pointerId);
+      pause();
+    });
+    timeline.addEventListener('pointermove', e => {
+      if (dragging) timeline.scrollLeft = dragLeft - (e.clientX - dragX);
+    });
+    ['pointerup', 'pointercancel'].forEach(ev =>
+      timeline.addEventListener(ev, () => { dragging = false; resume(); }));
+    /* float accumulator: scrollLeft rounds to whole pixels, so += sub-pixel steps would stall */
+    let pos = 0;
+    gsap.ticker.add(() => {
+      if (paused) { pos = timeline.scrollLeft; return; }
+      const max = timeline.scrollWidth - timeline.clientWidth;
+      if (max <= 0) return;
+      pos = Math.min(Math.max(pos + 0.4 * dir, 0), max);
+      timeline.scrollLeft = pos;
+      if (pos >= max - 1) dir = -1;
+      else if (pos <= 1) dir = 1;
+    });
+  }
+
   /* scroll hint keeps bobbing */
   gsap.to('.hero__scroll-hint', { y: 8, duration: 0.9, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 
