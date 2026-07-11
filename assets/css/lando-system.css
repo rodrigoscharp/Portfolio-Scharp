@@ -33,16 +33,35 @@ ul { list-style: none; }
 .section--cream { background: var(--cream); color: var(--ink); }
 .section--olive { background: var(--olive); color: var(--cream); }
 
-/* topographic texture */
+/* topographic texture — drifts continuously like landonorris.com */
+.topo { overflow: clip; }
 .topo::before {
   content: '';
-  position: absolute; inset: 0;
+  position: absolute; top: -1200px; left: -1200px; right: 0; bottom: 0;
   pointer-events: none;
+  animation: topo-drift 75s linear infinite;
+  will-change: transform;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200' viewBox='0 0 1200 1200' fill='none'%3E%3Cg stroke='%231E2018' stroke-width='1.5'%3E%3Cpath d='M-100 300 C 150 120, 420 480, 700 320 S 1150 80, 1350 260'/%3E%3Cpath d='M-100 380 C 160 200, 430 560, 710 400 S 1160 160, 1350 340'/%3E%3Cpath d='M-80 900 C 200 700, 500 1100, 800 920 S 1200 720, 1350 900'/%3E%3Cpath d='M-80 980 C 210 780, 510 1180, 810 1000 S 1210 800, 1350 980'/%3E%3Cellipse cx='250' cy='650' rx='180' ry='90' transform='rotate(-15 250 650)'/%3E%3Cellipse cx='250' cy='650' rx='120' ry='55' transform='rotate(-15 250 650)'/%3E%3Cellipse cx='980' cy='520' rx='150' ry='75' transform='rotate(20 980 520)'/%3E%3Cellipse cx='980' cy='520' rx='95' ry='42' transform='rotate(20 980 520)'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 1200px 1200px;
   opacity: 0.05;
 }
-.section--olive.topo::before { filter: invert(1); opacity: 0.07; }
+.section--olive.topo::before, .site-footer.topo::before { filter: invert(1); opacity: 0.07; }
+@keyframes topo-drift { to { transform: translate3d(1200px, 1200px, 0); } }
+
+/* soft organic camo shapes behind the contour lines, drifting the opposite way */
+.topo::after {
+  content: '';
+  position: absolute; top: -1600px; left: -1600px; right: 0; bottom: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1600' viewBox='0 0 1600 1600'%3E%3Cg fill='%231E2018'%3E%3Cpath d='M-180 260 C -60 110, 240 60, 460 190 C 680 320, 620 540, 420 600 C 220 660, -20 600, -140 480 C -240 390, -280 360, -180 260 Z'/%3E%3Cpath d='M1080 480 C 1280 380, 1560 440, 1660 620 C 1740 800, 1520 920, 1300 900 C 1080 880, 980 760, 1000 640 C 1015 550, 1030 505, 1080 480 Z'/%3E%3Cpath d='M420 1120 C 560 1020, 820 1000, 980 1120 C 1140 1240, 1080 1420, 880 1470 C 680 1520, 460 1460, 380 1330 C 320 1230, 340 1180, 420 1120 Z'/%3E%3Cpath d='M1380 1180 C 1480 1130, 1600 1160, 1640 1260 C 1680 1360, 1580 1440, 1470 1420 C 1360 1400, 1320 1310, 1340 1250 C 1352 1214, 1355 1195, 1380 1180 Z'/%3E%3Cpath d='M120 850 C 180 810, 280 820, 310 890 C 340 960, 270 1020, 190 1005 C 110 990, 80 920, 95 885 C 103 866, 105 860, 120 850 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 1600px 1600px;
+  opacity: 0.045;
+  animation: topo-drift-2 130s linear infinite reverse;
+  will-change: transform;
+}
+.section--olive.topo::after, .site-footer.topo::after { filter: invert(1); opacity: 0.055; }
+@keyframes topo-drift-2 { to { transform: translate3d(1600px, 1600px, 0); } }
+@media (prefers-reduced-motion: reduce) { .topo::before, .topo::after { animation: none; } }
 
 /* ===== typography ===== */
 .headline {
