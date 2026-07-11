@@ -101,6 +101,20 @@
       .fromTo('.hero-marquee', { autoAlpha: 0 }, { autoAlpha: 1, ease: 'none', duration: 0.4 }, 0.45);
   }
 
+  /* projects: pinned horizontal gallery — vertical scroll drives the cards sideways */
+  const projTrack = document.querySelector('.projects-track');
+  if (projTrack) {
+    projTrack.parentElement.style.overflow = 'hidden';
+    const dist = () => Math.max(0, projTrack.scrollWidth - document.documentElement.clientWidth + 60);
+    gsap.to(projTrack, {
+      x: () => -dist(), ease: 'none',
+      scrollTrigger: {
+        trigger: '#projects', start: 'top top', end: () => '+=' + (dist() + 400),
+        scrub: true, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+      }
+    });
+  }
+
   /* scroll hint keeps bobbing */
   gsap.to('.hero__scroll-hint', { y: 8, duration: 0.9, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 
