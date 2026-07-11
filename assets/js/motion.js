@@ -51,4 +51,70 @@
       scrollTrigger: { trigger: p.closest('svg'), start: 'top 85%' }
     });
   });
+
+  /* auto-reveal: everything not already covered by [data-reveal] animates in on scroll */
+  const AUTO_REVEAL = [
+    '.label', '.lead', '.btn-pill', '.split__link', '.photo-card', '.marquee',
+    '.events-marquee', '.story__img', '.script-overlay', '.signature',
+    '.site-footer__cols > div', '.site-footer__cta', '.site-footer__legal'
+  ].join(',');
+  document.querySelectorAll(AUTO_REVEAL).forEach(el => {
+    if (el.closest('[data-reveal]') || el.classList.contains('reveal-item') ||
+        el.closest('.site-header') || el.closest('.menu-overlay') ||
+        el.classList.contains('hero__scroll-hint')) return;
+    gsap.from(el, {
+      y: 44, opacity: 0, duration: 0.9, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top bottom' }
+    });
+  });
+
+  /* headline drift: every big title keeps moving while it crosses the viewport */
+  document.querySelectorAll('main .headline:not(.hero__name)').forEach(h => {
+    gsap.fromTo(h, { yPercent: 8 }, {
+      yPercent: -8, ease: 'none',
+      scrollTrigger: { trigger: h, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+
+  /* home hero choreography */
+  const heroImg = document.querySelector('#hero .hero__img');
+  if (heroImg) {
+    gsap.from(heroImg, { y: 90, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.25 });
+    gsap.from('.hero__widget', { y: 28, duration: 1, ease: 'power3.out', delay: 0.55 });
+
+    /* pinned outro: the page holds while the photo recedes into the background,
+       the signature pops in and the statement passes across — landonorris.com style */
+    gsap.set(heroImg, { transformOrigin: '50% 100%' });
+    const outro = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#hero', start: 'top top', end: '+=130%',
+        scrub: true, pin: true, anticipatePin: 1
+      }
+    });
+    outro
+      .to('#hero .hero__title', { yPercent: -50, autoAlpha: 0, ease: 'none', duration: 0.5 }, 0)
+      .to('.hero__widget, .hero__scroll-hint', { autoAlpha: 0, ease: 'none', duration: 0.3 }, 0)
+      .to(heroImg, { scale: 0.82, yPercent: 6, ease: 'none', duration: 1 }, 0)
+      .fromTo('.hero__signature',
+        { autoAlpha: 0, scale: 0.4, rotate: -20, yPercent: 30 },
+        { autoAlpha: 1, scale: 1, rotate: -8, yPercent: 0, ease: 'none', duration: 0.55 }, 0.25)
+      .fromTo('.hero-marquee', { autoAlpha: 0 }, { autoAlpha: 1, ease: 'none', duration: 0.4 }, 0.45);
+  }
+
+  /* scroll hint keeps bobbing */
+  gsap.to('.hero__scroll-hint', { y: 8, duration: 0.9, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+
+  /* header slides away scrolling down, returns scrolling up */
+  const header = document.querySelector('.site-header');
+  if (header) {
+    ScrollTrigger.create({
+      start: 'top top', end: 'max',
+      onUpdate: self => {
+        gsap.to(header, {
+          yPercent: self.direction === 1 && self.scroll() > 140 ? -110 : 0,
+          duration: 0.35, ease: 'power2.out', overwrite: 'auto'
+        });
+      }
+    });
+  }
 })();
