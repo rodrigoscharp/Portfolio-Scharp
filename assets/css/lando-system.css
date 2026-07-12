@@ -411,6 +411,10 @@ ul { list-style: none; }
 .xp-item h3 { font-family: var(--font-display); font-size: clamp(1.3rem, 2.4vw, 2rem); text-transform: uppercase; }
 .xp-item .xp-company { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; }
 .xp-item p { margin-top: 0.6rem; max-width: 46em; }
+.xp-item .xp-credential {
+  display: block; width: fit-content; margin-top: 0.5rem;
+  text-decoration: underline; text-underline-offset: 3px;
+}
 @media (max-width: 640px) { .xp-item { grid-template-columns: 1fr; gap: 0.4rem; } }
 
 /* experience: horizontal timeline */
