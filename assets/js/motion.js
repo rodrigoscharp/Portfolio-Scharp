@@ -107,19 +107,18 @@
         { autoAlpha: 1, scale: 1, rotate: -8, yPercent: 0, ease: 'none', duration: 0.65 }, 0.25)
       .fromTo('.hero-marquee', { autoAlpha: 0 }, { autoAlpha: 1, ease: 'none', duration: 0.4 }, 0.45);
 
-    /* cast shadow behind the photo: runs away from the cursor like a real shadow,
-       and wanders on its own while the mouse is still or absent */
+    /* dark blotch behind the photo: darts across the wall away from the cursor,
+       and keeps making random passes while the mouse is still or absent */
     const shadow = document.querySelector('#hero .hero__shadow');
     if (shadow) {
-      gsap.set(shadow, { scale: 1.06, transformOrigin: '50% 100%' });
       gsap.from(shadow, { opacity: 0, duration: 1.4, ease: 'power3.out', delay: 0.4 });
-      const xTo = gsap.quickTo(shadow, 'x', { duration: 1.3, ease: 'power3.out' });
-      const yTo = gsap.quickTo(shadow, 'y', { duration: 1.3, ease: 'power3.out' });
+      const xTo = gsap.quickTo(shadow, 'x', { duration: 0.5, ease: 'power3.out' });
+      const yTo = gsap.quickTo(shadow, 'y', { duration: 0.5, ease: 'power3.out' });
       let idleT, wander;
       const wanderStep = () => {
         wander = gsap.to(shadow, {
-          x: gsap.utils.random(-150, 150), y: gsap.utils.random(-24, 24),
-          duration: gsap.utils.random(2.8, 4.5), ease: 'sine.inOut', onComplete: wanderStep
+          x: gsap.utils.random(-0.32, 0.32) * innerWidth, y: gsap.utils.random(-30, 30),
+          duration: gsap.utils.random(1.4, 2.4), ease: 'power2.inOut', onComplete: wanderStep
         });
       };
       wanderStep();
@@ -128,10 +127,11 @@
         if (e.pointerType !== 'mouse') return;
         if (wander) { wander.kill(); wander = null; }
         const r = heroEl.getBoundingClientRect();
-        xTo((r.left + r.width / 2 - e.clientX) * 0.26);
-        yTo((r.top + r.height * 0.4 - e.clientY) * 0.07);
+        xTo(gsap.utils.clamp(-0.34 * r.width, 0.34 * r.width,
+          (r.left + r.width / 2 - e.clientX) * 0.9));
+        yTo((r.top + r.height * 0.4 - e.clientY) * 0.1);
         clearTimeout(idleT);
-        idleT = setTimeout(() => { if (!wander) wanderStep(); }, 2200);
+        idleT = setTimeout(() => { if (!wander) wanderStep(); }, 1800);
       });
     }
 

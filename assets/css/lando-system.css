@@ -293,20 +293,18 @@ ul { list-style: none; }
   -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
 }
-/* cast shadow of the cutout on the wall behind — JS moves it with the mouse */
+/* dark blotch on the wall behind the photo — JS darts it around with the mouse */
 .hero__shadow {
-  position: absolute; bottom: -10svh; left: 50%; translate: -50% 0;
-  height: min(84svh, 115vw); width: auto; max-width: none;
+  position: absolute; top: 16%; left: 50%; translate: -50% 0;
+  width: min(62vw, 900px); aspect-ratio: 1 / 0.92;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(30, 32, 24, 0.38), rgba(30, 32, 24, 0) 68%);
   z-index: 1; /* same layer as the photo, earlier in the DOM = painted behind */
   pointer-events: none;
-  filter: brightness(0) blur(12px);
-  opacity: 0.3;
-  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
 }
 /* desktop: the photo takes nearly the whole hero, landonorris.com scale */
 @media (min-width: 1024px) {
-  .hero__img, .hero__shadow { height: min(94svh, 115vw); }
+  .hero__img { height: min(94svh, 115vw); }
 }
 .hero__widget { position: absolute; left: clamp(1rem, 3vw, 2.5rem); bottom: 2rem; z-index: 3; }
 .hero__scroll-hint { position: absolute; right: clamp(1rem, 3vw, 2.5rem); bottom: 2rem; }
