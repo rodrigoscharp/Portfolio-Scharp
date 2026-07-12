@@ -246,15 +246,22 @@ ul { list-style: none; }
   position: absolute; top: calc(var(--header-h) + 1.5svh); inset-inline: 0;
   text-align: center; z-index: 2;
 }
-.hero__name { font-size: clamp(3rem, 11vw, 11rem); line-height: 1; }
+/* landonorris.com heading treatment: heavy display serif (their Brier),
+   tight negative tracking, line-height under 0.9 — Fraunces is the free stand-in */
+.hero__name {
+  font-family: var(--font-serif); font-style: normal;
+  font-weight: 900; font-optical-sizing: auto;
+  font-size: clamp(2.1rem, 5.5vw, 5rem);
+  line-height: 0.85; letter-spacing: -0.03em;
+}
 .hero__role {
   display: inline-block;
   font-family: var(--font-body); font-weight: 700;
-  font-size: clamp(0.7rem, 1vw, 0.85rem);
-  text-transform: uppercase; letter-spacing: 0.35em; text-indent: 0.35em;
+  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  text-transform: uppercase; letter-spacing: 0.32em; text-indent: 0.32em;
   background: var(--lime); color: var(--ink);
-  padding: 0.55em 1.1em 0.5em; border-radius: 99px;
-  margin-top: 1.1rem;
+  padding: 0.5em 1em 0.45em; border-radius: 99px;
+  margin-top: 0.9rem;
 }
 .hero__img {
   position: absolute; bottom: -10svh; left: 50%; translate: -50% 0;
