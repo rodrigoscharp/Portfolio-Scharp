@@ -135,16 +135,16 @@
       });
     }
 
-    /* 3D tilt: the photo leans a few degrees toward the cursor (mouse only);
-       rotationX/Y are untouched by the outro, so the two never fight */
+    /* 3D tilt: a whisper of depth — the photo leans barely a degree toward the
+       cursor (mouse only); rotationX/Y are untouched by the outro */
     if (matchMedia('(pointer: fine)').matches) {
       gsap.set(heroImg, { transformPerspective: 1100 });
-      const tiltY = gsap.quickTo(heroImg, 'rotationY', { duration: 0.9, ease: 'power3.out' });
-      const tiltX = gsap.quickTo(heroImg, 'rotationX', { duration: 0.9, ease: 'power3.out' });
+      const tiltY = gsap.quickTo(heroImg, 'rotationY', { duration: 1.6, ease: 'power2.out' });
+      const tiltX = gsap.quickTo(heroImg, 'rotationX', { duration: 1.6, ease: 'power2.out' });
       const heroSection = document.getElementById('hero');
       heroSection.addEventListener('mousemove', e => {
-        tiltY((e.clientX / innerWidth * 2 - 1) * 6);
-        tiltX((e.clientY / innerHeight * 2 - 1) * -3);
+        tiltY((e.clientX / innerWidth * 2 - 1) * 1.1);
+        tiltX((e.clientY / innerHeight * 2 - 1) * -0.5);
       });
       heroSection.addEventListener('mouseleave', () => { tiltY(0); tiltX(0); });
     }
