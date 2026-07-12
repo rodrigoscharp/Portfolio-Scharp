@@ -304,6 +304,10 @@ ul { list-style: none; }
   -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
 }
+/* desktop: the photo takes nearly the whole hero, landonorris.com scale */
+@media (min-width: 1024px) {
+  .hero__img, .hero__shadow { height: min(94svh, 115vw); }
+}
 .hero__widget { position: absolute; left: clamp(1rem, 3vw, 2.5rem); bottom: 2rem; z-index: 3; }
 .hero__scroll-hint { position: absolute; right: clamp(1rem, 3vw, 2.5rem); bottom: 2rem; }
 

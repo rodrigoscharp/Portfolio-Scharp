@@ -134,6 +134,20 @@
         idleT = setTimeout(() => { if (!wander) wanderStep(); }, 2200);
       });
     }
+
+    /* 3D tilt: the photo leans a few degrees toward the cursor (mouse only);
+       rotationX/Y are untouched by the outro, so the two never fight */
+    if (matchMedia('(pointer: fine)').matches) {
+      gsap.set(heroImg, { transformPerspective: 1100 });
+      const tiltY = gsap.quickTo(heroImg, 'rotationY', { duration: 0.9, ease: 'power3.out' });
+      const tiltX = gsap.quickTo(heroImg, 'rotationX', { duration: 0.9, ease: 'power3.out' });
+      const heroSection = document.getElementById('hero');
+      heroSection.addEventListener('mousemove', e => {
+        tiltY((e.clientX / innerWidth * 2 - 1) * 6);
+        tiltX((e.clientY / innerHeight * 2 - 1) * -3);
+      });
+      heroSection.addEventListener('mouseleave', () => { tiltY(0); tiltX(0); });
+    }
   }
 
   /* projects: pinned horizontal gallery — vertical scroll drives the cards sideways */
