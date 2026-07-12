@@ -96,7 +96,7 @@
     });
     outro
       .to('#hero .hero__title', { yPercent: -50, autoAlpha: 0, ease: 'none', duration: 0.5 }, 0)
-      .to('.hero__widget, .hero__scroll-hint', { autoAlpha: 0, ease: 'none', duration: 0.3 }, 0)
+      .to('.hero__widget, .hero__scroll-hint, .hero__shadow', { autoAlpha: 0, ease: 'none', duration: 0.3 }, 0)
       /* explicit start values: a scrubbed .to() captures whatever opacity the intro
          happened to be at on first render, so scrolling back to the top could leave
          the photo invisible and the fade jumped instead of easing */
@@ -106,6 +106,34 @@
         { autoAlpha: 0, scale: 0.3, rotate: -22, yPercent: 40 },
         { autoAlpha: 1, scale: 1, rotate: -8, yPercent: 0, ease: 'none', duration: 0.65 }, 0.25)
       .fromTo('.hero-marquee', { autoAlpha: 0 }, { autoAlpha: 1, ease: 'none', duration: 0.4 }, 0.45);
+
+    /* cast shadow behind the photo: runs away from the cursor like a real shadow,
+       and wanders on its own while the mouse is still or absent */
+    const shadow = document.querySelector('#hero .hero__shadow');
+    if (shadow) {
+      gsap.set(shadow, { scale: 1.06, transformOrigin: '50% 100%' });
+      gsap.from(shadow, { opacity: 0, duration: 1.4, ease: 'power3.out', delay: 0.4 });
+      const xTo = gsap.quickTo(shadow, 'x', { duration: 1.3, ease: 'power3.out' });
+      const yTo = gsap.quickTo(shadow, 'y', { duration: 1.3, ease: 'power3.out' });
+      let idleT, wander;
+      const wanderStep = () => {
+        wander = gsap.to(shadow, {
+          x: gsap.utils.random(-150, 150), y: gsap.utils.random(-24, 24),
+          duration: gsap.utils.random(2.8, 4.5), ease: 'sine.inOut', onComplete: wanderStep
+        });
+      };
+      wanderStep();
+      const heroEl = document.getElementById('hero');
+      heroEl.addEventListener('pointermove', e => {
+        if (e.pointerType !== 'mouse') return;
+        if (wander) { wander.kill(); wander = null; }
+        const r = heroEl.getBoundingClientRect();
+        xTo((r.left + r.width / 2 - e.clientX) * 0.26);
+        yTo((r.top + r.height * 0.4 - e.clientY) * 0.07);
+        clearTimeout(idleT);
+        idleT = setTimeout(() => { if (!wander) wanderStep(); }, 2200);
+      });
+    }
   }
 
   /* projects: pinned horizontal gallery — vertical scroll drives the cards sideways */
