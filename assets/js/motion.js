@@ -79,7 +79,7 @@
   /* home hero choreography */
   const heroImg = document.querySelector('#hero .hero__img');
   if (heroImg) {
-    gsap.from(heroImg, { y: 90, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.25 });
+    const heroIntro = gsap.from(heroImg, { y: 90, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.25 });
     gsap.from('.hero__widget', { y: 28, duration: 1, ease: 'power3.out', delay: 0.55 });
 
     /* pinned outro: the page holds while the photo recedes into the background,
@@ -88,13 +88,20 @@
     const outro = gsap.timeline({
       scrollTrigger: {
         trigger: '#hero', start: 'top top', end: '+=130%',
-        scrub: true, pin: true, anticipatePin: 1
+        scrub: true, pin: true, anticipatePin: 1,
+        /* the scrub owns the photo once scrolling starts — finish the intro tween
+           so the two never fight over opacity */
+        onUpdate: self => { if (self.progress > 0 && heroIntro.isActive()) heroIntro.progress(1); }
       }
     });
     outro
       .to('#hero .hero__title', { yPercent: -50, autoAlpha: 0, ease: 'none', duration: 0.5 }, 0)
       .to('.hero__widget, .hero__scroll-hint', { autoAlpha: 0, ease: 'none', duration: 0.3 }, 0)
-      .to(heroImg, { scale: 0.68, yPercent: 10, autoAlpha: 0.55, ease: 'none', duration: 1 }, 0)
+      /* explicit start values: a scrubbed .to() captures whatever opacity the intro
+         happened to be at on first render, so scrolling back to the top could leave
+         the photo invisible and the fade jumped instead of easing */
+      .fromTo(heroImg, { scale: 1, yPercent: 0, autoAlpha: 1 },
+        { scale: 0.68, yPercent: 10, autoAlpha: 0.55, ease: 'none', duration: 1, immediateRender: false }, 0)
       .fromTo('.hero__signature',
         { autoAlpha: 0, scale: 0.3, rotate: -22, yPercent: 40 },
         { autoAlpha: 1, scale: 1, rotate: -8, yPercent: 0, ease: 'none', duration: 0.65 }, 0.25)
