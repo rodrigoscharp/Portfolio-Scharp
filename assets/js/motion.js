@@ -160,6 +160,50 @@
     });
   }
 
+  /* stacks marquee: drifts in a loop on its own, pauses while the user interacts,
+     and can be scrolled/dragged back to revisit skills that already passed */
+  const marquee = document.querySelector('#stacks .marquee');
+  if (marquee) {
+    marquee.classList.add('is-manual');
+    const track = marquee.querySelector('.marquee__track');
+    /* one extra loop of content must always fit past the wrap point,
+       otherwise wide screens would hit the end of the scroll area */
+    while (marquee.scrollWidth < track.offsetWidth + marquee.clientWidth + 1 &&
+           marquee.children.length < 6) {
+      const clone = track.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      marquee.appendChild(clone);
+    }
+    let paused = false, resumeT, dragging = false, dragX = 0, dragLeft = 0, pos = 0;
+    const pause = () => { paused = true; clearTimeout(resumeT); };
+    const resume = () => { clearTimeout(resumeT); resumeT = setTimeout(() => { paused = false; }, 1600); };
+    marquee.addEventListener('pointerenter', pause);
+    marquee.addEventListener('pointerleave', () => { dragging = false; resume(); });
+    marquee.addEventListener('touchstart', pause, { passive: true });
+    marquee.addEventListener('touchend', resume);
+    marquee.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse') return;
+      dragging = true; dragX = e.clientX; dragLeft = marquee.scrollLeft;
+      marquee.setPointerCapture(e.pointerId);
+      pause();
+    });
+    marquee.addEventListener('pointermove', e => {
+      if (dragging) marquee.scrollLeft = dragLeft - (e.clientX - dragX);
+    });
+    ['pointerup', 'pointercancel'].forEach(ev =>
+      marquee.addEventListener(ev, () => { dragging = false; resume(); }));
+    /* float accumulator (scrollLeft rounds to whole px); wrapping back by one
+       track width is invisible because the content repeats */
+    gsap.ticker.add(() => {
+      if (paused || dragging) { pos = marquee.scrollLeft; return; }
+      const w = track.offsetWidth;
+      if (w <= 0) return;
+      pos += 0.6;
+      if (pos >= w) pos -= w;
+      marquee.scrollLeft = pos;
+    });
+  }
+
   /* scroll hint keeps bobbing */
   gsap.to('.hero__scroll-hint', { y: 8, duration: 0.9, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 

@@ -189,8 +189,13 @@ ul { list-style: none; }
 .card-widget strong { font-size: 0.75rem; letter-spacing: 0.1em; display: block; margin-top: 0.25rem; }
 
 /* ===== marquee ===== */
-.marquee { overflow: hidden; white-space: nowrap; }
+.marquee { overflow-x: auto; overflow-y: hidden; white-space: nowrap; scrollbar-width: none; }
+.marquee::-webkit-scrollbar { display: none; }
 .marquee__track { display: inline-flex; align-items: center; gap: 4.5rem; padding-right: 4.5rem; animation: marquee 32s linear infinite; }
+/* JS drives the drift so the user can scroll back; the CSS animation stays as a no-JS fallback */
+.marquee.is-manual { cursor: grab; }
+.marquee.is-manual:active { cursor: grabbing; }
+.marquee.is-manual .marquee__track { animation: none; }
 @keyframes marquee { to { transform: translateX(-100%); } }
 .marquee__item {
   display: inline-flex; align-items: center; gap: 0.7rem;
