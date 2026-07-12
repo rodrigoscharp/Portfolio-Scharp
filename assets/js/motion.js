@@ -13,6 +13,12 @@
       a.addEventListener('click', () => overlay.classList.remove('open')));
   }
 
+  /* photos are decoration — a click-drag must never turn into the browser
+     navigating to the image file (Chrome does that on drop) */
+  document.addEventListener('dragstart', e => {
+    if (e.target instanceof HTMLImageElement) e.preventDefault();
+  });
+
   if (reduced || !hasGsap) return; // content is fully visible without motion
 
   gsap.registerPlugin(ScrollTrigger);
