@@ -19,6 +19,64 @@
     if (e.target instanceof HTMLImageElement) e.preventDefault();
   });
 
+  /* certifications: closed "card deck" that fans open horizontally as the
+     user drags — pointer-driven (mouse or touch), not scroll/pin-driven,
+     no idle auto-drift. Each card's rotation is fixed at init; only the
+     spacing between cards (and, if the open fan would overflow the
+     container, a compensating pan) responds to drag progress. */
+  document.querySelectorAll('.cert-deck').forEach(deck => {
+    const cards = [...deck.querySelectorAll('.cert-card')];
+    const n = cards.length;
+    if (!n) return;
+
+    const maxSpread = 18;   // total degrees from leftmost to rightmost card
+    const closedStep = 26;  // px between consecutive cards, fully closed
+    const gap = 22;         // px gap between cards, fully open
+    const angleStep = n > 1 ? maxSpread / (n - 1) : 0;
+    const meta = cards.map((card, i) => ({
+      card,
+      angle: (i - (n - 1) / 2) * angleStep,
+    }));
+
+    let cardWidth, openStep, panOffset, dragDistance;
+    const measure = () => {
+      cardWidth = cards[0].offsetWidth;
+      openStep = cardWidth + gap;
+      const finalRightEdge = (n - 1) * openStep + cardWidth;
+      panOffset = Math.max(0, finalRightEdge - deck.clientWidth + 24);
+      dragDistance = Math.max(320, openStep * (n - 1) * 0.6);
+    };
+
+    let progress = 0;
+    const render = () => {
+      meta.forEach(({ card, angle }, i) => {
+        const x = i * (closedStep + progress * (openStep - closedStep)) - progress * panOffset;
+        const y = Math.abs(angle) * 0.6;
+        card.style.transform = `translate(${x}px, calc(-50% + ${y}px)) rotate(${angle}deg)`;
+        card.style.zIndex = i + 1;
+      });
+    };
+
+    measure();
+    render();
+
+    let dragging = false, startX = 0, startProgress = 0;
+    const clamp01 = v => Math.min(1, Math.max(0, v));
+    deck.addEventListener('pointerdown', e => {
+      dragging = true; startX = e.clientX; startProgress = progress;
+      deck.setPointerCapture(e.pointerId);
+    });
+    deck.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      progress = clamp01(startProgress + (e.clientX - startX) / dragDistance);
+      render();
+    });
+    ['pointerup', 'pointercancel'].forEach(ev =>
+      deck.addEventListener(ev, () => { dragging = false; }));
+
+    window.addEventListener('resize', () => { measure(); render(); });
+  });
+
   if (reduced || !hasGsap) return; // content is fully visible without motion
 
   gsap.registerPlugin(ScrollTrigger);
