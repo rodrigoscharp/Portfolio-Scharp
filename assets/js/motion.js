@@ -35,10 +35,16 @@
   document.querySelectorAll('[data-reveal]').forEach(el => {
     const items = el.querySelectorAll('.hl-line, .reveal-item');
     if (!items.length) return;
-    gsap.from(items, {
-      yPercent: 60, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.09,
-      scrollTrigger: { trigger: el, start: 'top 82%' }
-    });
+    /* fromTo, not from(): a ScrollTrigger.refresh() before the tween plays
+       makes from() re-capture its end state from the already-offset element,
+       so items animate offset→offset and stay ~60% below their slot forever
+       (the last project card was clipped by the section edge on mobile) */
+    gsap.fromTo(items,
+      { y: (i, item) => item.offsetHeight * 0.6, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.09,
+        scrollTrigger: { trigger: el, start: 'top 82%' }
+      });
   });
 
   /* parallax */
