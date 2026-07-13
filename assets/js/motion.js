@@ -162,19 +162,19 @@
     }
   }
 
-  /* projects: pinned horizontal gallery — vertical scroll drives the cards sideways */
-  const projTrack = document.querySelector('.projects-track');
-  if (projTrack) {
+  /* projects: pinned horizontal galleries — vertical scroll drives the cards sideways.
+     Selected projects and Corporate & public sector each have their own track/section pair. */
+  document.querySelectorAll('.projects-track').forEach(projTrack => {
     projTrack.parentElement.style.overflow = 'hidden';
     const dist = () => Math.max(0, projTrack.scrollWidth - document.documentElement.clientWidth + 60);
     gsap.to(projTrack, {
       x: () => -dist(), ease: 'none',
       scrollTrigger: {
-        trigger: '#projects', start: 'top top', end: () => '+=' + (dist() + 400),
+        trigger: projTrack.closest('section'), start: 'top top', end: () => '+=' + (dist() + 400),
         scrub: true, pin: true, anticipatePin: 1, invalidateOnRefresh: true
       }
     });
-  }
+  });
 
   /* experience timeline: drifts slowly on its own, pauses while the user interacts,
      and can be dragged with the mouse (touch scrolls natively) */
