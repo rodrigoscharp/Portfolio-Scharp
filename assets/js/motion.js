@@ -44,11 +44,16 @@
       openStep = cardWidth + gap;
       const finalRightEdge = (n - 1) * openStep + cardWidth;
       panOffset = Math.max(0, finalRightEdge - deck.clientWidth + 24);
-      /* capped at 85% of the deck's own visible width: uncapped, a wide fan's
-         drag distance (openStep*(n-1)*0.6) can exceed a phone's viewport
-         (e.g. 460px needed on a 390px-wide screen) — physically impossible
-         to complete in a single continuous swipe */
-      dragDistance = Math.min(Math.max(320, openStep * (n - 1) * 0.6), deck.clientWidth * 0.85);
+      /* NOT capped to the deck's own width: on narrow screens the fully-open
+         fan is wider than the viewport (5 cards can't all sit separated,
+         unoverlapped, on a 390px phone — the math doesn't fit), so opening it
+         inherently means later cards arrive as earlier ones pan off-screen,
+         same as this site's other horizontal galleries (.projects-track).
+         A short dragDistance made that transition happen within a single
+         swipe, which felt like cards "disappearing" — a longer distance
+         (~1-2 natural swipes) makes it read as "keep dragging to see more",
+         and it stays fully reversible (drag back to bring earlier ones back) */
+      dragDistance = Math.max(320, openStep * (n - 1) * 0.6);
     };
 
     let progress = 0;
