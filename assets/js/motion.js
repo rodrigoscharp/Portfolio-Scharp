@@ -54,6 +54,13 @@
          (~1-2 natural swipes) makes it read as "keep dragging to see more",
          and it stays fully reversible (drag back to bring earlier ones back) */
       dragDistance = Math.max(320, openStep * (n - 1) * 0.6);
+      /* deck's CSS height is a fixed clamp() that doesn't know how many lines
+         a long title wraps to on a narrow card — on mobile the tallest card
+         (long title, more wrapped lines) can exceed it, and overflow:hidden
+         then slices its top/bottom off. Grow the deck to fit the tallest
+         card's real content height instead of guessing a static value. */
+      const maxCardHeight = Math.max(...cards.map(c => c.offsetHeight));
+      deck.style.height = (maxCardHeight + 24) + 'px';
     };
 
     let progress = 0;
@@ -69,19 +76,53 @@
     measure();
     render();
 
-    let dragging = false, startX = 0, startProgress = 0;
     const clamp01 = v => Math.min(1, Math.max(0, v));
+
+    /* mouse: pointer events, exactly like .timeline's drag-to-scroll */
+    let dragging = false, startX = 0, startProgress = 0;
     deck.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse') return;
       dragging = true; startX = e.clientX; startProgress = progress;
       deck.setPointerCapture(e.pointerId);
     });
     deck.addEventListener('pointermove', e => {
-      if (!dragging) return;
+      if (!dragging || e.pointerType !== 'mouse') return;
       progress = clamp01(startProgress + (e.clientX - startX) / dragDistance);
       render();
     });
     ['pointerup', 'pointercancel'].forEach(ev =>
-      deck.addEventListener(ev, () => { dragging = false; }));
+      deck.addEventListener(ev, e => { if (e.pointerType === 'mouse') dragging = false; }));
+
+    /* touch: raw Touch Events with a manual direction lock, not touch-action
+       alone — relying only on CSS touch-action to arbitrate horizontal vs.
+       vertical intent proved inconsistent on real phones (synthetic CDP touch
+       tests passed both times while real-device dragging still misbehaved).
+       Locking the axis from the first ~6px of movement and only calling
+       preventDefault for a confirmed-horizontal gesture is the same technique
+       production carousels use, and it fully deregisters (touchDir stays
+       'y') vertical gestures instead of guessing. */
+    let touchStartX = 0, touchStartY = 0, touchActive = false, touchDir = null, touchStartProgress = 0;
+    deck.addEventListener('touchstart', e => {
+      const t = e.touches[0];
+      touchStartX = t.clientX; touchStartY = t.clientY;
+      touchActive = true; touchDir = null; touchStartProgress = progress;
+    }, { passive: true });
+    deck.addEventListener('touchmove', e => {
+      if (!touchActive) return;
+      const t = e.touches[0];
+      const dx = t.clientX - touchStartX, dy = t.clientY - touchStartY;
+      if (touchDir === null && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+        touchDir = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      }
+      if (touchDir === 'x') {
+        e.preventDefault();
+        progress = clamp01(touchStartProgress + dx / dragDistance);
+        render();
+      }
+      /* touchDir === 'y': do nothing, let the page scroll natively */
+    }, { passive: false });
+    ['touchend', 'touchcancel'].forEach(ev =>
+      deck.addEventListener(ev, () => { touchActive = false; touchDir = null; }));
 
     window.addEventListener('resize', () => { measure(); render(); });
   });

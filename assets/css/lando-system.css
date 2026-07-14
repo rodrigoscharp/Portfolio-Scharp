@@ -526,7 +526,7 @@ ul { list-style: none; }
 /* ===== certifications: horizontal drag-open card deck ===== */
 .cert-deck {
   position: relative; margin-top: 3rem; overflow: hidden;
-  height: clamp(200px, 30vw, 230px);
+  min-height: clamp(200px, 30vw, 230px);
   cursor: grab; touch-action: pan-y; user-select: none;
 }
 .cert-deck:active { cursor: grabbing; }
