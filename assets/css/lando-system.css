@@ -554,11 +554,13 @@ ul { list-style: none; }
 .cert-deck__hint { display: block; margin-top: 1.2rem; }
 
 .degree-card {
+  position: relative;
   margin-top: 2.5rem; max-width: 42rem;
   border: 1px solid rgba(30, 32, 24, 0.2); border-radius: 1rem;
   padding: 2.2rem 2rem;
 }
 .section--olive .degree-card { border-color: rgba(242, 240, 233, 0.22); }
+.degree-card .cert-card__logo { top: 2rem; right: 2rem; width: 2.8rem; height: 2.8rem; }
 .degree-card h3 { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.4rem, 2.6vw, 2.1rem); }
 .degree-card .xp-company { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; display: block; margin-top: 0.3rem; }
 
