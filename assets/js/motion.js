@@ -44,7 +44,11 @@
       openStep = cardWidth + gap;
       const finalRightEdge = (n - 1) * openStep + cardWidth;
       panOffset = Math.max(0, finalRightEdge - deck.clientWidth + 24);
-      dragDistance = Math.max(320, openStep * (n - 1) * 0.6);
+      /* capped at 85% of the deck's own visible width: uncapped, a wide fan's
+         drag distance (openStep*(n-1)*0.6) can exceed a phone's viewport
+         (e.g. 460px needed on a 390px-wide screen) — physically impossible
+         to complete in a single continuous swipe */
+      dragDistance = Math.min(Math.max(320, openStep * (n - 1) * 0.6), deck.clientWidth * 0.85);
     };
 
     let progress = 0;
