@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-scharp",
+  "version": "1.0.0",
+  "description": "Personal portfolio of Rodrigo Scharp — static site (HTML, CSS, vanilla JS).",
+  "private": true,
+  "scripts": {
+    "dev": "serve -l 5500 .",
+    "start": "serve -l 5500 ."
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
