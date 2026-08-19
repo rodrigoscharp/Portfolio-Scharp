@@ -261,6 +261,10 @@ ul { list-style: none; }
   min-height: 100svh;
   position: relative;
 }
+/* subpage heroes (dev/founder/network/services) sit their content in a plain
+   .container instead of the absolutely-positioned home hero__title, so they
+   need real top padding to clear the fixed header */
+.hero > .container { padding-top: calc(var(--header-h) + 2rem); }
 .hero__stage { position: absolute; inset: 0; }
 .hero__title {
   position: absolute; top: calc(var(--header-h) + 1.5svh); inset-inline: 0;
@@ -595,11 +599,6 @@ ul { list-style: none; }
 }
 .service-card h3 { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; }
 .service-card .label { color: var(--olive); opacity: 0.7; }
-.service-card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.service-card .tags span {
-  font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
-  border: 1px solid rgba(30, 32, 24, 0.35); border-radius: 99px; padding: 0.25rem 0.6rem;
-}
 .service-card__price {
   font-family: var(--font-serif); font-style: italic; font-size: 1.15rem;
   margin-top: auto; padding-top: 0.4rem;
