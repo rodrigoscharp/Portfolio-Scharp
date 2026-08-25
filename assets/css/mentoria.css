@@ -160,3 +160,45 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible
 .m-sticky.is-on { translate: 0 0; }
 @media (max-width: 899px) { .m-sticky { display: block; } }
 @media (prefers-reduced-motion: reduce) { .m-sticky { transition: none; } }
+
+/* ===== marquee de prova social ===== */
+.m-marquee {
+  position: relative; overflow: hidden;
+  padding: 1.5rem 0;
+  border-block: 1px solid var(--line);
+  background: rgba(244, 241, 234, .03);
+}
+.m-marquee__track { display: flex; width: max-content; animation: m-scroll 38s linear infinite; }
+.m-marquee__row { display: flex; }
+.m-marquee__row li {
+  display: flex; align-items: center;
+  padding-inline: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(.95rem, 1.4vw, 1.15rem);
+  font-weight: 500; color: var(--muted); white-space: nowrap;
+}
+.m-marquee__row li::after { content: '•'; margin-left: clamp(1.5rem, 4vw, 3rem); color: var(--accent); }
+@keyframes m-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .m-marquee__track { animation: none; } }
+
+/* ===== grid e card genéricos ===== */
+.m-grid { display: grid; gap: 1.25rem; }
+.m-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.m-grid--3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 899px) { .m-grid--3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .m-grid--2, .m-grid--3 { grid-template-columns: 1fr; } }
+
+.m-card {
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  border: 1px solid var(--line); border-radius: 1.25rem;
+  background: rgba(244, 241, 234, .028);
+  display: flex; flex-direction: column; gap: .9rem;
+}
+.m-card__num {
+  font-family: var(--font-display); font-size: 1.5rem;
+  color: var(--accent); line-height: 1;
+}
+.m-card p { font-size: 1.02rem; }
+.m-card h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; line-height: 1.15; }
+.sec--light .m-card { border-color: var(--line-ink); background: rgba(22, 21, 15, .03); }
+
+.m-note { margin-top: clamp(2rem, 4vw, 3rem); }
