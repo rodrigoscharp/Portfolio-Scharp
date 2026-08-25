@@ -154,7 +154,7 @@ existe para que, quando houver, a origem já esteja marcada no HTML.
 
 ## Responsivo e acessibilidade
 
-- Mobile-first. Breakpoints em 640px, 900px e 1200px.
+- Mobile-first. Breakpoints em 640px e 900px.
 - Grids caem para uma coluna abaixo de 640px; a comparação da seção 4 vira dois
   blocos empilhados.
 - FAQ usa `<details>`/`<summary>` nativos, estilizados — teclado e leitor de tela
