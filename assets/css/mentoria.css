@@ -113,3 +113,50 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible
 .m-footer a:hover { color: var(--accent); }
 .m-footer__legal { margin-top: 2rem; font-size: .82rem; opacity: .7; }
 @media (max-width: 899px) { .m-footer { padding-bottom: 7rem; } } /* espaço para o CTA sticky */
+
+
+/* ===== hero ===== */
+.m-hero { min-height: 100svh; display: flex; align-items: center; overflow: hidden; }
+.m-hero__inner { position: relative; z-index: 1; padding-top: 5rem; }
+.m-hero__glow {
+  position: absolute; z-index: 0;
+  top: -20%; left: 50%; translate: -50% 0;
+  width: min(120vw, 1100px); aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(232, 163, 61, .20) 0%, rgba(232, 163, 61, 0) 62%);
+  pointer-events: none;
+}
+.m-hero h1 { margin: 1.25rem 0 1.5rem; max-width: 17ch; }
+.m-hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2.5rem; }
+.m-hero__cta-note { font-size: .88rem; color: var(--muted); }
+.m-hero__proof {
+  display: flex; flex-wrap: wrap; gap: 2.5rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: 2rem; border-top: 1px solid var(--line);
+}
+.m-hero__proof li { display: flex; flex-direction: column; gap: .25rem; }
+.m-hero__proof strong {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem); color: var(--accent); line-height: 1;
+}
+.m-hero__proof span { font-size: .86rem; color: var(--muted); max-width: 18ch; }
+@media (max-width: 640px) {
+  .m-hero__proof { gap: 1.5rem 2rem; }
+  .m-hero__proof li { min-width: 40%; }
+}
+
+/* ===== CTA sticky (mobile) ===== */
+.m-sticky {
+  position: fixed; z-index: 20;
+  left: 0; right: 0; bottom: 0;
+  padding: .85rem 1.25rem calc(.85rem + env(safe-area-inset-bottom));
+  background: rgba(15, 14, 12, .92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+  display: none;
+  translate: 0 110%;
+  transition: translate .35s cubic-bezier(.65, .05, 0, 1);
+}
+.m-sticky .btn { width: 100%; justify-content: center; }
+.m-sticky.is-on { translate: 0 0; }
+@media (max-width: 899px) { .m-sticky { display: block; } }
+@media (prefers-reduced-motion: reduce) { .m-sticky { transition: none; } }
