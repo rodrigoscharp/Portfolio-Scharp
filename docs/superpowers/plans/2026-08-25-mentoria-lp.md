@@ -1114,7 +1114,7 @@ O FAQ usa `<details>`/`<summary>` nativos: teclado e leitor de tela funcionam se
   font-family: var(--font-display); font-size: 1.6rem; line-height: 1; color: #8A6120;
   transition: rotate .3s ease;
 }
-.m-faq__item[open] summary::after { content: '−'; rotate: 180deg; }
+.m-faq__item[open] summary::after { rotate: 45deg; }
 .m-faq__item p { padding-bottom: 1.5rem; color: var(--muted-ink); max-width: 68ch; }
 @media (prefers-reduced-motion: reduce) { .m-faq__item summary::after { transition: none; } }
 ```
