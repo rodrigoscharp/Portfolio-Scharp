@@ -1,0 +1,115 @@
+/* ===== MENTORIA — sistema próprio. Não depende de lando-system.css ===== */
+:root {
+  --bg: #0F0E0C;
+  --fg: #F4F1EA;
+  --surface: #F4F1EA;
+  --surface-fg: #16150F;
+  --accent: #E8A33D;
+  --accent-ink: #16150F;
+  --sage: #7C8B6F;
+  --muted: rgba(244, 241, 234, .62);
+  --muted-ink: rgba(22, 21, 15, .68);
+  --line: rgba(244, 241, 234, .14);
+  --line-ink: rgba(22, 21, 15, .14);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --wrap: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* grão sobre a página inteira — estático, não anima */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 2;
+  pointer-events: none; opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===== layout ===== */
+.wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
+.sec { position: relative; padding: clamp(3.5rem, 9vw, 7.5rem) 0; }
+.sec--light { background: var(--surface); color: var(--surface-fg); }
+.sec__head { max-width: 42ch; margin-bottom: clamp(2rem, 4vw, 3.25rem); }
+.sec__head .lead { margin-top: 1rem; }
+
+/* ===== tipografia ===== */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400; line-height: 1.04; letter-spacing: -.015em;
+}
+.display--xl { font-size: clamp(2.6rem, 7.2vw, 5rem); }
+.display--lg { font-size: clamp(1.9rem, 4.4vw, 3.1rem); }
+.display em { font-style: italic; color: var(--accent); }
+.lead { font-size: clamp(1.02rem, 1.5vw, 1.25rem); color: var(--muted); max-width: 60ch; }
+.sec--light .lead { color: var(--muted-ink); }
+.eyebrow {
+  display: inline-block;
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent);
+}
+.sec--light .eyebrow { color: #8A6120; } /* âmbar escurecido para passar AA no claro */
+
+/* ===== botões ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: .55rem;
+  background: var(--accent); color: var(--accent-ink);
+  font-family: var(--font-body); font-weight: 600; font-size: 1rem;
+  padding: 1rem 1.75rem; border-radius: 999px; border: 0; cursor: pointer;
+  transition: transform .25s ease, filter .25s ease;
+}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.btn--lg { padding: 1.15rem 2.25rem; font-size: 1.08rem; }
+.btn--ghost {
+  background: transparent; color: var(--fg);
+  border: 1px solid var(--line);
+}
+.sec--light .btn--ghost { color: var(--surface-fg); border-color: var(--line-ink); }
+
+a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover { transform: none; }
+}
+
+/* ===== reveals — só escondem quando há motion ===== */
+.has-motion .reveal { opacity: 0; }
+
+/* ===== header ===== */
+.m-header {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem);
+}
+.m-header__logo { font-family: var(--font-display); font-size: 1.35rem; letter-spacing: -.01em; }
+.m-header .btn { padding: .7rem 1.25rem; font-size: .9rem; }
+@media (max-width: 640px) { .m-header .btn { display: none; } }
+
+/* ===== footer ===== */
+.m-footer {
+  border-top: 1px solid var(--line);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 calc(clamp(2.5rem, 5vw, 4rem) + env(safe-area-inset-bottom));
+  font-size: .92rem; color: var(--muted);
+}
+.m-footer__grid { display: flex; flex-wrap: wrap; gap: 1.25rem 2.5rem; align-items: baseline; }
+.m-footer__name { font-family: var(--font-display); font-size: 1.5rem; color: var(--fg); margin-right: auto; }
+.m-footer a:hover { color: var(--accent); }
+.m-footer__legal { margin-top: 2rem; font-size: .82rem; opacity: .7; }
+@media (max-width: 899px) { .m-footer { padding-bottom: 7rem; } } /* espaço para o CTA sticky */
