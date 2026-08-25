@@ -202,3 +202,28 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible
 .sec--light .m-card { border-color: var(--line-ink); background: rgba(22, 21, 15, .03); }
 
 .m-note { margin-top: clamp(2rem, 4vw, 3rem); }
+
+/* ===== transformação ===== */
+.m-versus { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+@media (max-width: 640px) { .m-versus { grid-template-columns: 1fr; } }
+.m-versus__col { padding: clamp(1.5rem, 3vw, 2.25rem); border-radius: 1.25rem; border: 1px solid var(--line); }
+.m-versus__col h3 {
+  font-family: var(--font-display); font-weight: 400; font-size: 1.6rem;
+  margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line);
+}
+.m-versus__col li { display: flex; gap: .75rem; padding: .65rem 0; font-size: 1.02rem; }
+.m-versus__col li::before { flex: none; font-weight: 600; }
+.m-versus__col--before { background: rgba(244, 241, 234, .02); color: var(--muted); }
+.m-versus__col--before li::before { content: '✗'; color: rgba(244, 241, 234, .45); }
+.m-versus__col--after { background: rgba(124, 139, 111, .10); border-color: rgba(124, 139, 111, .38); }
+.m-versus__col--after li::before { content: '✓'; color: var(--sage); }
+
+/* ===== quem sou eu ===== */
+.m-about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+@media (max-width: 899px) { .m-about { grid-template-columns: 1fr; } }
+.m-about__media { border-radius: 1.5rem; overflow: hidden; border: 1px solid var(--line); }
+.m-about__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 5; }
+.m-about__body h2 { margin: 1rem 0 1.25rem; }
+.m-about__creds { margin: 1.75rem 0; display: flex; flex-direction: column; gap: .6rem; }
+.m-about__creds li { display: flex; gap: .7rem; font-size: 1rem; color: var(--muted); }
+.m-about__creds li::before { content: '—'; color: var(--accent); }
