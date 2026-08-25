@@ -324,3 +324,15 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible
 .m-faq__item[open] summary::after { rotate: 45deg; }
 .m-faq__item p { padding-bottom: 1.5rem; color: var(--muted-ink); max-width: 68ch; }
 @media (prefers-reduced-motion: reduce) { .m-faq__item summary::after { transition: none; } }
+
+/* ===== CTA final ===== */
+.m-final { position: relative; overflow: hidden; text-align: center; }
+.m-final::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(232, 163, 61, .18) 0%, rgba(232, 163, 61, 0) 60%);
+  pointer-events: none;
+}
+.m-final__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.m-final__inner h2 { max-width: 16ch; }
+.m-final__inner .lead { text-align: center; }
+.m-final__note { font-size: .9rem; color: var(--accent); font-weight: 500; }
