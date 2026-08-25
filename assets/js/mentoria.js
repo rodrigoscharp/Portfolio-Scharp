@@ -10,6 +10,8 @@
       document.documentElement.classList.remove('has-motion');
       return;
     }
+    // GSAP e ScrollTrigger confirmados: cancela o failsafe do <head> (não é mais preciso).
+    clearTimeout(window.__mFail);
     gsap.registerPlugin(ScrollTrigger);
 
     if (typeof Lenis !== 'undefined') {
@@ -20,7 +22,7 @@
     }
 
     // SEMPRE fromTo: from() recaptura o estado no refresh e congela os itens deslocados.
-    document.querySelectorAll('[data-reveal]').forEach(block => {
+    document.querySelectorAll('[data-reveal]:not([hidden])').forEach(block => {
       const items = block.querySelectorAll('.reveal');
       if (!items.length) return;
       gsap.fromTo(items,
@@ -38,13 +40,15 @@
     const sticky = document.getElementById('m-sticky');
     const hero = document.getElementById('hero');
     const oferta = document.getElementById('oferta');
-    if (!sticky || !hero || !oferta || !('IntersectionObserver' in window)) return;
+    const ctaFinal = document.getElementById('cta-final');
+    if (!sticky || !hero || !oferta || !ctaFinal || !('IntersectionObserver' in window)) return;
 
-    let heroOut = false, ofertaIn = false;
-    const sync = () => sticky.classList.toggle('is-on', heroOut && !ofertaIn);
+    let heroOut = false, ofertaIn = false, finalIn = false;
+    const sync = () => sticky.classList.toggle('is-on', heroOut && !ofertaIn && !finalIn);
 
     new IntersectionObserver(([e]) => { heroOut = !e.isIntersecting; sync(); }).observe(hero);
     new IntersectionObserver(([e]) => { ofertaIn = e.isIntersecting; sync(); }).observe(oferta);
+    new IntersectionObserver(([e]) => { finalIn = e.isIntersecting; sync(); }).observe(ctaFinal);
   }
 
   initMotion();

@@ -166,7 +166,8 @@ ul { list-style: none; }
 .menu-overlay {
   position: fixed; inset: 0; z-index: 200;
   background: var(--olive); color: var(--cream);
-  display: flex; flex-direction: column; justify-content: center;
+  display: flex; flex-direction: column; justify-content: safe center;
+  overflow-y: auto;
   padding: clamp(1.5rem, 5vw, 4rem);
   visibility: hidden; opacity: 0;
   transition: opacity 0.4s ease, visibility 0s linear 0.4s;
@@ -180,7 +181,7 @@ ul { list-style: none; }
 }
 .menu-overlay nav a {
   font-family: var(--font-display); text-transform: uppercase;
-  font-size: clamp(3rem, 9vw, 6.5rem); line-height: 1.05; display: block;
+  font-size: clamp(2.6rem, 8vw, 4.5rem); line-height: 1.05; display: block;
   transform: translateY(30px); opacity: 0; transition: transform 0.5s ease, opacity 0.5s ease, color 0.2s;
 }
 .menu-overlay.open nav a { transform: none; opacity: 1; }

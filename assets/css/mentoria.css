@@ -64,6 +64,7 @@ body::after {
   color: var(--accent);
 }
 .sec--light .eyebrow { color: #8A6120; } /* âmbar escurecido para passar AA no claro */
+.sec--light .display em { color: #8A6120; } /* mesmo âmbar escurecido — idem acima */
 
 /* ===== botões ===== */
 .btn {
@@ -214,7 +215,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible
 .m-versus__col li { display: flex; gap: .75rem; padding: .65rem 0; font-size: 1.02rem; }
 .m-versus__col li::before { flex: none; font-weight: 600; }
 .m-versus__col--before { background: rgba(244, 241, 234, .02); color: var(--muted); }
-.m-versus__col--before li::before { content: '✗'; color: rgba(244, 241, 234, .45); }
+.m-versus__col--before li::before { content: '✗'; color: rgba(244, 241, 234, .55); }
 .m-versus__col--after { background: rgba(124, 139, 111, .10); border-color: rgba(124, 139, 111, .38); }
 .m-versus__col--after li::before { content: '✓'; color: var(--sage); }
 
@@ -229,7 +230,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible
 .m-about__creds li::before { content: '—'; color: var(--accent); }
 
 /* ===== como funciona ===== */
-.m-steps { display: flex; flex-direction: column; }
+.m-steps { display: flex; flex-direction: column; list-style: none; }
 .m-steps__item {
   display: grid; grid-template-columns: auto 1fr;
   gap: clamp(1.25rem, 3vw, 2.5rem);
@@ -263,8 +264,9 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible
 .m-includes__total { margin-top: 1.75rem; color: var(--muted); }
 .m-includes__total strong { color: var(--fg); }
 @media (max-width: 640px) {
-  .m-includes__item { flex-direction: column; align-items: flex-start; gap: .5rem; }
-  .m-includes__value { margin-left: 0; }
+  .m-includes__item { flex-wrap: wrap; align-items: flex-start; gap: .5rem 1.5rem; }
+  .m-includes__item > div { flex: 1 1 0%; min-width: 0; }
+  .m-includes__value { flex: 1 1 100%; margin-left: 0; }
 }
 
 /* ===== depoimentos ===== */

@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mentoria — Rodrigo Scharp</title>
   <meta name="description" content="[DESCRIÇÃO DA MENTORIA EM UMA FRASE — aparece no Google e no preview de link]">
+  <!-- Remova esta linha quando a copy real estiver no ar. -->
+  <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,6 +17,9 @@
   <script>
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('has-motion');
+      window.__mFail = setTimeout(function () {
+        document.documentElement.classList.remove('has-motion');
+      }, 1200);
     }
   </script>
 </head>
@@ -27,7 +32,6 @@
   </header>
 
   <main>
-    <!-- as seções entram aqui, tasks 2 a 8 -->
     <!-- 1 — HERO -->
     <section class="sec m-hero" id="hero" data-reveal>
       <div class="m-hero__glow" aria-hidden="true"></div>
