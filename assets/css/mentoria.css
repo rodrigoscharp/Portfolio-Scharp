@@ -227,3 +227,23 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible, button:focus-visible
 .m-about__creds { margin: 1.75rem 0; display: flex; flex-direction: column; gap: .6rem; }
 .m-about__creds li { display: flex; gap: .7rem; font-size: 1rem; color: var(--muted); }
 .m-about__creds li::before { content: '—'; color: var(--accent); }
+
+/* ===== como funciona ===== */
+.m-steps { display: flex; flex-direction: column; }
+.m-steps__item {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+  border-top: 1px solid var(--line);
+}
+.m-steps__item:last-child { border-bottom: 1px solid var(--line); }
+.m-steps__num {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1;
+  color: var(--accent); min-width: 2.5ch;
+}
+.m-steps__item h3 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem); line-height: 1.15; margin-bottom: .5rem;
+}
+.m-steps__item p { color: var(--muted); max-width: 62ch; }
