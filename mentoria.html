@@ -4,397 +4,511 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mentoria — Rodrigo Scharp</title>
-  <meta name="description" content="[DESCRIÇÃO DA MENTORIA EM UMA FRASE — aparece no Google e no preview de link]">
-  <!-- Remova esta linha quando a copy real estiver no ar. -->
+  <title>Mentoria 1:1 — Rodrigo Scharp</title>
+  <meta name="description" content="12 semanas de mentoria individual em engenharia de software: um projeto real no ar, revisado linha a linha, com quem lidera tecnologia e constrói produto.">
+  <!-- Remova esta linha quando a copy real estiver revisada e no ar. -->
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=Caveat:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/lando-system.css">
   <link rel="stylesheet" href="assets/css/mentoria.css">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/favicon.png">
-  <script>
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('has-motion');
-      window.__mFail = setTimeout(function () {
-        document.documentElement.classList.remove('has-motion');
-      }, 1200);
-    }
-  </script>
 </head>
 
 <body>
-  <header class="m-header">
-    <a href="index.html" class="m-header__logo">Rodrigo Scharp</a>
-    <a class="btn" data-cta="header" target="_blank" rel="noopener noreferrer"
-       href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Quero participar</a>
+  <div class="loader" aria-hidden="true"><span class="loader__signature">Rodrigo Scharp</span></div>
+
+  <header class="site-header">
+    <a href="index.html" class="site-logo"><span>Rodrigo</span><span>Scharp</span></a>
+    <div class="site-header__actions">
+      <a class="btn-pill" data-cta="header" target="_blank" rel="noopener noreferrer"
+         href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Quero uma vaga ↗</a>
+      <button class="menu-btn" id="menu-toggle" aria-label="Abrir menu"><span></span></button>
+    </div>
   </header>
 
+  <div class="menu-overlay" id="menu-overlay">
+    <button class="menu-overlay__close" id="menu-close" aria-label="Fechar menu">✕</button>
+    <nav>
+      <a href="#diagnostico">O diagnóstico</a>
+      <a href="#formato">Como funciona</a>
+      <a href="#oferta">Investimento</a>
+      <a href="#faq">Dúvidas</a>
+      <a href="index.html">Portfólio</a>
+    </nav>
+    <div class="menu-overlay__socials">
+      <a href="https://www.linkedin.com/in/rodrigo-scharp-8728a7277" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.instagram.com/rodrigoscharp" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://github.com/rodrigoscharp" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+
   <main>
-    <!-- 1 — HERO -->
-    <section class="sec m-hero" id="hero" data-reveal>
-      <div class="m-hero__glow" aria-hidden="true"></div>
-      <div class="wrap m-hero__inner">
-        <span class="eyebrow reveal">[NOME DA MENTORIA]</span>
-        <h1 class="display display--xl reveal">
-          [PROMESSA PRINCIPAL — o resultado concreto, <em>em uma frase</em>]
-        </h1>
-        <p class="lead reveal">[SUBHEADLINE — pra quem é, em quanto tempo e como. Duas linhas no máximo.]</p>
-        <div class="m-hero__cta reveal">
-          <a class="btn btn--lg" data-cta="hero" target="_blank" rel="noopener noreferrer"
-             href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Quero uma vaga ↗</a>
-          <span class="m-hero__cta-note">[VAGAS LIMITADAS / PRÓXIMA TURMA EM XX]</span>
+    <!-- HERO -->
+    <section class="section section--olive topo m-hero" id="hero">
+      <div class="container">
+        <div class="m-hero__grid">
+          <div class="m-hero__copy" data-reveal>
+            <span class="m-tag reveal-item">Mentoria 1:1 · turma de [MÊS]</span>
+            <h1 class="headline">
+              <span class="hl-line">Você não precisa</span>
+              <span class="hl-line">de mais um curso.</span>
+              <span class="hl-line"><em class="hl-serif">Precisa de direção.</em></span>
+            </h1>
+            <p class="lead reveal-item">12 semanas de acompanhamento individual com quem escreve código, lidera time e coloca produto no ar. Você sai do loop de tutorial com um projeto real publicado — e revisado linha a linha.</p>
+            <div class="m-hero__cta reveal-item">
+              <a class="btn-pill btn-pill--lg" data-cta="hero" target="_blank" rel="noopener noreferrer"
+                 href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Quero uma vaga ↗</a>
+              <span class="m-hero__cta-note">[6] vagas por turma · começa em [DATA]</span>
+            </div>
+          </div>
+
+          <div class="m-hero__photo">
+            <span class="m-scrawl">sem turma de 200 pessoas</span>
+            <img src="assets/img/scharp-speaker.png" alt="" width="408" height="612" fetchpriority="high">
+          </div>
         </div>
-        <ul class="m-hero__proof reveal">
-          <li><strong>[NÚMERO]</strong><span>[o que o número prova]</span></li>
-          <li><strong>[NÚMERO]</strong><span>[o que o número prova]</span></li>
-          <li><strong>[NÚMERO]</strong><span>[o que o número prova]</span></li>
+
+        <ul class="m-facts">
+          <li><strong>12</strong><span>semanas de acompanhamento</span></li>
+          <li><strong>1:1</strong><span>ao vivo, sempre comigo</span></li>
+          <li><strong>[6]</strong><span>vagas abertas por turma</span></li>
         </ul>
       </div>
     </section>
 
-    <!-- 2 — PROVA SOCIAL -->
-    <section class="m-marquee" id="prova" aria-label="Onde já estive">
-      <div class="m-marquee__track">
-        <ul class="m-marquee__row">
-          <li>[PROVA 1]</li><li>[PROVA 2]</li><li>[PROVA 3]</li>
-          <li>[PROVA 4]</li><li>[PROVA 5]</li><li>[PROVA 6]</li>
-        </ul>
-        <ul class="m-marquee__row" aria-hidden="true">
-          <li>[PROVA 1]</li><li>[PROVA 2]</li><li>[PROVA 3]</li>
-          <li>[PROVA 4]</li><li>[PROVA 5]</li><li>[PROVA 6]</li>
-        </ul>
+    <!-- PROVA -->
+    <section class="section section--cream topo" style="padding-block: clamp(2rem, 4vw, 3rem)" aria-label="Onde já estive">
+      <div class="marquee">
+        <div class="marquee__track">
+          <span class="marquee__item">TDC São Paulo</span>
+          <span class="marquee__item">Web Summit Rio</span>
+          <span class="marquee__item">CODECON Summit</span>
+          <span class="marquee__item">Debate de IA na Microsoft</span>
+          <span class="marquee__item">Fórum de Cidades Digitais</span>
+          <span class="marquee__item">Smart Cities</span>
+          <span class="marquee__item">C-Level — Prefeitura de Ubatuba</span>
+          <span class="marquee__item">Founder — Muno</span>
+          <span class="marquee__item">TDC São Paulo</span>
+          <span class="marquee__item">Web Summit Rio</span>
+          <span class="marquee__item">CODECON Summit</span>
+          <span class="marquee__item">Debate de IA na Microsoft</span>
+          <span class="marquee__item">Fórum de Cidades Digitais</span>
+          <span class="marquee__item">Smart Cities</span>
+          <span class="marquee__item">C-Level — Prefeitura de Ubatuba</span>
+          <span class="marquee__item">Founder — Muno</span>
+        </div>
       </div>
     </section>
 
-    <!-- 3 — É PRA VOCÊ SE… -->
-    <section class="sec" id="dores" data-reveal>
-      <div class="wrap">
-        <div class="sec__head">
-          <span class="eyebrow reveal">Diagnóstico</span>
-          <h2 class="display display--lg reveal">Isso aqui é <em>pra você</em> se…</h2>
+    <!-- DIAGNÓSTICO -->
+    <section class="section section--olive topo" id="diagnostico">
+      <div class="container">
+        <div class="m-head">
+          <span class="label label--lime">O diagnóstico</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">Marque as frases</span>
+            <span class="hl-line">que são <em class="hl-serif">suas</em>.</span>
+          </h2>
         </div>
-        <div class="m-grid m-grid--2">
-          <article class="m-card reveal">
-            <span class="m-card__num">01</span>
-            <p>“[DOR 1 — escrita na primeira pessoa, do jeito que a pessoa fala consigo mesma]”</p>
-          </article>
-          <article class="m-card reveal">
-            <span class="m-card__num">02</span>
-            <p>“[DOR 2]”</p>
-          </article>
-          <article class="m-card reveal">
-            <span class="m-card__num">03</span>
-            <p>“[DOR 3]”</p>
-          </article>
-          <article class="m-card reveal">
-            <span class="m-card__num">04</span>
-            <p>“[DOR 4]”</p>
-          </article>
+
+        <ul class="m-check" data-reveal>
+          <li class="reveal-item">
+            <svg class="scribble m-check__mark" viewBox="0 0 60 50" aria-hidden="true"><path d="M6 27 C 14 32, 19 39, 23 44 C 30 30, 41 14, 55 5" pathLength="1"/></svg>
+            <span>“Termino um curso e no dia seguinte não sei o que construir sozinho.”</span>
+          </li>
+          <li class="reveal-item">
+            <svg class="scribble m-check__mark" viewBox="0 0 60 50" aria-hidden="true"><path d="M5 25 C 13 31, 18 38, 22 45 C 29 29, 40 13, 56 4" pathLength="1"/></svg>
+            <span>“Meu GitHub é um cemitério de projeto pela metade.”</span>
+          </li>
+          <li class="reveal-item">
+            <svg class="scribble m-check__mark" viewBox="0 0 60 50" aria-hidden="true"><path d="M7 28 C 14 33, 19 39, 24 45 C 31 31, 42 15, 55 6" pathLength="1"/></svg>
+            <span>“Escrevo código, mas travo quando a decisão é de arquitetura.”</span>
+          </li>
+          <li class="reveal-item">
+            <svg class="scribble m-check__mark" viewBox="0 0 60 50" aria-hidden="true"><path d="M5 26 C 13 32, 18 38, 23 44 C 30 30, 41 14, 56 5" pathLength="1"/></svg>
+            <span>“Uso IA o dia inteiro e continuo entregando na mesma velocidade.”</span>
+          </li>
+          <li class="reveal-item">
+            <svg class="scribble m-check__mark" viewBox="0 0 60 50" aria-hidden="true"><path d="M6 26 C 14 31, 19 38, 23 45 C 30 29, 41 15, 55 4" pathLength="1"/></svg>
+            <span>“Faz dois anos que estou no mesmo nível — e no mesmo salário.”</span>
+          </li>
+        </ul>
+
+        <div class="m-check__kicker">
+          <p class="lead">Se duas dessas são suas, o problema não é falta de conteúdo. É não ter ninguém olhando o que você faz.</p>
+          <span class="m-scrawl m-scrawl--right">eu marquei todas, um dia</span>
         </div>
-        <p class="lead m-note reveal">[FRASE DE VIRADA — algo como “se você marcou dois desses, a mentoria resolve exatamente isso”.]</p>
       </div>
     </section>
 
-    <!-- 4 — A TRANSFORMAÇÃO -->
-    <section class="sec" id="transformacao" data-reveal>
-      <div class="wrap">
-        <div class="sec__head">
-          <span class="eyebrow reveal">A virada</span>
-          <h2 class="display display--lg reveal">De onde você está <em>para onde dá</em> pra chegar</h2>
+    <!-- TRANSFORMAÇÃO -->
+    <section class="section section--olive topo" id="transformacao" style="padding-top:0">
+      <div class="container">
+        <div class="m-head">
+          <span class="label label--lime">A virada</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">De onde você está</span>
+            <span class="hl-line">para onde <em class="hl-serif">dá pra ir</em>.</span>
+          </h2>
         </div>
-        <div class="m-versus">
-          <div class="m-versus__col m-versus__col--before reveal">
+
+        <div class="m-shift" data-reveal>
+          <div class="m-shift__col m-shift__col--now reveal-item">
             <h3>Hoje</h3>
             <ul>
-              <li>[SITUAÇÃO ATUAL 1]</li>
-              <li>[SITUAÇÃO ATUAL 2]</li>
-              <li>[SITUAÇÃO ATUAL 3]</li>
-              <li>[SITUAÇÃO ATUAL 4]</li>
+              <li>Estuda no escuro e escolhe stack por hype</li>
+              <li>Projeto que nunca sai do localhost</li>
+              <li>Trava na primeira pergunta de arquitetura da entrevista</li>
+              <li>IA escrevendo código que você não sabe revisar</li>
             </ul>
           </div>
-          <div class="m-versus__col m-versus__col--after reveal">
-            <h3>Depois da mentoria</h3>
+          <div class="m-shift__col m-shift__col--next reveal-item">
+            <h3>Em 12 semanas</h3>
             <ul>
-              <li>[RESULTADO 1]</li>
-              <li>[RESULTADO 2]</li>
-              <li>[RESULTADO 3]</li>
-              <li>[RESULTADO 4]</li>
+              <li>Um roadmap escrito pro seu objetivo, com datas</li>
+              <li>Um produto no ar, com usuário de verdade</li>
+              <li>Você defende cada decisão técnica que tomou</li>
+              <li>IA como par de programação — e você revisando ela</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 5 — QUEM SOU EU -->
-    <section class="sec" id="sobre" data-reveal>
-      <div class="wrap m-about">
-        <div class="m-about__media reveal">
-          <img src="assets/img/rodrigo_about.jpeg" alt="Rodrigo Scharp" width="640" height="800" loading="lazy">
+    <!-- QUEM SOU -->
+    <section class="section section--cream topo" id="sobre">
+      <div class="container">
+        <div class="m-head">
+          <span class="label">Quem vai te acompanhar</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">Rodrigo <em class="hl-serif">Scharp</em></span>
+          </h2>
         </div>
-        <div class="m-about__body">
-          <span class="eyebrow reveal">Quem vai te acompanhar</span>
-          <h2 class="display display--lg reveal">Rodrigo <em>Scharp</em></h2>
-          <p class="lead reveal">[BIO — 3 a 4 linhas conectando sua trajetória à promessa da mentoria. Não conte sua vida: conte o que te credencia a entregar exatamente esse resultado.]</p>
-          <ul class="m-about__creds reveal">
-            <li>[CREDENCIAL 1]</li>
-            <li>[CREDENCIAL 2]</li>
-            <li>[CREDENCIAL 3]</li>
-          </ul>
-          <a class="btn btn--ghost reveal" href="index.html">Ver meu portfólio ↗</a>
+
+        <div class="m-about" data-reveal>
+          <div class="m-about__media reveal-item img-hover">
+            <img src="assets/img/rodrigo_about.jpeg" alt="Rodrigo Scharp" width="1086" height="1448" loading="lazy">
+          </div>
+          <div class="m-about__body">
+            <p class="reveal-item">Comecei como desenvolvedor em 2023. De lá pra cá passei por consultoria em Java e Spring, fundei a Muno e hoje sou C-Level de Tecnologia e Inovação na Prefeitura de Ubatuba — onde software erra na frente de uma cidade inteira, e por isso não pode errar.</p>
+            <p class="reveal-item">No meio disso, subi em palco no TDC São Paulo, no Web Summit Rio e no debate de IA na Microsoft. Não vou te ensinar a decorar sintaxe. Vou te mostrar como se decide, se entrega e se defende software — que é o que separa quem estuda de quem é contratado.</p>
+            <ul class="m-about__creds reveal-item">
+              <li>C-Level de Tecnologia e Inovação — Prefeitura de Ubatuba</li>
+              <li>Founder — Muno</li>
+              <li>Palestrante — TDC São Paulo, Web Summit Rio, CODECON Summit</li>
+              <li>Formação em IA aplicada — Anthropic e Google Cloud</li>
+            </ul>
+            <a class="btn-pill btn-pill--ghost reveal-item" href="index.html">Ver o portfólio completo ↗</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 6 — COMO FUNCIONA -->
-    <section class="sec" id="funciona" data-reveal>
-      <div class="wrap">
-        <div class="sec__head">
-          <span class="eyebrow reveal">O formato</span>
-          <h2 class="display display--lg reveal">Como a mentoria <em>funciona</em></h2>
-          <p class="lead reveal">[UMA FRASE sobre o ritmo: quantos encontros, com que frequência, por quanto tempo.]</p>
+    <!-- COMO FUNCIONA -->
+    <section class="section section--olive topo" id="formato">
+      <div class="container">
+        <div class="m-head">
+          <span class="label label--lime">O formato</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">Doze semanas,</span>
+            <span class="hl-line">quatro <em class="hl-serif">fases</em>.</span>
+          </h2>
+          <p class="lead">Uma call de uma hora por semana, gravada, mais revisão escrita dos seus PRs entre um encontro e outro.</p>
         </div>
-        <ol class="m-steps">
-          <li class="m-steps__item reveal">
-            <span class="m-steps__num">01</span>
+
+        <ol class="m-phases" data-reveal>
+          <li class="m-phase reveal-item">
+            <span class="m-phase__when">Semana 01<small>DIAGNÓSTICO</small></span>
             <div>
-              <h3>[ETAPA 1 — TÍTULO]</h3>
-              <p>[O que acontece nessa etapa e o que a pessoa sai tendo.]</p>
+              <h3>A gente abre o seu código</h3>
+              <p>Seu repositório, seu currículo e sua meta na mesma call. Você sai com um plano de 12 semanas escrito, com entregas e datas — não com uma lista de cursos pra assistir.</p>
             </div>
           </li>
-          <li class="m-steps__item reveal">
-            <span class="m-steps__num">02</span>
+          <li class="m-phase reveal-item">
+            <span class="m-phase__when">Semanas 02–05<small>FUNDAMENTO</small></span>
             <div>
-              <h3>[ETAPA 2 — TÍTULO]</h3>
-              <p>[O que acontece nessa etapa e o que a pessoa sai tendo.]</p>
+              <h3>Fechar os buracos que travam você</h3>
+              <p>Arquitetura, modelagem de dados, teste e git de verdade. Sempre aplicado no seu projeto, nunca em exercício solto que você esquece na semana seguinte.</p>
             </div>
           </li>
-          <li class="m-steps__item reveal">
-            <span class="m-steps__num">03</span>
+          <li class="m-phase reveal-item">
+            <span class="m-phase__when">Semanas 06–10<small>CONSTRUÇÃO</small></span>
             <div>
-              <h3>[ETAPA 3 — TÍTULO]</h3>
-              <p>[O que acontece nessa etapa e o que a pessoa sai tendo.]</p>
+              <h3>Colocar no ar e sustentar</h3>
+              <p>Você constrói, publica e mantém. Toda semana eu reviso seus PRs linha a linha e a gente corrige o rumo na call seguinte, antes do erro virar hábito.</p>
             </div>
           </li>
-          <li class="m-steps__item reveal">
-            <span class="m-steps__num">04</span>
+          <li class="m-phase reveal-item">
+            <span class="m-phase__when">Semanas 11–12<small>VITRINE</small></span>
             <div>
-              <h3>[ETAPA 4 — TÍTULO]</h3>
-              <p>[O que acontece nessa etapa e o que a pessoa sai tendo.]</p>
+              <h3>Transformar trabalho em oportunidade</h3>
+              <p>Portfólio, LinkedIn e a conversa técnica: como apresentar o que você construiu pra quem contrata ou compra, sem parecer que está pedindo favor.</p>
             </div>
           </li>
         </ol>
       </div>
     </section>
 
-    <!-- 7 — O QUE VOCÊ VAI DOMINAR -->
-    <section class="sec" id="pilares" data-reveal>
-      <div class="wrap">
-        <div class="sec__head">
-          <span class="eyebrow reveal">Conteúdo</span>
-          <h2 class="display display--lg reveal">O que você vai <em>dominar</em></h2>
+    <!-- PILARES -->
+    <section class="section section--cream topo" id="pilares">
+      <div class="container">
+        <div class="m-head">
+          <span class="label">O que você vai dominar</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">Seis coisas que</span>
+            <span class="hl-line">curso <em class="hl-serif">não ensina</em>.</span>
+          </h2>
         </div>
-        <div class="m-grid m-grid--3">
-          <article class="m-card reveal">
-            <span class="m-card__num">01</span>
-            <h3>[PILAR 1 — TÍTULO]</h3>
-            <p>[Uma ou duas linhas sobre o que a pessoa aprende aqui.]</p>
+
+        <div class="m-pillars" data-reveal>
+          <article class="m-pillar reveal-item">
+            <h3>Arquitetura na prática</h3>
+            <p>Como escolher entre o simples e o certo — e por que quase sempre é o simples.</p>
           </article>
-          <article class="m-card reveal">
-            <span class="m-card__num">02</span>
-            <h3>[PILAR 2 — TÍTULO]</h3>
-            <p>[Uma ou duas linhas sobre o que a pessoa aprende aqui.]</p>
+          <article class="m-pillar reveal-item">
+            <h3>Código que passa em review</h3>
+            <p>Legibilidade, teste e commit que outra pessoa entende sem te chamar no chat.</p>
           </article>
-          <article class="m-card reveal">
-            <span class="m-card__num">03</span>
-            <h3>[PILAR 3 — TÍTULO]</h3>
-            <p>[Uma ou duas linhas sobre o que a pessoa aprende aqui.]</p>
+          <article class="m-pillar reveal-item">
+            <h3>IA como par, não como muleta</h3>
+            <p>Contexto, prompt e revisão: usar IA sem terceirizar a decisão técnica.</p>
           </article>
-          <article class="m-card reveal">
-            <span class="m-card__num">04</span>
-            <h3>[PILAR 4 — TÍTULO]</h3>
-            <p>[Uma ou duas linhas sobre o que a pessoa aprende aqui.]</p>
+          <article class="m-pillar reveal-item">
+            <h3>Do deploy ao dia seguinte</h3>
+            <p>Publicar, monitorar e corrigir em produção. A parte que o tutorial corta.</p>
           </article>
-          <article class="m-card reveal">
-            <span class="m-card__num">05</span>
-            <h3>[PILAR 5 — TÍTULO]</h3>
-            <p>[Uma ou duas linhas sobre o que a pessoa aprende aqui.]</p>
+          <article class="m-pillar reveal-item">
+            <h3>Produto antes de código</h3>
+            <p>Pra quem é, o que resolve e — principalmente — o que não vai ser feito.</p>
           </article>
-          <article class="m-card reveal">
-            <span class="m-card__num">06</span>
-            <h3>[PILAR 6 — TÍTULO]</h3>
-            <p>[Uma ou duas linhas sobre o que a pessoa aprende aqui.]</p>
+          <article class="m-pillar reveal-item">
+            <h3>Como você é lido</h3>
+            <p>Portfólio, LinkedIn e entrevista: o que o outro lado realmente avalia.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 8 — O QUE ESTÁ INCLUSO -->
-    <section class="sec" id="incluso" data-reveal>
-      <div class="wrap">
-        <div class="sec__head">
-          <span class="eyebrow reveal">Entregáveis</span>
-          <h2 class="display display--lg reveal">O que está <em>incluso</em></h2>
+    <!-- INCLUSO -->
+    <section class="section section--olive topo" id="incluso">
+      <div class="container">
+        <div class="m-head">
+          <span class="label label--lime">O que está incluso</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">Tudo que entra</span>
+            <span class="hl-line">nas <em class="hl-serif">12 semanas</em>.</span>
+          </h2>
         </div>
-        <ul class="m-includes">
-          <li class="m-includes__item reveal">
-            <div><h3>[ITEM 1]</h3><p>[O que é, em uma linha.]</p></div>
+
+        <ul class="m-includes" data-reveal>
+          <li class="reveal-item">
+            <div>
+              <h3>12 encontros individuais</h3>
+              <p>Uma hora por semana, ao vivo, só sua — e a gravação fica com você.</p>
+            </div>
             <span class="m-includes__value">[R$ XXX]</span>
           </li>
-          <li class="m-includes__item reveal">
-            <div><h3>[ITEM 2]</h3><p>[O que é, em uma linha.]</p></div>
+          <li class="reveal-item">
+            <div>
+              <h3>Code review dos seus PRs</h3>
+              <p>Revisão escrita, linha a linha, toda semana, no seu repositório.</p>
+            </div>
             <span class="m-includes__value">[R$ XXX]</span>
           </li>
-          <li class="m-includes__item reveal">
-            <div><h3>[ITEM 3]</h3><p>[O que é, em uma linha.]</p></div>
+          <li class="reveal-item">
+            <div>
+              <h3>Canal direto no WhatsApp</h3>
+              <p>Dúvida que trava a entrega não espera até a próxima call.</p>
+            </div>
             <span class="m-includes__value">[R$ XXX]</span>
           </li>
-          <li class="m-includes__item m-includes__item--bonus reveal">
-            <div><h3>Bônus — [BÔNUS 1]</h3><p>[O que é, em uma linha.]</p></div>
+          <li class="reveal-item">
+            <div>
+              <h3>Roadmap individual escrito</h3>
+              <p>Um plano de 12 semanas com entregas e datas, feito pro seu objetivo.</p>
+            </div>
+            <span class="m-includes__value">[R$ XXX]</span>
+          </li>
+          <li class="reveal-item m-includes__bonus">
+            <div>
+              <h3>Bônus — revisão de currículo e LinkedIn</h3>
+              <p>Uma passada linha a linha nos dois, na última semana.</p>
+            </div>
             <span class="m-includes__value">[R$ XXX]</span>
           </li>
         </ul>
-        <p class="m-includes__total reveal">Valor somado: <strong>[R$ X.XXX]</strong> — [FRASE sobre o que você cobra em vez disso]</p>
+        <p class="m-includes__sum">Somando item por item: <strong>[R$ X.XXX]</strong> — [uma frase sobre o que você cobra em vez disso].</p>
       </div>
     </section>
 
-    <!-- 9 — DEPOIMENTOS
-         Está oculto de propósito. Para publicar: remova o atributo hidden
-         abaixo e troque os placeholders por depoimentos reais, com nome e
-         resultado verdadeiros. Não publique esta seção com texto inventado. -->
-    <section class="sec" id="depoimentos" data-reveal hidden>
-      <div class="wrap">
-        <div class="sec__head">
-          <span class="eyebrow reveal">Resultados</span>
-          <h2 class="display display--lg reveal">Quem já <em>passou por aqui</em></h2>
+    <!-- DEPOIMENTOS
+         Oculto de propósito. Para publicar: remova o atributo hidden e troque
+         os placeholders por depoimentos reais, com nome e resultado verdadeiros.
+         Não publique esta seção com texto inventado. -->
+    <section class="section section--cream topo" id="depoimentos" hidden>
+      <div class="container">
+        <div class="m-head">
+          <span class="label">Resultados</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">Quem já <em class="hl-serif">passou por aqui</em></span>
+          </h2>
         </div>
-        <div class="m-grid m-grid--3">
-          <figure class="m-quote reveal">
+        <div class="m-pillars" data-reveal>
+          <figure class="m-pillar reveal-item">
             <blockquote>“[DEPOIMENTO 1 — o resultado concreto que a pessoa teve.]”</blockquote>
-            <figcaption>
-              <img src="assets/img/[FOTO-1.jpg]" alt="" width="56" height="56" loading="lazy">
-              <span><strong>[NOME 1]</strong>[CARGO / RESULTADO]</span>
-            </figcaption>
+            <figcaption><strong>[NOME 1]</strong> — [cargo / resultado]</figcaption>
           </figure>
-          <figure class="m-quote reveal">
-            <blockquote>“[DEPOIMENTO 2 — o resultado concreto que a pessoa teve.]”</blockquote>
-            <figcaption>
-              <img src="assets/img/[FOTO-2.jpg]" alt="" width="56" height="56" loading="lazy">
-              <span><strong>[NOME 2]</strong>[CARGO / RESULTADO]</span>
-            </figcaption>
+          <figure class="m-pillar reveal-item">
+            <blockquote>“[DEPOIMENTO 2]”</blockquote>
+            <figcaption><strong>[NOME 2]</strong> — [cargo / resultado]</figcaption>
           </figure>
-          <figure class="m-quote reveal">
-            <blockquote>“[DEPOIMENTO 3 — o resultado concreto que a pessoa teve.]”</blockquote>
-            <figcaption>
-              <img src="assets/img/[FOTO-3.jpg]" alt="" width="56" height="56" loading="lazy">
-              <span><strong>[NOME 3]</strong>[CARGO / RESULTADO]</span>
-            </figcaption>
+          <figure class="m-pillar reveal-item">
+            <blockquote>“[DEPOIMENTO 3]”</blockquote>
+            <figcaption><strong>[NOME 3]</strong> — [cargo / resultado]</figcaption>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- 10 — OFERTA -->
-    <section class="sec sec--light" id="oferta" data-reveal>
-      <div class="wrap">
-        <div class="sec__head">
-          <span class="eyebrow reveal">A oferta</span>
-          <h2 class="display display--lg reveal">Entre para a <em>[NOME DA MENTORIA]</em></h2>
+    <!-- OFERTA -->
+    <section class="section section--cream topo" id="oferta">
+      <div class="container">
+        <div class="m-head">
+          <span class="label">O investimento</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">Uma turma,</span>
+            <span class="hl-line"><em class="hl-serif">[6] vagas</em>.</span>
+          </h2>
         </div>
-        <div class="m-offer reveal">
-          <div class="m-offer__body">
-            <h3>[NOME DO PLANO]</h3>
-            <p class="m-offer__sub">[Uma linha sobre o que o plano entrega.]</p>
+
+        <div class="m-offer" data-reveal>
+          <div class="m-offer__body reveal-item">
+            <h3>Mentoria 1:1 — 12 semanas</h3>
+            <p>Do diagnóstico ao projeto no ar, com revisão semanal do seu código.</p>
             <ul class="m-offer__list">
-              <li>[ENTREGÁVEL 1]</li>
-              <li>[ENTREGÁVEL 2]</li>
-              <li>[ENTREGÁVEL 3]</li>
-              <li>[ENTREGÁVEL 4]</li>
-              <li>[ENTREGÁVEL 5]</li>
+              <li>12 encontros individuais ao vivo, gravados</li>
+              <li>Code review escrito dos seus PRs toda semana</li>
+              <li>Canal direto no WhatsApp durante as 12 semanas</li>
+              <li>Roadmap individual com entregas e datas</li>
+              <li>Bônus: revisão de currículo e LinkedIn</li>
             </ul>
           </div>
-          <div class="m-offer__price">
+          <div class="m-offer__price reveal-item">
             <span class="m-offer__from">De <s>[R$ X.XXX]</s> por</span>
             <span class="m-offer__amount">[R$ X.XXX]</span>
-            <span class="m-offer__terms">ou [X]× de [R$ XXX]</span>
-            <a class="btn btn--lg" data-cta="oferta" target="_blank" rel="noopener noreferrer"
-               href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Garantir minha vaga ↗</a>
-            <p class="m-offer__guarantee">[GARANTIA — ex: 7 dias para pedir reembolso, sem perguntas.]</p>
-            <p class="m-offer__scarcity">[VAGAS — ex: apenas X vagas nesta turma.]</p>
+            <span class="m-offer__terms">ou [X]× de [R$ XXX] sem juros</span>
+            <a class="btn-pill" data-cta="oferta" target="_blank" rel="noopener noreferrer"
+               href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20garantir%20minha%20vaga%20na%20mentoria.">Garantir minha vaga ↗</a>
+            <p class="m-offer__fine">Garantia de [7] dias: se depois do primeiro encontro você achar que não é pra você, devolvo o valor integral.</p>
+            <p class="m-offer__fine"><strong>[6] vagas nesta turma.</strong> A próxima abre só em [MÊS].</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 11 — FAQ -->
-    <section class="sec sec--light" id="faq" data-reveal style="padding-top:0">
-      <div class="wrap">
-        <div class="sec__head">
-          <span class="eyebrow reveal">Dúvidas</span>
-          <h2 class="display display--lg reveal">Perguntas <em>frequentes</em></h2>
+    <!-- FAQ -->
+    <section class="section section--cream topo" id="faq" style="padding-top:0">
+      <div class="container">
+        <div class="m-head">
+          <span class="label">Antes de você perguntar</span>
+          <h2 class="headline headline--lg" data-reveal>
+            <span class="hl-line">Dúvidas <em class="hl-serif">honestas</em></span>
+          </h2>
         </div>
+
         <div class="m-faq">
-          <details class="m-faq__item reveal">
-            <summary>[PERGUNTA 1 — a objeção de preço]</summary>
-            <p>[RESPOSTA 1]</p>
+          <details>
+            <summary>Serve pra quem ainda não trabalha com programação?</summary>
+            <p>Serve se você já escreve código, mesmo que só em projeto pessoal. Se você ainda não escreveu sua primeira linha, as 12 semanas vão passar rápido demais — me chama no WhatsApp que eu te indico por onde começar, sem custo.</p>
           </details>
-          <details class="m-faq__item reveal">
-            <summary>[PERGUNTA 2 — a objeção de tempo]</summary>
-            <p>[RESPOSTA 2]</p>
+          <details>
+            <summary>Quanto tempo por semana eu preciso ter?</summary>
+            <p>Uma hora de call e mais [X] horas de execução. Sem esse tempo, as 12 semanas não fecham. Prefiro te dizer isso agora do que na semana 6.</p>
           </details>
-          <details class="m-faq__item reveal">
-            <summary>[PERGUNTA 3 — "serve pro meu nível?"]</summary>
-            <p>[RESPOSTA 3]</p>
+          <details>
+            <summary>É gravado ou ao vivo?</summary>
+            <p>Ao vivo, 1:1, sempre comigo. A gravação de cada encontro fica com você para sempre.</p>
           </details>
-          <details class="m-faq__item reveal">
-            <summary>[PERGUNTA 4 — como são os encontros]</summary>
-            <p>[RESPOSTA 4]</p>
+          <details>
+            <summary>E se eu não conseguir acompanhar uma semana?</summary>
+            <p>A gente remarca, sem drama. O plano é seu. O que não funciona é sumir três semanas e esperar o mesmo resultado no fim.</p>
           </details>
-          <details class="m-faq__item reveal">
-            <summary>[PERGUNTA 5 — o que acontece se eu não gostar]</summary>
-            <p>[RESPOSTA 5]</p>
+          <details>
+            <summary>Por que não é só um curso mais barato?</summary>
+            <p>Porque curso você provavelmente já tem. O que curso não faz é ler o seu código toda semana e te dizer, com nome e sobrenome, o que está errado nele.</p>
           </details>
-          <details class="m-faq__item reveal">
-            <summary>[PERGUNTA 6 — como faço para entrar]</summary>
-            <p>[RESPOSTA 6]</p>
+          <details>
+            <summary>Como eu entro?</summary>
+            <p>Me chama no WhatsApp. A gente faz uma conversa de 20 minutos, sem compromisso, e eu te digo com sinceridade se a mentoria resolve o seu caso — inclusive quando a resposta for não.</p>
           </details>
         </div>
       </div>
     </section>
-    <!-- 12 — CTA FINAL -->
-    <section class="sec m-final" id="cta-final" data-reveal>
-      <div class="wrap m-final__inner">
-        <h2 class="display display--xl reveal">[CHAMADA FINAL — <em>curta e direta</em>]</h2>
-        <p class="lead reveal">[UMA FRASE fechando: o custo de continuar como está.]</p>
-        <a class="btn btn--lg reveal" data-cta="final" target="_blank" rel="noopener noreferrer"
-           href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Falar com o Rodrigo no WhatsApp ↗</a>
-        <p class="m-final__note reveal">[VAGAS LIMITADAS / PRÓXIMA TURMA EM XX]</p>
+
+    <!-- CTA FINAL -->
+    <section class="section topo m-final" id="cta-final">
+      <div class="container">
+        <h2 class="headline" data-reveal>
+          <span class="hl-line">Daqui a 12 semanas</span>
+          <span class="hl-line">você ainda vai estar</span>
+          <span class="hl-line"><em class="hl-serif">no mesmo lugar?</em></span>
+        </h2>
+        <p class="lead">A próxima turma começa em [DATA] e tem [6] vagas. A conversa inicial é de graça e dura 20 minutos.</p>
+        <a class="btn-pill" data-cta="final" target="_blank" rel="noopener noreferrer"
+           href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Falar com o Rodrigo ↗</a>
+        <span class="m-scrawl">te respondo pessoalmente</span>
       </div>
     </section>
   </main>
 
-  <footer class="m-footer">
-    <div class="wrap">
-      <div class="m-footer__grid">
-        <span class="m-footer__name">Rodrigo Scharp</span>
-        <a target="_blank" rel="noopener noreferrer"
-           href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">WhatsApp</a>
-        <a href="mailto:rodrigoscharp@gmail.com">rodrigoscharp@gmail.com</a>
-        <a href="index.html">Portfólio</a>
+  <div class="footer-frame">
+    <footer class="site-footer topo">
+      <span class="signature">Rodrigo Scharp</span>
+      <h2 class="headline site-footer__statement" data-reveal>
+        <span class="hl-line">Always <em class="hl-serif">building</em>.</span>
+      </h2>
+
+      <div class="site-footer__cols">
+        <div>
+          <span class="label">Mentoria</span>
+          <a href="#diagnostico">O diagnóstico</a>
+          <a href="#formato">Como funciona</a>
+          <a href="#oferta">Investimento</a>
+          <a href="#faq">Dúvidas</a>
+        </div>
+        <div>
+          <span class="label">Onde me achar</span>
+          <a href="index.html">Portfólio</a>
+          <a href="https://www.linkedin.com/in/rodrigo-scharp-8728a7277" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.instagram.com/rodrigoscharp" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="mailto:rodrigoscharp@gmail.com">E-mail</a>
+        </div>
       </div>
-      <div class="m-footer__legal">© 2026 Rodrigo Scharp. Todos os direitos reservados.</div>
-    </div>
-  </footer>
+
+      <div class="site-footer__cta">
+        <a class="btn-pill" data-cta="footer" target="_blank" rel="noopener noreferrer"
+           href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Falar no WhatsApp ↗</a>
+      </div>
+
+      <div class="site-footer__legal">
+        <span>© 2026 Rodrigo Scharp. Todos os direitos reservados.</span>
+        <span>São Paulo, Brasil</span>
+      </div>
+    </footer>
+  </div>
 
   <div class="m-sticky" id="m-sticky">
-    <a class="btn" data-cta="sticky" target="_blank" rel="noopener noreferrer"
+    <a class="btn-pill" data-cta="sticky" target="_blank" rel="noopener noreferrer"
        href="https://wa.me/[NUMERO_WHATSAPP]?text=Oi%20Rodrigo!%20Quero%20saber%20mais%20sobre%20a%20mentoria.">Quero uma vaga ↗</a>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+  <script src="assets/js/motion.js"></script>
   <script src="assets/js/mentoria.js"></script>
 </body>
 

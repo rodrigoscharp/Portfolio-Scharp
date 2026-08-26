@@ -1,56 +1,22 @@
-/* ===== MENTORIA — motion e CTA sticky. Independente de motion.js ===== */
+/* ===== MENTORIA — só o que é exclusivo da LP.
+   Reveals, menu, marquee e header ficam com motion.js, igual às outras páginas. ===== */
 (() => {
   'use strict';
 
-  // Reveals. Só rodam quando o <head> marcou has-motion e o GSAP carregou.
-  function initMotion() {
-    if (!document.documentElement.classList.contains('has-motion')) return;
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-      // GSAP não carregou (CDN fora do ar): revela tudo para não deixar a página em branco.
-      document.documentElement.classList.remove('has-motion');
-      return;
-    }
-    // GSAP e ScrollTrigger confirmados: cancela o failsafe do <head> (não é mais preciso).
-    clearTimeout(window.__mFail);
-    gsap.registerPlugin(ScrollTrigger);
+  /* CTA fixo do mobile: aparece depois do hero e some quando a oferta ou o
+     CTA final já estão na tela — dois botões iguais empilhados confundem.
+     IntersectionObserver, não GSAP: precisa funcionar com reduced-motion
+     ligado e mesmo se o CDN do GSAP cair. */
+  const sticky = document.getElementById('m-sticky');
+  const hero = document.getElementById('hero');
+  const oferta = document.getElementById('oferta');
+  const final = document.getElementById('cta-final');
+  if (!sticky || !hero || !oferta || !final || !('IntersectionObserver' in window)) return;
 
-    if (typeof Lenis !== 'undefined') {
-      const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(t => lenis.raf(t * 1000));
-      gsap.ticker.lagSmoothing(0);
-    }
+  let heroOut = false, ofertaIn = false, finalIn = false;
+  const sync = () => sticky.classList.toggle('is-on', heroOut && !ofertaIn && !finalIn);
 
-    // SEMPRE fromTo: from() recaptura o estado no refresh e congela os itens deslocados.
-    document.querySelectorAll('[data-reveal]:not([hidden])').forEach(block => {
-      const items = block.querySelectorAll('.reveal');
-      if (!items.length) return;
-      gsap.fromTo(items,
-        { y: 28, opacity: 0 },
-        {
-          y: 0, opacity: 1, duration: .8, ease: 'power3.out', stagger: .07,
-          scrollTrigger: { trigger: block, start: 'top bottom' }
-        });
-    });
-  }
-
-  // CTA sticky do mobile. Usa IntersectionObserver para funcionar mesmo sem GSAP
-  // e com prefers-reduced-motion ligado.
-  function initStickyCta() {
-    const sticky = document.getElementById('m-sticky');
-    const hero = document.getElementById('hero');
-    const oferta = document.getElementById('oferta');
-    const ctaFinal = document.getElementById('cta-final');
-    if (!sticky || !hero || !oferta || !ctaFinal || !('IntersectionObserver' in window)) return;
-
-    let heroOut = false, ofertaIn = false, finalIn = false;
-    const sync = () => sticky.classList.toggle('is-on', heroOut && !ofertaIn && !finalIn);
-
-    new IntersectionObserver(([e]) => { heroOut = !e.isIntersecting; sync(); }).observe(hero);
-    new IntersectionObserver(([e]) => { ofertaIn = e.isIntersecting; sync(); }).observe(oferta);
-    new IntersectionObserver(([e]) => { finalIn = e.isIntersecting; sync(); }).observe(ctaFinal);
-  }
-
-  initMotion();
-  initStickyCta();
+  new IntersectionObserver(([e]) => { heroOut = !e.isIntersecting; sync(); }).observe(hero);
+  new IntersectionObserver(([e]) => { ofertaIn = e.isIntersecting; sync(); }).observe(oferta);
+  new IntersectionObserver(([e]) => { finalIn = e.isIntersecting; sync(); }).observe(final);
 })();
