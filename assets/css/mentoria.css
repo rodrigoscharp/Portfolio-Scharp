@@ -181,7 +181,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   padding: 0.7rem 0; border-top: 1px solid var(--line-cream);
   font-size: 0.98rem;
 }
-.m-about__creds li::before { content: '—'; opacity: 0.5; }
+.m-about__creds li::before { content: '·'; opacity: 0.6; font-weight: 700; }
 
 /* ===== fases (a única numeração da página: aqui a ordem é informação) ===== */
 .m-phases { margin-top: clamp(2rem, 4vw, 3rem); }
