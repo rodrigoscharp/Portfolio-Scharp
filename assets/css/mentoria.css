@@ -72,15 +72,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.16em; opacity: 0.7; max-width: 26ch;
 }
-.m-hero__photo { position: relative; align-self: end; justify-self: center; }
+.m-hero__photo {
+  position: relative; align-self: end; justify-self: center;
+  width: min(24rem, 100%);
+}
 .m-hero__photo img {
-  width: 100%; max-width: 26rem; height: auto;
-  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+  width: 100%; max-width: 24rem; height: auto;
+  aspect-ratio: 4 / 5; object-fit: cover;
+  border-radius: 1.2rem;
 }
 .m-hero__photo .m-scrawl {
-  position: absolute; left: -3.5rem; top: 12%;
-  max-width: 9rem; text-align: right;
+  position: absolute; right: calc(100% + 1rem); top: 8%;
+  max-width: 11rem; text-align: right;
 }
 @media (max-width: 900px) {
   /* sem a foto, o hero vira uma coluna só: empacota o conteúdo no centro
@@ -172,8 +175,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 @media (max-width: 900px) { .m-about { grid-template-columns: 1fr; } }
-.m-about__media { position: relative; border-radius: 1rem; overflow: hidden; }
-.m-about__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.m-about__media {
+  position: relative; border-radius: 1rem; overflow: hidden;
+  background: rgba(30, 32, 24, 0.06);
+}
+.m-about__media img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: contain; object-position: bottom;
+}
 .m-about__body p { margin-top: 1.2rem; max-width: 44ch; }
 .m-about__creds { margin: 2rem 0 1.75rem; }
 .m-about__creds li {
