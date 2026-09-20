@@ -27,7 +27,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-size: clamp(1.35rem, 2.6vw, 2.1rem);
   display: inline-block; rotate: -3deg;
 }
-.section--cream .m-scrawl { color: #6E8A12; } /* lime puro não passa em fundo claro */
+.section--cream .m-scrawl { color: #1F6FB2; } /* azul puro não passa em fundo claro */
 .m-scrawl--right { rotate: 2.5deg; }
 
 /* ===== botões da LP ===== */
@@ -163,7 +163,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .m-shift__col--now { opacity: 0.55; }
 .m-shift__col--now li { text-decoration: line-through; text-decoration-color: rgba(242, 240, 233, 0.4); }
 .m-shift__col--next h3 { color: var(--lime); }
-.m-shift__col--next li { border-bottom-color: rgba(214, 246, 47, 0.28); }
+.m-shift__col--next li { border-bottom-color: rgba(61, 169, 252, 0.28); }
 
 /* ===== quem sou ===== */
 .m-about {
@@ -238,7 +238,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 /* ===== o que está incluso ===== */
 .m-includes { margin-top: clamp(2rem, 4vw, 3rem); max-width: 58rem; }
 .m-includes li {
-  display: grid; grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+  display: grid; grid-template-columns: 1.6rem minmax(0, 1fr);
   gap: 0.4rem 1.2rem; align-items: baseline;
   padding: 1.3rem 0; border-top: 1px solid var(--line-olive);
 }
@@ -249,19 +249,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
 }
 .m-includes p { font-size: 0.92rem; opacity: 0.65; margin-top: 0.25rem; max-width: 52ch; }
-.m-includes__value {
-  font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
-  font-size: clamp(1rem, 1.6vw, 1.3rem); opacity: 0.55; white-space: nowrap;
-}
 .m-includes__bonus h3 { color: var(--lime); }
 .m-includes__sum {
   margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.7;
 }
 .m-includes__sum strong { color: var(--lime); font-weight: 700; }
-@media (max-width: 620px) {
-  .m-includes li { grid-template-columns: 1.6rem minmax(0, 1fr); }
-  .m-includes__value { grid-column: 2; }
-}
 
 /* ===== oferta — bloco "ingresso" ===== */
 .m-offer {
@@ -281,7 +273,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.8rem;
   padding: 0.6rem 0; font-size: 1rem;
 }
-.m-offer__list li::before { content: '✓'; color: #6E8A12; font-weight: 700; }
+.m-offer__list li::before { content: '✓'; color: #1F6FB2; font-weight: 700; }
 .m-offer__price {
   background: var(--olive); color: var(--cream);
   padding: clamp(1.75rem, 3.5vw, 3rem);
