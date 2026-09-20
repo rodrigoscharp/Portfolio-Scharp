@@ -175,12 +175,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 @media (max-width: 900px) { .m-about { grid-template-columns: 1fr; } }
-.m-about__media {
-  position: relative; border-radius: 1rem; overflow: hidden;
-  background: rgba(30, 32, 24, 0.06);
-}
+.m-about__media { position: relative; border-radius: 1rem; overflow: hidden; }
 .m-about__media img {
-  width: 100%; aspect-ratio: 4 / 5; object-fit: contain; object-position: bottom;
+  width: 100%; height: auto; aspect-ratio: 1 / 1;
+  object-fit: cover; object-position: center 42%;
 }
 .m-about__body p { margin-top: 1.2rem; max-width: 44ch; }
 .m-about__creds { margin: 2rem 0 1.75rem; }
@@ -362,5 +360,5 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 @media (max-width: 560px) {
   /* o CTA fixo do rodapé já cobre a ação aqui — dois botões disputam a barra */
   .site-header .btn-pill { display: none; }
-  .m-about__media img { aspect-ratio: 5 / 4; }
+  .m-about__media img { aspect-ratio: 4 / 3; object-position: center 22%; }
 }
