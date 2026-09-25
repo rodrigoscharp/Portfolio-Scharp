@@ -78,7 +78,7 @@ export default function Timeline() {
       </div>
 
       <AnimatePresence>
-        {hover !== null && (
+        {hover !== null && ROWS[hover].image && (
           <motion.div
             key="preview"
             aria-hidden
@@ -90,7 +90,7 @@ export default function Timeline() {
             className="pointer-events-none fixed left-0 top-0 z-40 hidden h-[170px] w-[270px] overflow-hidden rounded-xl border border-ink bg-paper shadow-xl md:block"
           >
             <Image
-              src={ROWS[hover].image}
+              src={ROWS[hover].image!}
               alt=""
               fill
               sizes="270px"

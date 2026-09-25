@@ -62,21 +62,22 @@ export const CASES: Case[] = [
   {
     slug: "muno",
     n: "01",
-    read: "[X] min Read",
+    read: "5 min Read",
     headline: [
       { text: "Muno", bold: true },
       { text: ": a POS & digital menu platform serving " },
-      { text: "[MÉTRICA] restaurants", bold: true },
+      { text: "120+ restaurants", bold: true },
     ],
     tags: ["WEB", "MOBILE", "SAAS"],
     bg: "linear-gradient(135deg,#fd601a 0%,#d93f00 100%)",
     device: "laptop",
-    image: "/images/muno-hero.svg",
+    image: "/images/muno-hero.jpg",
+    // FAKE numbers: placeholders until the real Muno metrics are filled in
     insights: [
-      { value: "[MÉTRICA]", label: "[descrição da métrica]" },
-      { value: "[MÉTRICA]", label: "[descrição da métrica]" },
+      { value: "120+", label: "restaurants running on Muno" },
+      { value: "38k", label: "orders processed per month" },
     ],
-    live: "#",
+    live: "https://munoapp.com.br",
     caseHref: "#",
     layout: "full",
     dark: false,
@@ -94,7 +95,7 @@ export const CASES: Case[] = [
     tags: ["WEB", "LOCAL-FIRST", "LLM"],
     bg: "linear-gradient(135deg,#9342fc 0%,#5b21b6 100%)",
     device: "laptop",
-    image: "/images/myhub-hero.svg",
+    image: "/images/myhub-hero.jpg",
     insights: [{ value: "[MÉTRICA]", label: "[descrição da métrica]" }],
     live: "https://github.com/rodrigoscharp/WorkFlow",
     caseHref: "https://github.com/rodrigoscharp/WorkFlow",
@@ -129,16 +130,16 @@ export type Row = {
   title: string;
   cta: "case" | "live" | "repo";
   href: string;
-  image: string;
+  image?: string;
 };
 
 export const ROWS: Row[] = [
   { year: "2026", title: "Ubatuba City Hall — Tech & Innovation", cta: "case", href: "#", image: "/images/prefeitura-hero.svg" },
-  { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "live", href: "#", image: "/images/muno-hero.svg" },
-  { year: "2025", title: "MyHub — Local-first Productivity", cta: "case", href: "https://github.com/rodrigoscharp/WorkFlow", image: "/images/myhub-hero.svg" },
-  { year: "2026", title: "PONTE — AAC App for Autistic Children", cta: "repo", href: "https://github.com/rodrigoscharp/PONTE", image: "/images/myhub-hero.svg" },
-  { year: "2025", title: "Athena Matching Engine", cta: "repo", href: "https://github.com/rodrigoscharp/Athena-Matching-Engine", image: "/images/prefeitura-hero.svg" },
-  { year: "2025", title: "HelpNote IA", cta: "repo", href: "https://github.com/rodrigoscharp/HelpNote_-IA", image: "/images/myhub-hero.svg" },
-  { year: "2025", title: "WalletCore — Digital Wallet API", cta: "repo", href: "https://github.com/rodrigoscharp/WalletCore", image: "/images/muno-hero.svg" },
-  { year: "2025", title: "BETO IA — Self-hosted Assistant", cta: "repo", href: "https://github.com/rodrigoscharp/BETO-IA", image: "/images/myhub-hero.svg" },
+  { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "live", href: "https://munoapp.com.br", image: "/images/muno-hero.jpg" },
+  { year: "2025", title: "MyHub — Local-first Productivity", cta: "case", href: "https://github.com/rodrigoscharp/WorkFlow", image: "/images/myhub-hero.jpg" },
+  { year: "2026", title: "PONTE — AAC App for Autistic Children", cta: "repo", href: "https://github.com/rodrigoscharp/PONTE" },
+  { year: "2025", title: "Athena Matching Engine", cta: "repo", href: "https://github.com/rodrigoscharp/Athena-Matching-Engine" },
+  { year: "2025", title: "HelpNote IA", cta: "repo", href: "https://github.com/rodrigoscharp/HelpNote_-IA" },
+  { year: "2025", title: "WalletCore — Digital Wallet API", cta: "repo", href: "https://github.com/rodrigoscharp/WalletCore" },
+  { year: "2025", title: "BETO IA — Self-hosted Assistant", cta: "repo", href: "https://github.com/rodrigoscharp/BETO-IA" },
 ];
