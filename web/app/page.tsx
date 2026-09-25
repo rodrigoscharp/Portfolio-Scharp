@@ -13,7 +13,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <div className="flex min-h-[100svh] flex-col justify-center pb-16 pt-28 md:pb-24">
+        <div className="mx-auto flex min-h-[100svh] w-full max-w-[1500px] flex-col justify-center pb-16 pt-28 md:pb-24">
           <Intro />
           <Skills />
         </div>

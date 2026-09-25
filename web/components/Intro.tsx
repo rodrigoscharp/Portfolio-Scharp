@@ -7,7 +7,7 @@ const icon = "inline-block h-[0.95em] w-[0.95em] align-[-0.12em]";
 
 export default function Intro() {
   return (
-    <section id="about" className="px-5 pb-6 md:px-11">
+    <section id="about" className="px-5 pb-6 md:px-0">
       <Reveal>
         <p className="max-w-[1400px] text-[clamp(1.85rem,4vw,3.6rem)] font-medium leading-[1.22] tracking-[-0.02em]">
           Hi, I&apos;m{" "}
@@ -22,10 +22,13 @@ export default function Intro() {
           </span>{" "}
           Rodrigo <PeaceHand className={icon} strokeWidth={1.9} />, building
           software since{" "}
-          <span className="mx-[0.05em] inline-block rounded-full border-[1.5px] border-ink px-[0.35em] py-[0.02em] align-[0.02em] text-[0.92em] font-semibold leading-[1.3]">
-            {SITE.startYear}
-          </span>
-          , focused on back-end systems <Gear className={icon} />, products{" "}
+          <span className="whitespace-nowrap">
+            <span className="mx-[0.05em] inline-block rounded-full border-[1.5px] border-ink px-[0.35em] py-[0.02em] align-[0.02em] text-[0.92em] font-semibold leading-[1.3]">
+              {SITE.startYear}
+            </span>
+            ,
+          </span>{" "}
+          focused on back-end systems <Gear className={icon} />, products{" "}
           <Globe className={icon} /> and real-world impact{" "}
           <Sparkle className={icon} />.
         </p>
