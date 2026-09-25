@@ -25,14 +25,11 @@ function ReadMarquee({ text }: { text: string }) {
 }
 
 function Device({ kind, src }: { kind: Case["device"]; src: string }) {
-  if (kind === "art") {
-    return <Image src={src} alt="" fill sizes="(min-width:768px) 1400px, 100vw" className="object-cover" />;
-  }
   if (kind === "phone") {
     return (
       <div className="absolute bottom-[-18%] left-1/2 aspect-[9/19] h-[92%] -translate-x-1/2 rotate-[-4deg] rounded-[2.4rem] bg-[#0b0b0f] p-[10px] shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]">
         <div className="relative h-full w-full overflow-hidden rounded-[1.9rem] bg-paper">
-          <Image src={src} alt="" fill sizes="300px" className="object-cover object-left-top" />
+          <Image src={src} alt="" fill sizes="300px" className="object-cover object-center" />
         </div>
         <span className="absolute left-1/2 top-[14px] h-[18px] w-[70px] -translate-x-1/2 rounded-full bg-black" />
       </div>
@@ -41,7 +38,7 @@ function Device({ kind, src }: { kind: Case["device"]; src: string }) {
   return (
     <div className="absolute bottom-[-14%] left-1/2 aspect-[16/10] w-[min(125%,860px)] -translate-x-1/2 rotate-[-2deg] md:w-[min(72%,860px)] rounded-t-[1.4rem] bg-[#0b0b0f] p-[10px] shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]">
       <div className="relative h-full w-full overflow-hidden rounded-t-[1rem] bg-paper">
-        <Image src={src} alt="" fill sizes="900px" className="object-cover object-left-top" />
+        <Image src={src} alt="" fill sizes="900px" className="object-cover object-center" />
       </div>
       <span className="absolute left-1/2 top-[3px] h-[6px] w-[46px] -translate-x-1/2 rounded-full bg-black/80" />
     </div>
