@@ -94,10 +94,16 @@ export default function Hero() {
           <Word i={6}>NEER</Word>
 
           {/* IntelliJ IDEA mark, spinning where the asterisk used to be */}
-          <motion.svg
+          <motion.span
             aria-hidden
+            className="absolute -right-[0.34em] bottom-[-0.08em] h-[0.4em] w-[0.4em]"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 + 6 * 0.12, ease }}
+          >
+          <motion.svg
             viewBox="0 0 100 100"
-            className="absolute -right-[0.34em] bottom-[-0.08em] h-[0.4em] w-[0.4em] drop-shadow-[0_6px_6px_rgba(3,3,9,.3)]"
+            className="h-full w-full drop-shadow-[0_6px_6px_rgba(3,3,9,.3)]"
             animate={{ rotate: 360 }}
             transition={{ duration: 18, ease: "linear", repeat: Infinity }}
           >
@@ -125,6 +131,7 @@ export default function Hero() {
             />
             <rect x="22" y="68" width="28" height="6" fill="#fff" />
           </motion.svg>
+          </motion.span>
         </div>
 
         <div className="mt-8 text-base md:hidden">
