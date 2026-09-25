@@ -29,7 +29,7 @@ export default function Timeline() {
     <section id="timeline" className="px-5 pb-28 md:px-8 md:pb-44">
       <Reveal>
         <h2 className="mb-10 font-display text-[clamp(2.8rem,6vw,5.4rem)] font-extrabold leading-none tracking-[-0.05em] [font-stretch:100%] md:mb-14">
-          Timeline
+          Projects Timeline
         </h2>
       </Reveal>
 
