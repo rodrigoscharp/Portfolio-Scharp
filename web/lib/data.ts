@@ -90,7 +90,6 @@ export const CASES: Case[] = [
       { value: "38k", label: "orders processed per month" },
     ],
     live: "https://munoapp.com.br",
-    caseHref: "#",
     layout: "full",
     dark: false,
   },
@@ -130,7 +129,6 @@ export const CASES: Case[] = [
       { value: "+100k", label: "residents reached by Ubatuba's digital innovation" },
       { value: "2", label: "national awards, incl. Smart City" },
     ],
-    caseHref: "#",
     layout: "full",
     dark: true,
   },
@@ -139,13 +137,13 @@ export const CASES: Case[] = [
 export type Row = {
   year: string;
   title: string;
-  cta: "case" | "live" | "repo" | "soon";
-  href: string;
+  cta?: "case" | "live" | "repo" | "soon";
+  href?: string;
   image?: string;
 };
 
 export const ROWS: Row[] = [
-  { year: "2026", title: "Ubatuba City Hall — Tech & Innovation", cta: "case", href: "#", image: "/images/prefeitura-hero.jpg" },
+  { year: "2026", title: "Ubatuba City Hall — Tech & Innovation", image: "/images/prefeitura-hero.jpg" },
   { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "live", href: "https://munoapp.com.br", image: "/images/muno-hero.jpg" },
   { year: "2026", title: "MyHub — Productivity SaaS", cta: "soon", href: "", image: "/images/myhub-hero.jpg" },
   { year: "2026", title: "PONTE — AAC App for Autistic Children", cta: "repo", href: "https://github.com/rodrigoscharp/PONTE" },

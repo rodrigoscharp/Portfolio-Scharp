@@ -11,7 +11,7 @@ import {
 import Reveal from "@/components/Reveal";
 import { ROWS, type Row } from "@/lib/data";
 
-const cta: Record<Row["cta"], { label: string; cls: string }> = {
+const cta: Record<NonNullable<Row["cta"]>, { label: string; cls: string }> = {
   case: { label: "Case Study", cls: "bg-[#eb6c34]" },
   live: { label: "Website Live", cls: "bg-black" },
   repo: { label: "View Repo", cls: "bg-accent-2" },
@@ -64,7 +64,7 @@ export default function Timeline() {
                 <span className="order-3 col-span-2 text-[19px] font-normal leading-snug md:order-none md:col-span-1 md:text-[22px]">
                   {r.title}
                 </span>
-                {r.cta === "soon" ? (
+                {!r.cta ? null : r.cta === "soon" ? (
                   <span
                     className={`order-2 cursor-default justify-self-end rounded-full px-5 py-2.5 text-[13px] tracking-[0.06em] text-white md:order-none md:px-7 md:py-3 ${cta[r.cta].cls}`}
                   >
@@ -73,7 +73,7 @@ export default function Timeline() {
                 ) : (
                   <a
                     href={r.href}
-                    target={r.href.startsWith("http") ? "_blank" : undefined}
+                    target={r.href?.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     className={`order-2 justify-self-end rounded-full px-5 py-2.5 text-[13px] tracking-[0.06em] text-white transition-transform duration-200 hover:scale-[1.04] md:order-none md:px-7 md:py-3 ${cta[r.cta].cls}`}
                   >

@@ -1,7 +1,7 @@
 import Reveal from "@/components/Reveal";
 import { ROWS, type Row } from "@/lib/data";
 
-const cta: Record<Row["cta"], { label: string; cls: string }> = {
+const cta: Record<NonNullable<Row["cta"]>, { label: string; cls: string }> = {
   case: { label: "Case Study", cls: "bg-[#eb6c34]" },
   live: { label: "Website Live", cls: "bg-black" },
   repo: { label: "View Repo", cls: "bg-accent-2" },
@@ -29,14 +29,14 @@ export default function WorkTable() {
               <span className="order-1 text-[17px] font-medium md:order-none md:text-[19px]">
                 {r.title}
               </span>
-              {r.cta === "soon" ? (
+              {!r.cta ? null : r.cta === "soon" ? (
                 <span className={`order-1 rounded-full px-5 py-1.5 text-[11px] tracking-[0.06em] text-white md:order-none ${cta[r.cta].cls}`}>
                   {cta[r.cta].label}
                 </span>
               ) : (
                 <a
                   href={r.href}
-                  target={r.href.startsWith("http") ? "_blank" : undefined}
+                  target={r.href?.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className={`order-1 rounded-full px-5 py-1.5 text-[11px] tracking-[0.06em] text-white transition-transform hover:scale-[1.05] md:order-none ${cta[r.cta].cls}`}
                 >

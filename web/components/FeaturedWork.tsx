@@ -111,12 +111,14 @@ function CaseCard({ c, i }: { c: Case; i: number }) {
                     Live Website
                   </a>
                 )}
-                <a
-                  href={c.caseHref}
-                  className={`${pill} bg-white text-ink hover:bg-ink hover:text-white`}
-                >
-                  View Case Study <ArrowUpRight className="h-4 w-4" />
-                </a>
+                {c.caseHref && (
+                  <a
+                    href={c.caseHref}
+                    className={`${pill} bg-white text-ink hover:bg-ink hover:text-white`}
+                  >
+                    View Case Study <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                )}
               </>
             )}
           </div>
