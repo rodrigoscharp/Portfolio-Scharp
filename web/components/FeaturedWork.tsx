@@ -25,6 +25,9 @@ function ReadMarquee({ text }: { text: string }) {
 }
 
 function Device({ kind, src }: { kind: Case["device"]; src: string }) {
+  if (kind === "art") {
+    return <Image src={src} alt="" fill sizes="(min-width:768px) 1400px, 100vw" className="object-cover" />;
+  }
   if (kind === "phone") {
     return (
       <div className="absolute bottom-[-18%] left-1/2 aspect-[9/19] h-[92%] -translate-x-1/2 rotate-[-4deg] rounded-[2.4rem] bg-[#0b0b0f] p-[10px] shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]">

@@ -60,7 +60,7 @@ export type Case = {
   headline: { text: string; bold?: boolean }[];
   tags: string[];
   bg: string;
-  device: "laptop" | "phone";
+  device: "laptop" | "phone" | "art";
   image: string;
   insights: { value: string; label: string }[];
   live?: string;
@@ -119,16 +119,16 @@ export const CASES: Case[] = [
     read: "[X] min Read",
     headline: [
       { text: "Ubatuba City Hall", bold: true },
-      { text: ": modernizing public digital services for " },
-      { text: "[MÉTRICA] citizens", bold: true },
+      { text: ": one of the people behind Ubatuba's digital innovation, reaching " },
+      { text: "+100k residents", bold: true },
     ],
     tags: ["GOVTECH", "WEB", "INNOVATION"],
     bg: "#000000",
-    device: "laptop",
-    image: "/images/prefeitura-hero.svg",
+    device: "art",
+    image: "/images/prefeitura-art.svg",
     insights: [
-      { value: "[MÉTRICA]", label: "[descrição da métrica]" },
-      { value: "[MÉTRICA]", label: "[descrição da métrica]" },
+      { value: "+100k", label: "residents reached by Ubatuba's digital innovation" },
+      { value: "2", label: "national awards, incl. Smart City" },
     ],
     caseHref: "#",
     layout: "full",
@@ -145,7 +145,7 @@ export type Row = {
 };
 
 export const ROWS: Row[] = [
-  { year: "2026", title: "Ubatuba City Hall — Tech & Innovation", cta: "case", href: "#", image: "/images/prefeitura-hero.svg" },
+  { year: "2026", title: "Ubatuba City Hall — Tech & Innovation", cta: "case", href: "#", image: "/images/prefeitura-art.svg" },
   { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "live", href: "https://munoapp.com.br", image: "/images/muno-hero.jpg" },
   { year: "2026", title: "MyHub — Productivity SaaS", cta: "soon", href: "", image: "/images/myhub-hero.jpg" },
   { year: "2026", title: "PONTE — AAC App for Autistic Children", cta: "repo", href: "https://github.com/rodrigoscharp/PONTE" },
