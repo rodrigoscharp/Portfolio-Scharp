@@ -18,7 +18,7 @@ export default function AboutPage() {
               alt="Rodrigo Scharp"
               fill
               priority
-              sizes="(min-width:768px) 560px, 100vw"
+              sizes="(min-width:768px) 1400px, 100vw"
               className="object-cover object-[52%_25%]"
             />
           </div>

@@ -13,11 +13,11 @@ export default function Intro() {
           Hi, I&apos;m{" "}
           <span className="relative mx-[0.08em] inline-block h-[1.05em] w-[1.05em] overflow-hidden rounded-[0.18em] align-[-0.2em]">
             <Image
-              src={SITE.portrait}
+              src={SITE.square}
               alt="Rodrigo Scharp"
               fill
-              sizes="80px"
-              className="object-cover object-[52%_22%]"
+              sizes="200px"
+              className="object-cover"
             />
           </span>{" "}
           Rodrigo <PeaceHand className={icon} strokeWidth={1.9} />, building

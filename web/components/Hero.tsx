@@ -34,7 +34,7 @@ function HeroCard() {
           src={SITE.portrait}
           alt=""
           fill
-          sizes="300px"
+          sizes="640px"
           className="object-cover object-[52%_25%]"
         />
       </div>
@@ -83,11 +83,11 @@ export default function Hero() {
           <Word i={5}>
             <span className="relative mx-[0.06em] inline-block h-[0.76em] w-[0.42em] overflow-hidden rounded-full align-baseline">
               <Image
-                src={SITE.portrait}
+                src={SITE.capsule}
                 alt="Rodrigo Scharp"
                 fill
-                sizes="80px"
-                className="object-cover object-[52%_20%]"
+                sizes="260px"
+                className="object-cover"
               />
             </span>
           </Word>

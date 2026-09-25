@@ -5,6 +5,8 @@ export const SITE = {
   github: "https://github.com/rodrigoscharp",
   startYear: "2023",
   portrait: "/images/rodrigo-portrait.jpg",
+  capsule: "/images/rodrigo-capsule.jpg",
+  square: "/images/rodrigo-square.jpg",
 };
 
 export const CV_PDF = "/RodrigoScharpCV-ENG.pdf";
