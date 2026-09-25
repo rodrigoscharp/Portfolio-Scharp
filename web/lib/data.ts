@@ -1,18 +1,23 @@
 export const SITE = {
   name: "Rodrigo Scharp",
   email: "rodrigoscharp@gmail.com",
-  linkedin: "https://www.linkedin.com/in/rodrigo-scharp-8728a7277",
+  linkedin: "https://www.linkedin.com/in/rodrigoscharp",
   github: "https://github.com/rodrigoscharp",
   startYear: "2023",
   portrait: "/images/rodrigo-portrait.jpg",
 };
 
+export const CV_PDF = "/RodrigoScharpCV-ENG.pdf";
+
 export const NAV = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Resume", href: "#timeline" },
-  { label: "Contact", href: "#contact" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Resume", href: "/resume" },
+  { label: "Contact", href: "/#contact" },
 ];
+
+/* Drop workspace photos in /public/images/setup and list them here. */
+export const SETUP_IMAGES: { src: string; alt: string }[] = [];
 
 export type Skill = {
   label: string;

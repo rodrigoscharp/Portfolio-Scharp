@@ -45,7 +45,7 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: "Rodrigo Scharp — Java Back-end Engineer",
   description:
-    "Java Back-end Engineer (Spring Boot, AWS, Docker). Founder/CTO at Muno and founder of Bitwise Software Solutions.",
+    "Java back-end engineer (Spring Boot, AWS, Docker), Founder & CTO at Muno App and Project Manager at the Municipality of Ubatuba.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
