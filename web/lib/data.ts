@@ -49,6 +49,7 @@ export const SKILLS: Skill[] = [
   { label: "PostgreSQL", style: "filled" },
   { label: "System Design", style: "rot-left" },
   { label: "APIs REST", style: "circle-sm" },
+  { label: "MySQL", style: "circle-sm" },
   { label: "Leadership", style: "bold" },
   { label: "Product Thinking", style: "rot-right" },
   { label: "&", style: "circle-lg" },
