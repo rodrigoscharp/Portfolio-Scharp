@@ -122,3 +122,19 @@ export const EVENTS: EventSlide[] = [
     ink: "#ffffff",
   },
 ];
+
+export const TEASERS = [
+  "Do Litoral Norte pro Brasil inteiro, um palco de cada vez.",
+  "Onde tem dev reunido, eu costumo aparecer.",
+  "Crachá no pescoço, café na mão e a agenda cheia.",
+  "Prefeitura, startup e código: tudo passa por um palco.",
+  "Networking é só conversa boa com café frio.",
+  "Nem todo evento é sobre código. Alguns são sobre gente.",
+  "Passei por aqui. Volta comigo?",
+  "Muita palestra, pouca cadeira. Sempre.",
+];
+
+export function parseFocus(focus: string): [number, number] {
+  const [x, y] = focus.split(" ").map((v) => parseFloat(v) / 100);
+  return [x, y];
+}
