@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRight } from "@/components/Icons";
 import { CASES, type Case } from "@/lib/data";
@@ -68,39 +67,58 @@ function CaseCard({ c, i }: { c: Case; i: number }) {
           <ReadMarquee text={c.read} />
           <Device kind={c.device} src={c.image} />
 
-          <div className="absolute left-0 top-6 z-10 w-[clamp(170px,16vw,250px)] rounded-br-[12px] md:bottom-0 md:top-auto md:rounded-br-none md:rounded-tr-[12px] bg-white/20 p-4 text-white backdrop-blur-md">
+          <div className="absolute left-0 top-6 z-10 w-[clamp(170px,16vw,250px)] rounded-br-[12px] bg-white/20 p-4 text-white backdrop-blur-md md:bottom-0 md:top-auto md:rounded-br-none md:rounded-tr-[12px]">
             <p className="text-[10px] font-light uppercase tracking-[0.9px]">
-              Insights
+              {c.soon ? "Status" : "Insights"}
             </p>
-            {c.insights.map((m, k) => (
-              <div key={k} className={k > 0 ? "mt-3 hidden sm:block" : "mt-1"}>
+            {c.soon ? (
+              <div className="mt-1">
                 <p className="text-[clamp(1.5rem,2.6vw,2.5rem)] font-bold leading-none">
-                  {m.value}
+                  Coming soon
                 </p>
                 <p className="mt-1 text-[11px] font-light leading-tight opacity-90">
-                  {m.label}
+                  em breve
                 </p>
               </div>
-            ))}
+            ) : (
+              c.insights.map((m, k) => (
+                <div key={k} className={k > 0 ? "mt-3 hidden sm:block" : "mt-1"}>
+                  <p className="text-[clamp(1.5rem,2.6vw,2.5rem)] font-bold leading-none">
+                    {m.value}
+                  </p>
+                  <p className="mt-1 text-[11px] font-light leading-tight opacity-90">
+                    {m.label}
+                  </p>
+                </div>
+              ))
+            )}
           </div>
 
           <div className="absolute bottom-3 right-3 z-10 flex flex-wrap justify-end gap-2">
-            {c.live && (
-              <motion.a
-                href={c.live}
-                target={c.live.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className={`${pill} border border-white/50 bg-white/25 text-white backdrop-blur hover:bg-white hover:text-ink`}
-              >
-                Live Website
-              </motion.a>
+            {c.soon ? (
+              <span className={`${pill} cursor-default border border-white/50 bg-white/25 text-white backdrop-blur hover:scale-100`}>
+                Coming soon · Em breve
+              </span>
+            ) : (
+              <>
+                {c.live && (
+                  <a
+                    href={c.live}
+                    target={c.live.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className={`${pill} border border-white/50 bg-white/25 text-white backdrop-blur hover:bg-white hover:text-ink`}
+                  >
+                    Live Website
+                  </a>
+                )}
+                <a
+                  href={c.caseHref}
+                  className={`${pill} bg-white text-ink hover:bg-ink hover:text-white`}
+                >
+                  View Case Study <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </>
             )}
-            <a
-              href={c.caseHref}
-              className={`${pill} bg-white text-ink hover:bg-ink hover:text-white`}
-            >
-              View Case Study <ArrowUpRight className="h-4 w-4" />
-            </a>
           </div>
         </div>
 

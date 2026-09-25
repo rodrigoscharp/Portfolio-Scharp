@@ -53,7 +53,8 @@ export type Case = {
   image: string;
   insights: { value: string; label: string }[];
   live?: string;
-  caseHref: string;
+  caseHref?: string;
+  soon?: boolean;
   layout: "full" | "half";
   dark: boolean;
 };
@@ -85,20 +86,19 @@ export const CASES: Case[] = [
   {
     slug: "myhub",
     n: "02",
-    read: "[X] min Read",
+    read: "Coming soon ✦ Em breve",
     headline: [
       { text: "MyHub", bold: true },
-      { text: ": a local-first productivity app powered by a " },
-      { text: "local LLM", bold: true },
-      { text: " called Beto" },
+      { text: ": a low-ticket productivity SaaS to run your " },
+      { text: "whole routine", bold: true },
+      { text: " in one place" },
     ],
-    tags: ["WEB", "LOCAL-FIRST", "LLM"],
+    tags: ["WEB", "SAAS", "PRODUCTIVITY"],
     bg: "linear-gradient(135deg,#9342fc 0%,#5b21b6 100%)",
     device: "laptop",
     image: "/images/myhub-hero.jpg",
-    insights: [{ value: "[MÉTRICA]", label: "[descrição da métrica]" }],
-    live: "https://github.com/rodrigoscharp/WorkFlow",
-    caseHref: "https://github.com/rodrigoscharp/WorkFlow",
+    insights: [],
+    soon: true,
     layout: "full",
     dark: false,
   },
@@ -128,7 +128,7 @@ export const CASES: Case[] = [
 export type Row = {
   year: string;
   title: string;
-  cta: "case" | "live" | "repo";
+  cta: "case" | "live" | "repo" | "soon";
   href: string;
   image?: string;
 };
@@ -136,7 +136,7 @@ export type Row = {
 export const ROWS: Row[] = [
   { year: "2026", title: "Ubatuba City Hall — Tech & Innovation", cta: "case", href: "#", image: "/images/prefeitura-hero.svg" },
   { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "live", href: "https://munoapp.com.br", image: "/images/muno-hero.jpg" },
-  { year: "2025", title: "MyHub — Local-first Productivity", cta: "case", href: "https://github.com/rodrigoscharp/WorkFlow", image: "/images/myhub-hero.jpg" },
+  { year: "2026", title: "MyHub — Productivity SaaS", cta: "soon", href: "", image: "/images/myhub-hero.jpg" },
   { year: "2026", title: "PONTE — AAC App for Autistic Children", cta: "repo", href: "https://github.com/rodrigoscharp/PONTE" },
   { year: "2025", title: "Athena Matching Engine", cta: "repo", href: "https://github.com/rodrigoscharp/Athena-Matching-Engine" },
   { year: "2025", title: "HelpNote IA", cta: "repo", href: "https://github.com/rodrigoscharp/HelpNote_-IA" },
