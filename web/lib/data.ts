@@ -82,7 +82,7 @@ export const CASES: Case[] = [
   {
     slug: "muno",
     n: "01",
-    read: "5 min Read",
+    read: "Restaurantes",
     headline: [
       { text: "Muno", bold: true },
       { text: ": a POS & digital menu platform serving " },
@@ -105,7 +105,7 @@ export const CASES: Case[] = [
   {
     slug: "myhub",
     n: "02",
-    read: "Coming soon ✦ Em breve",
+    read: "Produtividade",
     headline: [
       { text: "MyHub", bold: true },
       { text: ": a low-ticket productivity SaaS to run your " },
@@ -125,7 +125,7 @@ export const CASES: Case[] = [
   {
     slug: "prefeitura",
     n: "03",
-    read: "[X] min Read",
+    read: "Inovação",
     headline: [
       { text: "Ubatuba City Hall", bold: true },
       { text: ": one of the people behind Ubatuba's digital innovation, reaching " },

@@ -228,7 +228,7 @@ function CaseCard({ c, i }: { c: Case; i: number }) {
 
 export default function FeaturedWork() {
   return (
-    <section id="work" className="px-[clamp(12px,1.5vw,22px)] pb-24 md:pb-40">
+    <section id="work" className="mx-auto max-w-[1434px] px-[clamp(12px,1.5vw,22px)] pb-24 md:pb-40">
       <Reveal>
         <h2 className="display mb-[clamp(10px,2vw,28px)] whitespace-nowrap text-[clamp(2.6rem,10.4vw,10.4rem)]">
           Featured Work
