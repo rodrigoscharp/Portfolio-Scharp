@@ -39,8 +39,8 @@ function HeroCard() {
         />
       </div>
       <p className="px-2 pb-2 pt-3 text-[13px] leading-snug text-ink-soft">
-        Java e Spring Boot: back-end que{" "}
-        <span className="font-semibold text-accent">escala</span> e roda em produção.
+        Do banco à nuvem: APIs Java simples de manter e{" "}
+        <span className="font-semibold text-accent">confiáveis</span>.
       </p>
     </motion.aside>
   );
