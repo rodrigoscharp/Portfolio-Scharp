@@ -57,21 +57,25 @@ export const SKILLS: Skill[] = [
   { label: "&", style: "circle-lg" },
 ];
 
+export type Slide = {
+  kind: "laptop" | "phone" | "art";
+  image: string;
+  bg: string;
+};
+
 export type Case = {
   slug: string;
   n: string;
   read: string;
   headline: { text: string; bold?: boolean }[];
   tags: string[];
-  bg: string;
-  device: "laptop" | "phone";
+  slides: Slide[];
   image: string;
   insights: { value: string; label: string }[];
   live?: string;
   caseHref?: string;
   soon?: boolean;
   layout: "full" | "half";
-  dark: boolean;
 };
 
 export const CASES: Case[] = [
@@ -85,8 +89,10 @@ export const CASES: Case[] = [
       { text: "120+ restaurants", bold: true },
     ],
     tags: ["WEB", "MOBILE", "SAAS"],
-    bg: "linear-gradient(135deg,#fd601a 0%,#d93f00 100%)",
-    device: "laptop",
+    slides: [
+      { kind: "laptop", image: "/images/muno-hero.jpg", bg: "linear-gradient(135deg,#fd601a 0%,#d93f00 100%)" },
+      { kind: "phone", image: "/images/muno-mobile.jpg", bg: "linear-gradient(135deg,#1f3d33 0%,#0d1f19 100%)" },
+    ],
     image: "/images/muno-hero.jpg",
     // FAKE numbers: placeholders until the real Muno metrics are filled in
     insights: [
@@ -95,7 +101,6 @@ export const CASES: Case[] = [
     ],
     live: "https://munoapp.com.br",
     layout: "full",
-    dark: false,
   },
   {
     slug: "myhub",
@@ -108,13 +113,14 @@ export const CASES: Case[] = [
       { text: " in one place" },
     ],
     tags: ["WEB", "SAAS", "PRODUCTIVITY"],
-    bg: "linear-gradient(135deg,#9342fc 0%,#5b21b6 100%)",
-    device: "laptop",
+    slides: [
+      { kind: "laptop", image: "/images/myhub-hero.jpg", bg: "linear-gradient(135deg,#9342fc 0%,#5b21b6 100%)" },
+      { kind: "phone", image: "/images/myhub-menu.jpg", bg: "linear-gradient(135deg,#b8f04f 0%,#6fae1f 100%)" },
+    ],
     image: "/images/myhub-hero.jpg",
     insights: [],
     soon: true,
-    layout: "full",
-    dark: false,
+    layout: "half",
   },
   {
     slug: "prefeitura",
@@ -126,15 +132,16 @@ export const CASES: Case[] = [
       { text: "+100k residents", bold: true },
     ],
     tags: ["GOVTECH", "WEB", "INNOVATION"],
-    bg: "linear-gradient(135deg,#0b1f33 0%,#1d5a85 100%)",
-    device: "laptop",
+    slides: [
+      { kind: "laptop", image: "/images/prefeitura-hero.jpg", bg: "linear-gradient(135deg,#0b1f33 0%,#1d5a85 100%)" },
+      { kind: "art", image: "/images/prefeitura-phone.jpg", bg: "#0b1f33" },
+    ],
     image: "/images/prefeitura-hero.jpg",
     insights: [
       { value: "+100k", label: "residents reached by Ubatuba's digital innovation" },
       { value: "2", label: "national awards, incl. Smart City" },
     ],
-    layout: "full",
-    dark: true,
+    layout: "half",
   },
 ];
 
