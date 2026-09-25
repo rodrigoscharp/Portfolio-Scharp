@@ -17,7 +17,13 @@ export const NAV = [
 ];
 
 /* Drop workspace photos in /public/images/setup and list them here. */
-export const SETUP_IMAGES: { src: string; alt: string }[] = [];
+export const SETUP_IMAGES: { src: string; alt: string }[] = [
+  { src: "/images/setup/setup-1.jpg", alt: "Desk with mechanical keyboard, mouse and microphone under a curved monitor" },
+  { src: "/images/setup/setup-2.jpg", alt: "Dark home office with three monitors, laptop and softbox light" },
+  { src: "/images/setup/setup-3.jpg", alt: "Purple-lit desk with two monitors, keyboard and microphone" },
+  { src: "/images/setup/setup-4.jpg", alt: "Ultrawide monitor and laptop running code, notebook on the desk" },
+  { src: "/images/setup/setup-5.jpg", alt: "Wooden desk with curved monitor, laptop, tablet and softbox light" },
+];
 
 export type Skill = {
   label: string;

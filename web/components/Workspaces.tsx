@@ -3,16 +3,20 @@ import { SETUP_IMAGES } from "@/lib/data";
 const PLACEHOLDER_WIDTHS = ["w-[190px]", "w-[520px]", "w-[440px]", "w-[190px]", "w-[500px]", "w-[440px]"];
 
 export default function Workspaces() {
+  /* photos repeat inside a group so one group is always wider than the viewport */
   const items = SETUP_IMAGES.length
-    ? SETUP_IMAGES.map((img) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={img.src}
-          src={img.src}
-          alt={img.alt}
-          className="h-[240px] w-auto max-w-none rounded-xl object-cover md:h-[310px]"
-        />
-      ))
+    ? [0, 1, 2].flatMap((n) =>
+        SETUP_IMAGES.map((img) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={`${n}-${img.src}`}
+            src={img.src}
+            alt={n === 0 ? img.alt : ""}
+            loading="lazy"
+            className="h-[300px] w-auto max-w-none rounded-xl object-cover md:h-[430px]"
+          />
+        )),
+      )
     : PLACEHOLDER_WIDTHS.map((w, i) => (
         <div
           key={i}
