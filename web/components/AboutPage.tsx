@@ -26,14 +26,14 @@ export default function AboutPage() {
 
         <Reveal delay={0.1}>
           <h1 className="text-[clamp(2rem,4.2vw,3.6rem)] font-semibold leading-[1.12] tracking-[-0.02em]">
-            Back-end Engineer,
+            Software Engineer,
             <br />
             Founder &amp; CTO,
             <br />
             Public-tech Project Manager
           </h1>
           <p className="mt-8 max-w-[52ch] text-[15px] font-light leading-relaxed">
-            I&apos;m Rodrigo, a Java back-end engineer from Ubatuba, São Paulo,
+            I&apos;m Rodrigo, a Java software engineer from Ubatuba, São Paulo,
             Brazil, with <b className="font-semibold">4+ years</b> designing and
             delivering production systems across the public sector, fintech and
             food-tech, using Java 21, Spring Boot 3, PostgreSQL, RabbitMQ and
