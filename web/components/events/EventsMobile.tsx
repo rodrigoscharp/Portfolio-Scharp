@@ -11,7 +11,7 @@ const INTRO = { bg: "#0d0d0d", accent: "#46647f", ink: "#ffffff" };
 const N = EVENTS.length;
 
 const titleSize = (len: number, mobile: boolean) => {
-  const vw = len <= 8 ? 9.4 : len <= 11 ? 8 : 6.6;
+  const vw = len <= 8 ? 8 : len <= 11 ? 6.8 : 5.6;
   return mobile ? `min(${vw * 1.5}vw, 4.4rem)` : `min(${vw}vw, 9.4rem)`;
 };
 
@@ -139,7 +139,7 @@ export default function EventsMobile() {
 
   return (
     <div
-      className="fixed inset-0 select-none overflow-hidden font-[family-name:var(--font-jakarta)]"
+      className="fixed inset-0 select-none overflow-hidden font-[family-name:var(--font-poppins)]"
       style={{ color: ink }}
     >
       <motion.div
@@ -227,7 +227,7 @@ export default function EventsMobile() {
               exit={{ opacity: 0, y: -20, transition: { duration: 0.35 } }}
             >
               <h1
-                className="font-[family-name:var(--font-dmserif)] text-[clamp(3.2rem,8.6vw,7.6rem)] leading-none"
+                className="events-title text-[clamp(2.8rem,7.4vw,6.6rem)] leading-none"
                 style={{ color: accent, WebkitTextStroke: "0.02em currentColor" }}
               >
                 Events
@@ -244,7 +244,7 @@ export default function EventsMobile() {
               exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
             >
               <h2
-                className="whitespace-nowrap font-[family-name:var(--font-dmserif)] leading-[0.98]"
+                className="whitespace-nowrap events-title leading-[0.98]"
                 style={{
                   color: accent,
                   WebkitTextStroke: "0.02em currentColor",

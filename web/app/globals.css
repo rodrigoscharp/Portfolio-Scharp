@@ -98,6 +98,14 @@ body {
   text-transform: uppercase;
 }
 
+/* Events page titles: same Archivo family as the home headings, slightly narrower so long names fit */
+.events-title {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 900;
+  font-stretch: 100%;
+  letter-spacing: -0.03em;
+}
+
 .dotmatrix {
   font-family: var(--font-doto), monospace;
   font-weight: 900;

@@ -309,7 +309,7 @@ function Loader({
         <div>
           <div className="relative" style={item(0)}>
             <h1
-              className="font-[family-name:var(--font-dmserif)] text-[clamp(3.4rem,8vw,7.4rem)] leading-none"
+              className="events-title text-[clamp(3rem,7vw,6.6rem)] leading-none"
               style={{ color: "transparent", WebkitTextStroke: `2px ${LOADER_ACCENT}` }}
             >
               Events
@@ -320,7 +320,7 @@ function Loader({
               style={{ clipPath: fillClip }}
             >
               <span
-                className="block font-[family-name:var(--font-dmserif)] text-[clamp(3.4rem,8vw,7.4rem)] leading-none"
+                className="block events-title text-[clamp(3rem,7vw,6.6rem)] leading-none"
                 style={{ color: LOADER_ACCENT }}
               >
                 Events
@@ -335,7 +335,7 @@ function Loader({
           </p>
         </div>
         <p
-          className="max-w-[450px] rounded-[31.5px] rounded-bl-none border border-white/5 bg-white/10 px-[30px] py-[22px] font-[system-ui] text-[18px] italic leading-[1.5em] text-white"
+          className="max-w-[450px] rounded-[31.5px] rounded-bl-none border border-white/5 bg-white/10 px-[30px] py-[22px] text-[18px] leading-[1.5em] text-white"
           style={item(2)}
         >
           {teaser}
@@ -595,9 +595,12 @@ export default function EventsShow() {
     );
   }
 
-  const titleStyle = (fill: boolean, color: string): React.CSSProperties => ({
-    fontFamily: "var(--font-dmserif), serif",
-    fontSize: "9.375vw",
+  const titleStyle = (fill: boolean, color: string, len: number): React.CSSProperties => ({
+    fontFamily: "var(--font-archivo), sans-serif",
+    fontWeight: 900,
+    fontStretch: "100%",
+    letterSpacing: "-0.03em",
+    fontSize: len <= 8 ? "7vw" : len <= 11 ? "6.1vw" : "5.3vw",
     lineHeight: "1em",
     marginBottom: "0.91vw",
     color: fill ? color : "transparent",
@@ -616,7 +619,7 @@ export default function EventsShow() {
       }}
     >
       <div>
-        <div style={titleStyle(fill, ev.accent)}>{ev.title}</div>
+        <div style={titleStyle(fill, ev.accent, ev.title.length)}>{ev.title}</div>
         <div
           className={`${wide ? "text-[24px]" : "text-[20px]"} font-normal leading-[1.6em]`}
           style={{ maxWidth: wide ? 700 : 580, visibility: fill ? "hidden" : "visible" }}
@@ -643,7 +646,7 @@ export default function EventsShow() {
 
   return (
     <div
-      className="fixed inset-0 select-none overflow-hidden font-[family-name:var(--font-jakarta)] text-white"
+      className="fixed inset-0 select-none overflow-hidden font-[family-name:var(--font-poppins)] text-white"
       style={{ background: LOADER_BG }}
     >
       {/* background */}
