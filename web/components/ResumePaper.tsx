@@ -14,7 +14,7 @@ const sub = "mb-1 text-[11px] font-semibold";
 export default function ResumePaper() {
   return (
     <div className="mx-auto max-w-[1040px] px-3 md:px-6">
-      <article className="rounded-[26px] border border-[#eb6c34]/70 bg-[#fffdf7] p-6 shadow-[0_18px_50px_-24px_rgba(235,108,52,.35)] md:p-12">
+      <article className="rounded-[26px] border border-[#eb6c34]/70 bg-paper p-6 shadow-[0_18px_50px_-24px_rgba(235,108,52,.35)] md:p-12">
         <div className="grid gap-8 md:grid-cols-[1.6fr_1fr] md:gap-10">
           <header>
             <h1 className="text-[clamp(1.5rem,2.6vw,2.1rem)] font-bold uppercase leading-none">

@@ -1,15 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ff8a4d"/>
-      <stop offset="1" stop-color="#e2451a"/>
+      <stop offset="0" stop-color="#1b1b26"/>
+      <stop offset="1" stop-color="#030309"/>
     </linearGradient>
-    <linearGradient id="knob" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#e4e0d4"/>
+    <linearGradient id="s" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffa257"/>
+      <stop offset="0.55" stop-color="#fd601a"/>
+      <stop offset="1" stop-color="#e2381a"/>
     </linearGradient>
+    <radialGradient id="glow" cx="0.3" cy="0.15" r="0.9">
+      <stop offset="0" stop-color="#fd601a" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#fd601a" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="64" height="64" rx="15" fill="url(#bg)"/>
-  <rect x="9" y="20" width="46" height="24" rx="12" fill="#030309"/>
-  <circle cx="43" cy="32" r="8.5" fill="url(#knob)"/>
+  <rect width="64" height="64" rx="15" fill="url(#glow)"/>
+  <path d="M43.5 19.5C40 14.5 21 13.5 21 24.5C21 35.5 43 28.5 43 40C43 50.5 24 50.5 20 44.5"
+        fill="none" stroke="url(#s)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="51" cy="52" r="4" fill="#fffcf3"/>
 </svg>
