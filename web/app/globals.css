@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fffcf3;
+  --ink: #030309;
+  --ink-soft: #222222;
+  --paper: #fcfaf8;
+  --accent: #fd601a;
+  --accent-2: #9342fc;
+  --success: #3cb04c;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-success: var(--success);
+  --font-sans: var(--font-poppins);
+  --font-doto: var(--font-doto);
+  --font-display: var(--font-archivo);
+  --font-serif: var(--font-instrument);
+  --font-mono: var(--font-space-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* wide, heavy grotesque used for every big display line */
+.display {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 900;
+  font-stretch: 125%;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+}
+
+.display-tight {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 900;
+  font-stretch: 88%;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.dotmatrix {
+  font-family: var(--font-doto), monospace;
+  font-weight: 900;
+  font-variation-settings: "ROND" 100;
+}
+
+@keyframes marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+@keyframes sticker-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
