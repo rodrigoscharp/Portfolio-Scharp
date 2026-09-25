@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import {
   Archivo,
+  DM_Serif_Display,
   Doto,
   Instrument_Serif,
+  Plus_Jakarta_Sans,
   Poppins,
   Space_Mono,
 } from "next/font/google";
@@ -36,6 +38,18 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
 });
 
+const dmSerif = DM_Serif_Display({
+  variable: "--font-dmserif",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
 const spaceMono = Space_Mono({
   variable: "--font-space-mono",
   subsets: ["latin"],
@@ -52,7 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${doto.variable} ${archivo.variable} ${instrumentSerif.variable} ${spaceMono.variable}`}
+      className={`${poppins.variable} ${doto.variable} ${archivo.variable} ${instrumentSerif.variable} ${spaceMono.variable} ${dmSerif.variable} ${jakarta.variable}`}
     >
       <body>
         <Providers>

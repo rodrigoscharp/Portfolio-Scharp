@@ -11,6 +11,7 @@ export const CV_PDF = "/RodrigoScharpCV-ENG.pdf";
 
 export const NAV = [
   { label: "Work", href: "/work" },
+  { label: "Events", href: "/events" },
   { label: "About", href: "/about" },
   { label: "Resume", href: "/resume" },
   { label: "Contact", href: "/#contact" },
