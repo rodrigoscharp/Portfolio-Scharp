@@ -1,19 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 
-/* Inline "O" replacement: a chunky 3D switch sized in em so it tracks the display type. */
+const isDark = () => document.documentElement.dataset.theme === "dark";
+
+function subscribe(cb: () => void) {
+  const obs = new MutationObserver(cb);
+  obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  return () => obs.disconnect();
+}
+
+/* Inline "O" replacement: a chunky 3D switch sized in em so it tracks the display type.
+   On = dark mode. Theme lives on <html data-theme>, persisted in localStorage. */
 export default function Toggle3D() {
-  const [on, setOn] = useState(false);
+  const on = useSyncExternalStore(subscribe, isDark, () => false);
+
+  const toggle = useCallback(() => {
+    const root = document.documentElement;
+    const next = !isDark();
+    root.classList.add("theme-fade");
+    if (next) root.dataset.theme = "dark";
+    else delete root.dataset.theme;
+    try {
+      localStorage.setItem("theme", next ? "dark" : "light");
+    } catch {}
+    window.setTimeout(() => root.classList.remove("theme-fade"), 450);
+  }, []);
 
   return (
     <motion.button
       type="button"
       role="switch"
       aria-checked={on}
-      aria-label="Toggle"
-      onClick={() => setOn((v) => !v)}
+      aria-label="Dark mode"
+      onClick={toggle}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
       className="relative mx-[0.04em] inline-block h-[0.74em] w-[1.6em] shrink-0 cursor-pointer rounded-full align-baseline"

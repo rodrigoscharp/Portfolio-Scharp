@@ -16,8 +16,8 @@ function Cursor3D({ className = "" }: { className?: string }) {
     >
       <defs>
         <linearGradient id="cur" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#3a3a40" />
-          <stop offset="1" stopColor="#030309" />
+          <stop offset="0" style={{ stopColor: "var(--cursor-a)" }} />
+          <stop offset="1" style={{ stopColor: "var(--cursor-b)" }} />
         </linearGradient>
         <filter id="curShadow" x="-20%" y="-20%" width="150%" height="150%">
           <feDropShadow dx="4" dy="8" stdDeviation="5" floodColor="#000" floodOpacity=".28" />
@@ -26,8 +26,7 @@ function Cursor3D({ className = "" }: { className?: string }) {
       <g filter="url(#curShadow)">
         <path
           d="M14 8 108 62 66 76 90 126 68 136 44 86 14 114Z"
-          fill="#f4f4f4"
-          stroke="#f4f4f4"
+          style={{ fill: "var(--cursor-halo)", stroke: "var(--cursor-halo)" }}
           strokeWidth="14"
           strokeLinejoin="round"
         />
@@ -49,8 +48,7 @@ function BigHand({ className = "" }: { className?: string }) {
       aria-hidden
       viewBox="0 0 24 24"
       className={className}
-      fill="#fffcf3"
-      stroke="#030309"
+      style={{ fill: "var(--bg)", stroke: "var(--ink)" }}
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"

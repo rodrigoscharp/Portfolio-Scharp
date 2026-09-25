@@ -56,11 +56,17 @@ export default function Dots({ className = "", count = 230 }: { className?: stri
       });
     };
 
+    const readColor = () =>
+      getComputedStyle(document.documentElement).getPropertyValue("--ink-soft").trim() || "#222";
+    let dotColor = readColor();
+    const themeObs = new MutationObserver(() => (dotColor = readColor()));
+    themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
     const draw = (t: number) => {
       const dt = Math.min((t - last) / 1000, 0.05);
       last = t;
       g.clearRect(0, 0, w, h);
-      g.fillStyle = "#222";
+      g.fillStyle = dotColor;
       for (const d of dots) {
         if (!reduce) {
           d.x += d.vx * dt;
@@ -126,6 +132,7 @@ export default function Dots({ className = "", count = 230 }: { className?: stri
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
+      themeObs.disconnect();
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };

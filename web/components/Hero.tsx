@@ -27,7 +27,7 @@ function HeroCard() {
       initial={{ opacity: 0, y: 24, rotate: 3 }}
       animate={{ opacity: 1, y: 0, rotate: 0 }}
       transition={{ duration: 0.9, delay: 0.5, ease }}
-      className="w-[min(24vw,300px)] shrink-0 rounded-2xl bg-white/70 p-2 text-[14px] shadow-[0_10px_30px_-12px_rgba(3,3,9,.25)] ring-1 ring-black/5 backdrop-blur max-md:w-full"
+      className="w-[min(24vw,300px)] shrink-0 rounded-2xl bg-paper/70 p-2 text-[14px] shadow-[0_10px_30px_-12px_rgba(3,3,9,.25)] ring-1 ring-ink/5 backdrop-blur max-md:w-full"
     >
       <div className="relative aspect-[16/8] overflow-hidden rounded-xl">
         <Image

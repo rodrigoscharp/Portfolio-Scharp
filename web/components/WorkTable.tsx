@@ -3,7 +3,7 @@ import { ROWS, type Row } from "@/lib/data";
 
 const cta: Record<NonNullable<Row["cta"]>, { label: string; cls: string }> = {
   case: { label: "Case Study", cls: "bg-[#eb6c34]" },
-  live: { label: "Website Live", cls: "bg-black" },
+  live: { label: "Website Live", cls: "bg-ink text-bg!" },
   repo: { label: "View Repo", cls: "bg-accent-2" },
   soon: { label: "Em breve", cls: "bg-ink/35" },
 };

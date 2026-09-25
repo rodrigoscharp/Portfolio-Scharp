@@ -81,7 +81,7 @@ export default function Cursor() {
               <path id="ring" d="M60 60 m-40 0 a40 40 0 1 1 80 0 a40 40 0 1 1 -80 0" />
             </defs>
             <text
-              fill="#030309"
+              className="fill-ink"
               fontSize="10"
               fontWeight="500"
               letterSpacing="3.2"

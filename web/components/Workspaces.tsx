@@ -20,7 +20,7 @@ export default function Workspaces() {
     : PLACEHOLDER_WIDTHS.map((w, i) => (
         <div
           key={i}
-          className={`${w} grid h-[240px] shrink-0 place-items-center rounded-xl border border-dashed border-ink/25 bg-gradient-to-br from-[#efe9d8] to-[#e3dcc8] text-[12px] font-light uppercase tracking-[0.9px] text-ink/50 md:h-[310px]`}
+          className={`${w} grid h-[240px] shrink-0 place-items-center rounded-xl border border-dashed border-ink/25 bg-gradient-to-br from-ink/5 to-ink/10 text-[12px] font-light uppercase tracking-[0.9px] text-ink/50 md:h-[310px]`}
         >
           Setup photo {i + 1}
         </div>

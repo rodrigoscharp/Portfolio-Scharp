@@ -8,6 +8,21 @@
   --accent: #fd601a;
   --accent-2: #9342fc;
   --success: #3cb04c;
+  --cursor-a: #3a3a40;
+  --cursor-b: #030309;
+  --cursor-halo: #f4f4f4;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --bg: #0e0e13;
+  --ink: #f4f1e8;
+  --ink-soft: #d6d3ca;
+  --paper: #1a1a21;
+  --cursor-a: #ffffff;
+  --cursor-b: #cfcfd6;
+  --cursor-halo: #0e0e13;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -28,6 +43,11 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+}
+
+html.theme-fade,
+html.theme-fade body {
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body {
