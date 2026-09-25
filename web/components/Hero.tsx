@@ -93,24 +93,37 @@ export default function Hero() {
           </Word>
           <Word i={6}>NEER</Word>
 
+          {/* IntelliJ IDEA mark, spinning where the asterisk used to be */}
           <motion.svg
             aria-hidden
             viewBox="0 0 100 100"
-            className="absolute -right-[0.3em] bottom-[-0.06em] h-[0.36em] w-[0.36em] drop-shadow-[0_6px_6px_rgba(160,60,10,.35)]"
+            className="absolute -right-[0.34em] bottom-[-0.08em] h-[0.4em] w-[0.4em] drop-shadow-[0_6px_6px_rgba(3,3,9,.3)]"
             animate={{ rotate: 360 }}
             transition={{ duration: 18, ease: "linear", repeat: Infinity }}
           >
             <defs>
-              <linearGradient id="ast" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#ff8a4d" />
-                <stop offset="1" stopColor="#e2451a" />
+              <linearGradient id="ij-a" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor="#fe315d" />
+                <stop offset="0.55" stopColor="#f97a12" />
+                <stop offset="1" stopColor="#ffd83a" />
+              </linearGradient>
+              <linearGradient id="ij-b" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stopColor="#087cfa" />
+                <stop offset="0.6" stopColor="#7c59f0" stopOpacity="0.85" />
+                <stop offset="1" stopColor="#fe315d" stopOpacity="0" />
               </linearGradient>
             </defs>
-            <g stroke="url(#ast)" strokeWidth="15" strokeLinecap="round">
-              <path d="M50 8V92" />
-              <path d="M13.6 29 86.4 71" />
-              <path d="M13.6 71 86.4 29" />
-            </g>
+            <rect width="100" height="100" rx="8" fill="url(#ij-a)" />
+            <rect width="100" height="100" rx="8" fill="url(#ij-b)" />
+            <rect x="15" y="15" width="70" height="70" fill="#000" />
+            <rect x="22" y="26" width="9" height="30" fill="#fff" />
+            <path
+              d="M59 26V49a10 10 0 0 1-10 10h-3"
+              fill="none"
+              stroke="#fff"
+              strokeWidth="9"
+            />
+            <rect x="22" y="68" width="28" height="6" fill="#fff" />
           </motion.svg>
         </div>
 
