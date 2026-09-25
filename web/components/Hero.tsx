@@ -39,8 +39,9 @@ function HeroCard() {
         />
       </div>
       <p className="px-2 pb-2 pt-3 text-[13px] leading-snug text-ink-soft">
-        Do banco à nuvem: APIs Java simples de manter e{" "}
-        <span className="font-semibold text-accent">confiáveis</span>.
+        Clean code que{" "}
+        <span className="font-semibold text-accent">escala</span>: back-end simples de manter,
+        pronto pra crescer.
       </p>
     </motion.aside>
   );
