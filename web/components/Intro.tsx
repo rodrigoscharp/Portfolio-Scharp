@@ -7,9 +7,9 @@ const icon = "inline-block h-[0.95em] w-[0.95em] align-[-0.12em]";
 
 export default function Intro() {
   return (
-    <section id="about" className="px-5 pb-6 pt-24 md:px-11 md:pt-40">
+    <section id="about" className="px-5 pb-6 md:px-11">
       <Reveal>
-        <p className="max-w-[1400px] text-[clamp(1.85rem,4.5vw,4rem)] font-medium leading-[1.22] tracking-[-0.02em]">
+        <p className="max-w-[1400px] text-[clamp(1.85rem,4vw,3.6rem)] font-medium leading-[1.22] tracking-[-0.02em]">
           Hi, I&apos;m{" "}
           <span className="relative mx-[0.08em] inline-block h-[1.05em] w-[1.05em] overflow-hidden rounded-[0.18em] align-[-0.2em]">
             <Image

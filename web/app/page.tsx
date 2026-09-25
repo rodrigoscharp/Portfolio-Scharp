@@ -13,8 +13,10 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Intro />
-        <Skills />
+        <div className="flex min-h-[100svh] flex-col justify-center pb-16 pt-28 md:pb-24">
+          <Intro />
+          <Skills />
+        </div>
         <FeaturedWork />
         <Timeline />
         <FinalCTA />

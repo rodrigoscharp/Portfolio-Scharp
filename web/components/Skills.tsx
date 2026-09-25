@@ -25,7 +25,7 @@ export default function Skills() {
   const box = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="px-5 pb-28 pt-8 md:px-11 md:pb-44">
+    <section className="px-5 pt-8 md:px-11">
       <Reveal>
         <p className="mb-5 text-[clamp(1.15rem,2vw,1.75rem)] font-normal">
           with my skills in:
