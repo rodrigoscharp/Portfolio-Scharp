@@ -117,9 +117,10 @@ ul { list-style: none; }
   font-family: var(--font-body); font-weight: 700; font-size: 0.8rem;
   text-transform: uppercase; letter-spacing: 0.06em;
   padding: 0.9rem 1.6rem; border-radius: 0.9rem; border: none; cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), scale 0.15s ease-out;
 }
 .btn-pill:hover { transform: scale(1.05) rotate(-1deg); }
+.btn-pill:active { scale: 0.93; }
 
 /* ===== scribbles ===== */
 .scribble { display: block; overflow: visible; }
@@ -205,7 +206,11 @@ ul { list-style: none; }
 .card-widget strong { font-size: 0.75rem; letter-spacing: 0.1em; display: block; margin-top: 0.25rem; }
 
 /* ===== marquee ===== */
-.marquee { overflow-x: auto; overflow-y: hidden; white-space: nowrap; scrollbar-width: none; }
+.marquee {
+  overflow-x: auto; overflow-y: hidden; white-space: nowrap; scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
 .marquee::-webkit-scrollbar { display: none; }
 .marquee__track { display: inline-flex; align-items: center; gap: 4.5rem; padding-right: 4.5rem; animation: marquee 32s linear infinite; }
 /* JS drives the drift so the user can scroll back; the CSS animation stays as a no-JS fallback */
@@ -360,7 +365,11 @@ ul { list-style: none; }
 @media (max-width: 768px) { .split__grid { grid-template-columns: 1fr; } }
 
 /* ===== home: events floating right-to-left ===== */
-.events-marquee { overflow: hidden; margin-top: 3.5rem; white-space: nowrap; }
+.events-marquee {
+  overflow: hidden; margin-top: 3.5rem; white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
 .events-marquee__track {
   display: inline-flex; gap: 1.4rem; padding-right: 1.4rem;
   animation: marquee 80s linear infinite;
@@ -389,9 +398,9 @@ ul { list-style: none; }
   display: flex; gap: 1.4rem; align-items: center;
   border: 1px solid rgba(30, 32, 24, 0.25); border-radius: 0.9rem;
   padding: 1.8rem 3rem 1.8rem 1.8rem; background: rgba(255, 255, 255, 0.35);
-  transition: border-color 0.25s, transform 0.25s;
+  transition: border-color 0.25s;
 }
-.partner-card:hover { border-color: var(--lime); transform: translateY(-4px); }
+.partner-card:hover { border-color: var(--lime); }
 .partner-card::after {
   content: '↗';
   position: absolute; top: 1.1rem; right: 1.2rem;
@@ -514,11 +523,38 @@ ul { list-style: none; }
 
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.2rem; margin-top: 3rem; }
 .project-card {
+  position: relative;
   border: 1px solid rgba(242, 240, 233, 0.2); border-radius: 0.9rem;
   padding: 1.8rem 1.5rem; display: flex; flex-direction: column; gap: 0.8rem;
-  transition: border-color 0.25s, transform 0.25s;
+  transition: border-color 0.25s;
 }
-.project-card:hover { border-color: var(--lime); transform: translateY(-4px); }
+.project-card:hover { border-color: var(--lime); }
+
+/* tilt glare: JS moves --glare-x/--glare-y with the cursor (fine pointers only) */
+.project-card::before, .partner-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none; mix-blend-mode: overlay;
+}
+.project-card::before {
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(242, 240, 233, 0.2), transparent 55%);
+}
+.partner-card::before {
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(61, 169, 252, 0.3), transparent 55%);
+}
+.project-card:hover::before, .partner-card:hover::before { opacity: 1; }
+@media (pointer: coarse) { .project-card::before, .partner-card::before { display: none; } }
+
+/* chromatic sweep: one accent word runs a colour pass once it scrolls into view */
+.hl-sweep {
+  background-image: linear-gradient(100deg, var(--green) 0 35%, var(--lime) 48%, var(--cream) 56%, var(--green) 68% 100%);
+  background-size: 240% 100%; background-position: 100% 0;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  transition: background-position 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hl-sweep.is-swept { background-position: 0% 0; }
+@media (prefers-reduced-motion: reduce) {
+  .hl-sweep { background-image: none; -webkit-text-fill-color: currentColor; transition: none; }
+}
 .project-card h3 { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; }
 .project-card .label { color: var(--lime); }
 .project-card p { font-size: 0.9rem; opacity: 0.85; flex: 1; }

@@ -155,6 +155,14 @@
       });
   });
 
+  /* chromatic sweep: an accent word runs one colour pass when it scrolls into view */
+  document.querySelectorAll('.hl-sweep').forEach(word => {
+    ScrollTrigger.create({
+      trigger: word, start: 'top 82%', once: true,
+      onEnter: () => word.classList.add('is-swept')
+    });
+  });
+
   /* parallax */
   document.querySelectorAll('[data-parallax]').forEach(el => {
     const speed = parseFloat(el.dataset.parallax) || 0.15;
@@ -268,6 +276,50 @@
       });
       heroSection.addEventListener('mouseleave', () => { tiltY(0); tiltX(0); });
     }
+  }
+
+  if (matchMedia('(pointer: fine)').matches) {
+    /* magnetic buttons: the pill leans toward the cursor while hovered. Drives the
+       individual `translate` property so the CSS hover/press transforms and the
+       entrance tween's inline transform are left alone */
+    document.querySelectorAll('.btn-pill').forEach(btn => {
+      const pull = { x: 0, y: 0 };
+      const apply = () => { btn.style.translate = `${pull.x}px ${pull.y}px`; };
+      const pullX = gsap.quickTo(pull, 'x', { duration: 0.35, ease: 'power2.out', onUpdate: apply });
+      const pullY = gsap.quickTo(pull, 'y', { duration: 0.35, ease: 'power2.out', onUpdate: apply });
+      btn.addEventListener('pointermove', e => {
+        if (e.pointerType !== 'mouse') return;
+        const r = btn.getBoundingClientRect();
+        pullX((e.clientX - (r.left + r.width / 2)) * 0.3);
+        pullY((e.clientY - (r.top + r.height / 2)) * 0.3);
+      });
+      btn.addEventListener('pointerleave', () => { pullX(0); pullY(0); });
+    });
+
+    /* tilt cards: project and partner cards lean toward the cursor with a moving glare
+       (--glare-x/--glare-y feed the ::before highlight in CSS) */
+    document.querySelectorAll('.project-card, .partner-card').forEach(card => {
+      gsap.set(card, { transformPerspective: 900 });
+      const cfg = { duration: 0.5, ease: 'power2.out' };
+      const tiltX = gsap.quickTo(card, 'rotationX', cfg);
+      const tiltY = gsap.quickTo(card, 'rotationY', cfg);
+      const lift = gsap.quickTo(card, 'y', cfg);
+      card.addEventListener('pointerenter', e => {
+        if (e.pointerType !== 'mouse') return;
+        lift(-4);
+      });
+      card.addEventListener('pointermove', e => {
+        if (e.pointerType !== 'mouse') return;
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        tiltY((px - 0.5) * 10);
+        tiltX((0.5 - py) * 7);
+        card.style.setProperty('--glare-x', px * 100 + '%');
+        card.style.setProperty('--glare-y', py * 100 + '%');
+      });
+      card.addEventListener('pointerleave', () => { tiltX(0); tiltY(0); lift(0); });
+    });
   }
 
   /* projects: pinned horizontal galleries — vertical scroll drives the cards sideways.
