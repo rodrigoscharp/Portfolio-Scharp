@@ -45,9 +45,25 @@ html {
   background: var(--bg);
 }
 
-html.theme-fade,
-html.theme-fade body {
-  transition: background-color 0.4s ease, color 0.4s ease;
+/* Circle Blur theme transition (BeUI): new theme reveals as an expanding, de-blurring circle */
+html[data-vt="circle-blur"]::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html[data-vt="circle-blur"]::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation: circle-blur-reveal 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes circle-blur-reveal {
+  from {
+    clip-path: circle(0% at var(--vt-origin, 50% 100%));
+    filter: blur(8px);
+  }
+  to {
+    clip-path: circle(150% at var(--vt-origin, 50% 100%));
+    filter: blur(0px);
+  }
 }
 
 body {

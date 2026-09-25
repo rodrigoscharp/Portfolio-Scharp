@@ -16,16 +16,31 @@ function subscribe(cb: () => void) {
 export default function Toggle3D() {
   const on = useSyncExternalStore(subscribe, isDark, () => false);
 
-  const toggle = useCallback(() => {
+  const toggle = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     const root = document.documentElement;
     const next = !isDark();
-    root.classList.add("theme-fade");
-    if (next) root.dataset.theme = "dark";
-    else delete root.dataset.theme;
-    try {
-      localStorage.setItem("theme", next ? "dark" : "light");
-    } catch {}
-    window.setTimeout(() => root.classList.remove("theme-fade"), 450);
+    const apply = () => {
+      if (next) root.dataset.theme = "dark";
+      else delete root.dataset.theme;
+      try {
+        localStorage.setItem("theme", next ? "dark" : "light");
+      } catch {}
+    };
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduce) {
+      apply();
+      return;
+    }
+
+    /* Circle Blur (BeUI): circular reveal from the switch, softening from blur(8px) to sharp. */
+    const r = e.currentTarget.getBoundingClientRect();
+    root.style.setProperty("--vt-origin", `${r.left + r.width / 2}px ${r.top + r.height / 2}px`);
+    root.dataset.vt = "circle-blur";
+    const vt = document.startViewTransition(apply);
+    vt.finished.finally(() => {
+      delete root.dataset.vt;
+    });
   }, []);
 
   return (
