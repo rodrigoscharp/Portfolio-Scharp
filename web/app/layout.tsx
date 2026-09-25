@@ -7,6 +7,7 @@ import {
   Space_Mono,
 } from "next/font/google";
 import Providers from "@/components/Providers";
+import Cursor from "@/components/Cursor";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -54,7 +55,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${poppins.variable} ${doto.variable} ${archivo.variable} ${instrumentSerif.variable} ${spaceMono.variable}`}
     >
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Cursor />
+        </Providers>
       </body>
     </html>
   );
