@@ -58,9 +58,13 @@ export const SKILLS: Skill[] = [
 ];
 
 export type Slide = {
-  kind: "laptop" | "phone" | "art";
+  kind: "laptop" | "phone" | "art" | "mark" | "device";
   image: string;
   bg: string;
+  label?: string;
+  title?: string;
+  chips?: string[];
+  aspect?: string;
 };
 
 export type Case = {
@@ -73,6 +77,7 @@ export type Case = {
   image: string;
   insights: { value: string; label: string }[];
   live?: string;
+  repo?: string;
   caseHref?: string;
   soon?: boolean;
   layout: "full" | "half";
@@ -91,13 +96,12 @@ export const CASES: Case[] = [
     tags: ["WEB", "MOBILE", "SAAS"],
     slides: [
       { kind: "laptop", image: "/images/muno-hero.jpg", bg: "linear-gradient(135deg,#fd601a 0%,#d93f00 100%)" },
-      { kind: "phone", image: "/images/muno-mobile.jpg", bg: "linear-gradient(135deg,#1f3d33 0%,#0d1f19 100%)" },
+      { kind: "device", image: "/images/muno-mobile-v4.png", bg: "linear-gradient(135deg,#1f3d33 0%,#0d1f19 100%)", aspect: "714 / 953" },
     ],
     image: "/images/muno-hero.jpg",
-    // FAKE numbers: placeholders until the real Muno metrics are filled in
     insights: [
-      { value: "120+", label: "restaurants running on Muno" },
-      { value: "38k", label: "orders processed per month" },
+      { value: "Live", label: "100% digital POS replacing paper-based tickets" },
+      { value: "02/2025", label: "shipped from zero as sole founder & CTO" },
     ],
     live: "https://munoapp.com.br",
     layout: "full",
@@ -115,11 +119,13 @@ export const CASES: Case[] = [
     tags: ["WEB", "SAAS", "PRODUCTIVITY"],
     slides: [
       { kind: "laptop", image: "/images/myhub-hero.jpg", bg: "linear-gradient(135deg,#9342fc 0%,#5b21b6 100%)" },
-      { kind: "phone", image: "/images/myhub-menu.jpg", bg: "linear-gradient(135deg,#b8f04f 0%,#6fae1f 100%)" },
+      { kind: "device", image: "/images/myhub-mobile-v2.png", bg: "linear-gradient(135deg,#b8f04f 0%,#6fae1f 100%)", aspect: "581 / 921" },
     ],
     image: "/images/myhub-hero.jpg",
-    insights: [],
-    soon: true,
+    insights: [
+      { value: "Live", label: "productivity SaaS to run your whole routine in one place" },
+    ],
+    live: "https://usemyhub.com",
     layout: "half",
   },
   {
@@ -143,6 +149,35 @@ export const CASES: Case[] = [
     ],
     layout: "half",
   },
+  {
+    slug: "pixlab",
+    n: "04",
+    read: "Fintech",
+    headline: [
+      { text: "PixLab", bold: true },
+      { text: ": a chaos lab that proves every cent of a " },
+      { text: "Pix or boleto", bold: true },
+      { text: " is credited exactly once" },
+    ],
+    tags: ["BACK-END", "JAVA", "FINTECH"],
+    slides: [
+      {
+        kind: "mark",
+        image: "",
+        bg: "radial-gradient(140% 110% at 20% 10%, #1b2a44 0%, #0e1420 55%, #050810 100%)",
+        label: "Fintech · Chaos engineering",
+        title: "PixLab",
+        chips: ["p99 16.5 ms", "500 req/s", "127 tests", "ledger = 0"],
+      },
+    ],
+    image: "",
+    insights: [
+      { value: "127", label: "unit, property, integration & E2E tests" },
+      { value: "16.5 ms", label: "p99 at 500 req/s with 30% redeliveries" },
+    ],
+    repo: "https://github.com/rodrigoscharp/PixLab",
+    layout: "full",
+  },
 ];
 
 export type Row = {
@@ -156,7 +191,8 @@ export type Row = {
 export const ROWS: Row[] = [
   { year: "2026", title: "Ubatuba City Hall — Tech & Innovation", image: "/images/prefeitura-hero.jpg" },
   { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "live", href: "https://munoapp.com.br", image: "/images/muno-hero.jpg" },
-  { year: "2026", title: "MyHub — Productivity SaaS", cta: "soon", href: "", image: "/images/myhub-hero.jpg" },
+  { year: "2026", title: "MyHub — Productivity SaaS", cta: "live", href: "https://usemyhub.com", image: "/images/myhub-hero.jpg" },
+  { year: "2025", title: "PixLab — Pix & Boleto Reconciliation Lab", cta: "repo", href: "https://github.com/rodrigoscharp/PixLab" },
   { year: "2026", title: "PONTE — AAC App for Autistic Children", cta: "repo", href: "https://github.com/rodrigoscharp/PONTE" },
   { year: "2025", title: "Athena Matching Engine", cta: "repo", href: "https://github.com/rodrigoscharp/Athena-Matching-Engine" },
   { year: "2025", title: "HelpNote IA", cta: "repo", href: "https://github.com/rodrigoscharp/HelpNote_-IA" },

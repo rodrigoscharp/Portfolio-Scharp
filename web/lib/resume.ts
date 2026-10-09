@@ -17,13 +17,13 @@ export const JOBS: Job[] = [
     place: "Ubatuba, São Paulo, Brazil",
     roles: [
       {
-        title: "Project Manager",
+        title: "Tech Lead",
         dates: "08/2026 - Present",
         bullets: [
-          "Promoted to Project Manager after serving as Director of Technology and Innovation, now leading the planning, scheduling, and delivery of strategic technology projects for the Municipality of Ubatuba.",
-          "Responsible for coordinating development teams and business stakeholders, ensuring continuity of digital systems serving 100,000+ citizens.",
+          "Promoted to Tech Lead after serving as Director of Technology and Innovation, now owning the technical direction, architecture, and delivery of strategic engineering initiatives for the Municipality of Ubatuba.",
+          "Lead the development squad on day-to-day execution — code review, design decisions, and roadmap — ensuring continuity of digital systems serving 100,000+ citizens.",
         ],
-        tech: "Project Management, Java, Spring Boot, REST APIs, Agile",
+        tech: "Tech Leadership, Java, Spring Boot, System Design, REST APIs, Agile",
       },
       {
         title: "Director of Technology and Innovation",

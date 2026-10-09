@@ -14,6 +14,18 @@ export type EventSlide = {
 /* order = newest first, as on the previous site */
 export const EVENTS: EventSlide[] = [
   {
+    slug: "aws-summit",
+    title: "AWS Summit",
+    place: "São Paulo",
+    date: "October 2026",
+    text: "AWS Summit São Paulo: cloud, AI and the Brazilian developer community.",
+    image: "/images/events/aws-summit-sp-2026.jpg",
+    focus: "50% 50%",
+    bg: "#232f3e",
+    accent: "#ff9900",
+    ink: "#ffffff",
+  },
+  {
     slug: "codecon",
     title: "CODECON",
     place: "Curitiba",

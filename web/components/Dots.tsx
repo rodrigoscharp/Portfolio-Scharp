@@ -5,7 +5,15 @@ import { useEffect, useRef } from "react";
 type P = { x: number; y: number; vx: number; vy: number; r: number; a: number; ph: number; ox: number; oy: number };
 
 /* Canvas dust: tiny dots that drift slowly, wobble, and get pushed away by the cursor. */
-export default function Dots({ className = "", count = 230 }: { className?: string; count?: number }) {
+export default function Dots({
+  className = "",
+  count = 230,
+  color,
+}: {
+  className?: string;
+  count?: number;
+  color?: string;
+}) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -57,7 +65,8 @@ export default function Dots({ className = "", count = 230 }: { className?: stri
     };
 
     const readColor = () =>
-      getComputedStyle(document.documentElement).getPropertyValue("--ink-soft").trim() || "#222";
+      color ??
+      (getComputedStyle(document.documentElement).getPropertyValue("--ink-soft").trim() || "#222");
     let dotColor = readColor();
     const themeObs = new MutationObserver(() => (dotColor = readColor()));
     themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
@@ -136,7 +145,7 @@ export default function Dots({ className = "", count = 230 }: { className?: stri
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };
-  }, [count]);
+  }, [count, color]);
 
   return (
     <canvas

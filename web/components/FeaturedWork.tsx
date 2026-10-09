@@ -35,6 +35,65 @@ function SlideView({ slide, full }: { slide: Slide; full: boolean }) {
         <Image src={slide.image} alt="" fill sizes="(min-width:768px) 700px, 60vw" className="object-cover" />
       )}
 
+      {slide.kind === "device" && (
+        <div
+          className={`absolute left-1/2 -translate-x-1/2 rotate-[-4deg] ${
+            full ? "bottom-[-18%] h-[128%]" : "bottom-[-12%] h-[102%]"
+          }`}
+          style={{ aspectRatio: slide.aspect ?? "714 / 953" }}
+        >
+          <Image
+            src={slide.image}
+            alt=""
+            fill
+            sizes="(min-width:768px) 460px, 55vw"
+            className="object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,.55)]"
+          />
+        </div>
+      )}
+
+      {slide.kind === "mark" && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.08]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+              backgroundSize: `${full ? "48px 48px" : "32px 32px"}`,
+              maskImage:
+                "radial-gradient(ellipse at center, #000 40%, transparent 75%)",
+            }}
+          />
+          {slide.label && (
+            <p className="relative text-[clamp(5px,0.95vw,13px)] font-light uppercase tracking-[2px] text-white/70">
+              {slide.label}
+            </p>
+          )}
+          {slide.title && (
+            <h4
+              className="display relative mt-[0.35em] text-white"
+              style={{ fontSize: full ? "clamp(36px,8vw,120px)" : "clamp(28px,6vw,80px)", lineHeight: 1 }}
+            >
+              {slide.title}
+            </h4>
+          )}
+          {slide.chips && slide.chips.length > 0 && (
+            <div className="relative mt-[0.9em] flex flex-wrap items-center justify-center gap-[0.5em]">
+              {slide.chips.map((chip) => (
+                <span
+                  key={chip}
+                  className="rounded-full border border-white/25 bg-white/5 px-[0.9em] py-[0.3em] font-mono text-white/90 backdrop-blur"
+                  style={{ fontSize: full ? "clamp(8px,1.1vw,15px)" : "clamp(7px,1vw,13px)" }}
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {slide.kind === "laptop" && (
         <div
           className={`absolute left-1/2 -translate-x-1/2 rotate-[-2deg] rounded-t-[clamp(6px,1.4vw,20px)] bg-[#0b0b0f] p-[clamp(2px,0.5vw,8px)] shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)] ${
@@ -151,6 +210,19 @@ function Slideshow({ c, full }: { c: Case; full: boolean }) {
             className="rounded-full border border-white/25 bg-[#3a3a40]/55 px-[clamp(6px,1.05vw,15px)] py-[clamp(3px,0.5vw,7px)] text-[clamp(6px,1.1vw,16px)] font-normal text-white backdrop-blur-md transition-colors hover:bg-white hover:text-ink"
           >
             Live Website
+          </a>
+        )}
+        {c.repo && (
+          <a
+            href={c.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-[0.4em] rounded-full border border-white/25 bg-[#3a3a40]/55 px-[clamp(6px,1.05vw,15px)] py-[clamp(3px,0.5vw,7px)] text-[clamp(6px,1.1vw,16px)] font-normal text-white backdrop-blur-md transition-colors hover:bg-white hover:text-ink"
+          >
+            <svg viewBox="0 0 16 16" aria-hidden className="h-[1em] w-[1em]" fill="currentColor">
+              <path d="M8 .2a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.33c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.81.06 1.23.84 1.23.84.72 1.23 1.88.88 2.34.67.07-.52.28-.88.5-1.08-1.77-.2-3.63-.88-3.63-3.93 0-.87.31-1.58.82-2.14-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.91.08 2.11.51.56.82 1.27.82 2.14 0 3.06-1.86 3.73-3.64 3.93.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 .2Z" />
+            </svg>
+            GitHub
           </a>
         )}
         {n > 1 && (

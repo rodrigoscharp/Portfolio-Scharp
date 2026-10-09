@@ -30,7 +30,7 @@ export default function AboutPage() {
             <br />
             Founder &amp; CTO,
             <br />
-            Public-tech Project Manager
+            Public-tech Tech Lead
           </h1>
           <p className="mt-8 max-w-[52ch] text-[15px] font-light leading-relaxed">
             I&apos;m Rodrigo, a Java software engineer from Ubatuba, São Paulo,
@@ -44,7 +44,7 @@ export default function AboutPage() {
             Ubatuba I led a squad that took{" "}
             <b className="font-semibold">6+ systems to production</b> and won{" "}
             <b className="font-semibold">2 national awards</b>, including Smart
-            City. I was then promoted to Project Manager, and I&apos;m also
+            City. I was then promoted to Tech Lead, and I&apos;m also
             Founder &amp; CTO of Muno App, a 100% digital POS and menu platform
             for restaurants.
           </p>

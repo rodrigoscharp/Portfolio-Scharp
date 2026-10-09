@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import {
   motion,
   useMotionValue,
@@ -13,8 +12,6 @@ import {
    interactive elements and shows a rotating "SCROLL" ring while over the hero. */
 export default function Cursor() {
   const reduce = useReducedMotion();
-  const path = usePathname();
-  const off = path === "/events";
   const [shown, setShown] = useState(false);
   const [mode, setMode] = useState<"idle" | "hover" | "hero">("idle");
   const [down, setDown] = useState(false);
@@ -25,7 +22,7 @@ export default function Cursor() {
   const sy = useSpring(y, { stiffness: 140, damping: 20, mass: 0.7 });
 
   useEffect(() => {
-    if (off || !window.matchMedia("(pointer: fine)").matches) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
 
     const move = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
@@ -55,9 +52,7 @@ export default function Cursor() {
       window.removeEventListener("pointerdown", dn);
       window.removeEventListener("pointerup", up);
     };
-  }, [x, y, sx, sy, reduce, off]);
-
-  if (off) return null;
+  }, [x, y, sx, sy, reduce]);
 
   const scale = down ? 0.75 : mode === "hover" ? 1.45 : mode === "hero" ? 1.1 : 0.85;
 

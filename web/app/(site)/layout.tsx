@@ -42,10 +42,34 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rodrigoscharp.com";
+
 export const metadata: Metadata = {
-  title: "Rodrigo Scharp — Java Back-end Engineer",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Rodrigo Scharp — Java Back-end Engineer",
+    template: "%s · Rodrigo Scharp",
+  },
   description:
-    "Java back-end engineer (Spring Boot, AWS, Docker), Founder & CTO at Muno App and Project Manager at the Municipality of Ubatuba.",
+    "Java back-end engineer (Spring Boot, AWS, Docker), Founder & CTO at Muno App and Tech Lead at the Municipality of Ubatuba.",
+  authors: [{ name: "Rodrigo Scharp", url: SITE_URL }],
+  creator: "Rodrigo Scharp",
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "Rodrigo Scharp",
+    title: "Rodrigo Scharp — Java Back-end Engineer",
+    description:
+      "Java back-end engineer (Spring Boot, AWS, Docker), Founder & CTO at Muno App and Tech Lead at the Municipality of Ubatuba.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rodrigo Scharp — Java Back-end Engineer",
+    description:
+      "Java back-end engineer, Founder & CTO at Muno App and Tech Lead at the Municipality of Ubatuba.",
+  },
+  alternates: { canonical: SITE_URL },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
