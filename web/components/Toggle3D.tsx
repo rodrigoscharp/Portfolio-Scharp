@@ -12,6 +12,8 @@ function subscribe(cb: () => void) {
 }
 
 /* Inline "O" replacement: a chunky 3D switch sized in em so it tracks the display type.
+   It is a block centered by the row's flex, not baseline-aligned: Safari puts the
+   baseline of an empty button lower than Chrome, which pushed the switch down on iOS.
    On = dark mode. Theme lives on <html data-theme>, persisted in localStorage. */
 export default function Toggle3D() {
   const on = useSyncExternalStore(subscribe, isDark, () => false);
@@ -52,7 +54,7 @@ export default function Toggle3D() {
       onClick={toggle}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
-      className="relative mx-[0.04em] inline-block h-[0.74em] w-[1.6em] shrink-0 cursor-pointer rounded-full align-baseline"
+      className="relative mx-[0.04em] block h-[0.74em] w-[1.6em] shrink-0 -translate-y-[0.045em] cursor-pointer rounded-full"
       style={{
         background: on
           ? "linear-gradient(180deg,#ff8a4d 0%,#e2451a 100%)"
