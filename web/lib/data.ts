@@ -6,6 +6,7 @@ export const SITE = {
   startYear: "2023",
   portrait: "/images/rodrigo-portrait.jpg",
   capsule: "/images/rodrigo-capsule.jpg",
+  cartoon: "/images/rodrigo-cartoon.jpg",
   square: "/images/rodrigo-square.jpg",
 };
 

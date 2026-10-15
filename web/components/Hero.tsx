@@ -128,8 +128,8 @@ export default function Hero() {
           <Word i={5}>
             <span className="relative mx-[0.06em] inline-block h-[0.76em] w-[0.42em] overflow-hidden rounded-full align-baseline">
               <Image
-                src={SITE.capsule}
-                alt="Rodrigo Scharp"
+                src={SITE.cartoon}
+                alt="Rodrigo Scharp, cartoon portrait"
                 fill
                 sizes="260px"
                 className="object-cover"
