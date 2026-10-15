@@ -180,6 +180,79 @@ export const CASES: Case[] = [
   },
 ];
 
+export type CareerStep = {
+  /** Short start date shown under the logo on the track. */
+  start: string;
+  dates: string;
+  role: string;
+  company: string;
+  /** Company name short enough for the track label. */
+  short: string;
+  logo: string;
+  /** Tile background matching the logo file's own background. */
+  logoBg: string;
+  note: string;
+  current?: boolean;
+  tag?: string;
+};
+
+/* Career path shown on /work, oldest first (left to right on the track). */
+export const CAREER: CareerStep[] = [
+  {
+    start: "2023",
+    dates: "2023 - 2025",
+    role: "Software Developer",
+    company: "Bitwise Software Solutions",
+    short: "Bitwise",
+    logo: "/images/logos/bitwise.png",
+    logoBg: "#ffffff",
+    note: "Where it all started. Designed and shipped 30+ Java and Spring Boot back-ends for clients across industries: REST APIs, MySQL and PostgreSQL modeling and system integrations, in Scrum teams.",
+  },
+  {
+    start: "2025",
+    dates: "2025 - 2026",
+    role: "Java Developer & Technical Consultant",
+    company: "Prescon Assessoria",
+    short: "Prescon",
+    logo: "/images/logos/prescon.png",
+    logoBg: "#ffffff",
+    note: "Built back-end services hands-on for client systems and guided their architecture decisions, so teams could grow on solid Java and Spring Boot foundations.",
+  },
+  {
+    start: "Feb 2025",
+    dates: "02/2025 - Now",
+    role: "Founder & CTO",
+    company: "Muno App",
+    short: "Muno",
+    logo: "/images/logos/muno.png",
+    logoBg: "#e6e5e0",
+    note: "Founded Muno to take restaurants off paper: a 100% digital POS and menu platform, from the order on the table to the ticket in the kitchen, now serving 120+ restaurants. I lead product, engineering and operations, and built the back-end in Java and Spring Boot on AWS.",
+    current: true,
+  },
+  {
+    start: "2026",
+    dates: "2026 - 08/2026",
+    role: "Director of Technology and Innovation",
+    company: "Municipality of Ubatuba",
+    short: "Ubatuba",
+    logo: "/images/logos/ubatuba.png",
+    logoBg: "#f7f7f7",
+    note: "Led the squad that took 6+ government systems to production, modernizing public services for 100,000+ citizens. Unified siloed municipal systems into one infrastructure, brought Docker and CI/CD to the department and won 2 national awards, including Smart City.",
+  },
+  {
+    start: "Aug 2026",
+    dates: "08/2026 - Now",
+    role: "Tech Lead",
+    company: "Municipality of Ubatuba",
+    short: "Ubatuba",
+    logo: "/images/logos/ubatuba.png",
+    logoBg: "#f7f7f7",
+    note: "Promoted to own the city's urgent and emergency healthcare systems: the software that has to work when lives are on the line. I am responsible for their architecture, reliability and delivery, and lead the squad through code review, design decisions and the roadmap.",
+    current: true,
+    tag: "Promoted",
+  },
+];
+
 export type Row = {
   year: string;
   title: string;
@@ -189,7 +262,6 @@ export type Row = {
 };
 
 export const ROWS: Row[] = [
-  { year: "2026", title: "Ubatuba City Hall — Tech & Innovation", image: "/images/prefeitura-hero.jpg" },
   { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "live", href: "https://munoapp.com.br", image: "/images/muno-hero.jpg" },
   { year: "2026", title: "MyHub — Productivity SaaS", cta: "live", href: "https://usemyhub.com", image: "/images/myhub-hero.jpg" },
   { year: "2025", title: "PixLab — Pix & Boleto Reconciliation Lab", cta: "repo", href: "https://github.com/rodrigoscharp/PixLab" },

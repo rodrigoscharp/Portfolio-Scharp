@@ -12,6 +12,9 @@ export default function WorkTable() {
   return (
     <section className="mx-auto max-w-[1080px] px-5 md:px-8">
       <Reveal>
+        <h2 className="mb-8 font-display text-[clamp(2.4rem,5vw,4rem)] font-extrabold leading-none tracking-[-0.05em] md:mb-12">
+          Projects
+        </h2>
         <div className="grid grid-cols-[1fr_auto] gap-x-4 pb-2 text-[10px] font-light uppercase tracking-[0.9px] md:grid-cols-[38%_1fr_auto]">
           <span className="hidden md:block">Date</span>
           <span>Projects</span>
