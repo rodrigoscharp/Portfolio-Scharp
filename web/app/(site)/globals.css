@@ -141,3 +141,32 @@ body {
 ::selection {
   background: #acacac;
 }
+
+/* Data moving along architecture diagram edges. */
+@keyframes arch-flow {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+.arch-flow {
+  animation: arch-flow 1.1s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .arch-flow {
+    animation: none;
+  }
+}
+
+/* Portuguese visitors: hide the server's English for the instant before the
+   client switches language (removed by LangProvider, 1.5 s failsafe inline). */
+html.lang-pending body {
+  opacity: 0;
+}
+
+/* Opening animation cover: only on a first visit (class set by the layout's inline script). */
+.intro-cover {
+  display: none;
+}
+html.intro-pending .intro-cover {
+  display: flex;
+}

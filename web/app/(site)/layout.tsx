@@ -8,6 +8,7 @@ import {
 } from "next/font/google";
 import Providers from "@/components/Providers";
 import Cursor from "@/components/Cursor";
+import CommandPalette from "@/components/CommandPalette";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -76,13 +77,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      // Browser auto-translate rewrites the text React animates (counters stop) and
+      // breaks the display type; the site ships its own copy instead.
+      translate="no"
       suppressHydrationWarning
       className={`${poppins.variable} ${doto.variable} ${archivo.variable} ${instrumentSerif.variable} ${spaceMono.variable}`}
     >
       <head>
+        <meta name="google" content="notranslate" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.dataset.theme="dark"}catch(e){}`,
+            __html: `try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.dataset.theme="dark"}catch(e){}try{var l=localStorage.getItem("lang");if(l==="pt"||(!l&&(navigator.language||"").toLowerCase().indexOf("pt")===0)){var d=document.documentElement;d.classList.add("lang-pending");setTimeout(function(){d.classList.remove("lang-pending")},1500)}}catch(e){}try{if(location.pathname==="/"&&sessionStorage.getItem("intro-seen")!=="1"&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement;r.classList.add("intro-pending");r.classList.remove("lang-pending");setTimeout(function(){r.classList.remove("intro-pending")},6000)}}catch(e){}`,
           }}
         />
       </head>
@@ -90,6 +95,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Providers>
           {children}
           <Cursor />
+          <CommandPalette />
         </Providers>
       </body>
     </html>
