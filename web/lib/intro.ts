@@ -25,6 +25,29 @@ function decide(): boolean {
   }
 }
 
+/* The home page holds the intro behind a "click to enter" screen (browsers
+   only allow sound after a click), so entrances are timed from the moment the
+   intro actually starts, not from page load. */
+let started = false;
+const waiters = new Set<() => void>();
+
+export function onIntroStart(cb: () => void) {
+  if (started || !introPending()) {
+    cb();
+    return () => {};
+  }
+  waiters.add(cb);
+  return () => {
+    waiters.delete(cb);
+  };
+}
+
+export function startIntro() {
+  started = true;
+  waiters.forEach((cb) => cb());
+  waiters.clear();
+}
+
 /* After the intro: later client navigations back to home skip the delays. */
 export function introDone() {
   pending = false;

@@ -2,6 +2,7 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
+import { play } from "@/lib/sound";
 
 const isDark = () => document.documentElement.dataset.theme === "dark";
 
@@ -21,6 +22,7 @@ export default function Toggle3D() {
   const toggle = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     const root = document.documentElement;
     const next = !isDark();
+    play(next ? "on" : "off");
     const apply = () => {
       if (next) root.dataset.theme = "dark";
       else delete root.dataset.theme;

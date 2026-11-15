@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CASE_STUDIES } from "@/lib/caseStudies";
 import { CV_PDF, SITE } from "@/lib/data";
 import { useLang } from "@/lib/i18n";
+import { play } from "@/lib/sound";
 
 type Cmd = { label: string; hint: string; run: () => void };
 
@@ -57,8 +58,11 @@ export default function CommandPalette() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  const opened = useRef(false);
   useEffect(() => {
     if (open) input.current?.focus();
+    if (open !== opened.current) play(open ? "open" : "close");
+    opened.current = open;
   }, [open]);
 
   useEffect(() => {

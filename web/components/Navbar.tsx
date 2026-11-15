@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { CV_PDF, NAV, SITE } from "@/lib/data";
 import { NAV_PT } from "@/lib/data.pt";
 import { LangSwitch, useL, useLang } from "@/lib/i18n";
+import { SoundToggle } from "@/components/SoundFX";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -65,6 +66,7 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-6 md:flex">
+          <SoundToggle />
           <LangSwitch className="font-normal" />
           {resume ? (
             <a
@@ -107,7 +109,10 @@ export default function Navbar() {
               {t("Download Resume", "Baixar currículo")}
             </a>
           )}
-          <LangSwitch className="mt-2 text-[14px]" />
+          <span className="mt-2 flex items-center gap-5">
+            <LangSwitch className="text-[14px]" />
+            <SoundToggle />
+          </span>
         </nav>
       )}
     </header>

@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useAnimationControls, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useLang } from "@/lib/i18n";
-import { INTRO_SECONDS, introPending } from "@/lib/intro";
+import { INTRO_SECONDS, introPending, onIntroStart } from "@/lib/intro";
+import { play } from "@/lib/sound";
 
 /* Beto, the coordinator of my AI team, gives the tour of the home page. He
    stays on one side, follows the scroll pointing at each section, and when the
@@ -48,6 +49,8 @@ const HANDS: Record<Point, HandSpot[]> = {
   ],
 };
 
+const GREETING = { en: "Hi! 👋", pt: "Oii! 👋" };
+
 const POKES = [
   { en: "Hey, that tickles!", pt: "Ei, isso faz cócegas!" },
   { en: "Keep scrolling, it gets better.", pt: "Continua rolando, fica melhor." },
@@ -88,6 +91,41 @@ function Hand({ className = "", id }: { className?: string; id: string }) {
   );
 }
 
+/* Open hand for the hello wave, fingers up, in the same fur as the pointing hand. */
+function OpenHand({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 40 48" className={className} aria-hidden overflow="visible">
+      <defs>
+        <g id="palm-shape">
+          <rect x="8" y="20" width="24" height="22" rx="10" />
+          <rect x="9.5" y="6" width="5.5" height="20" rx="2.75" />
+          <rect x="15.5" y="3" width="5.5" height="22" rx="2.75" />
+          <rect x="21.5" y="5" width="5.5" height="20" rx="2.75" />
+          <rect x="27.5" y="11" width="5" height="16" rx="2.5" />
+          <rect x="1" y="21" width="6" height="15" rx="3" transform="rotate(-32 7 34)" />
+        </g>
+        <pattern id="fur-palm" patternUnits="userSpaceOnUse" width="48" height="48" x="-6" y="-6">
+          <image href="/images/orbz/beto.png" x="-30" y="-46" width="110" height="110" preserveAspectRatio="none" />
+        </pattern>
+        <filter id="fuzz-palm" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="4" />
+          <feDisplacementMap in="SourceGraphic" scale="1.8" />
+        </filter>
+        <radialGradient id="shade-palm" cx="40%" cy="35%" r="80%">
+          <stop offset="0" stopColor="#fff" stopOpacity=".18" />
+          <stop offset="1" stopColor="#000" stopOpacity=".22" />
+        </radialGradient>
+      </defs>
+      <g filter="url(#fuzz-palm)">
+        <use href="#palm-shape" fill={GREEN_LIGHT} />
+        <use href="#palm-shape" fill="url(#fur-palm)" />
+        <use href="#palm-shape" fill="url(#shade-palm)" />
+      </g>
+      <path d="M14 33q6 3 12 0" stroke={GREEN} strokeOpacity=".55" strokeWidth="1.4" strokeLinecap="round" fill="none" />
+    </svg>
+  );
+}
+
 export default function BetoGuide() {
   const reduce = useReducedMotion();
   const { t, lang } = useLang();
@@ -96,7 +134,10 @@ export default function BetoGuide() {
   const [closed, setClosed] = useState(true);
   const [mobile, setMobile] = useState(false);
   const [poke, setPoke] = useState<number | null>(null);
+  // Bumped on every click so the blink replays.
+  const [blink, setBlink] = useState(0);
   const fly = useAnimationControls();
+  const push = useAnimationControls();
   const flying = useRef(false);
 
   // Read after mount so server and client render the same first frame.
@@ -107,8 +148,15 @@ export default function BetoGuide() {
     } catch {}
     // The stage keeps Beto's seat empty while he is out giving the tour.
     if (!skip) window.dispatchEvent(new Event("beto-away"));
-    const id = window.setTimeout(() => setClosed(skip), introPending() ? (INTRO_SECONDS + 0.9) * 1000 : 900);
-    return () => window.clearTimeout(id);
+    let id = 0;
+    const wait = introPending() ? (INTRO_SECONDS + 0.9) * 1000 : 900;
+    const off = onIntroStart(() => {
+      id = window.setTimeout(() => setClosed(skip), wait);
+    });
+    return () => {
+      off();
+      window.clearTimeout(id);
+    };
   }, []);
 
   useEffect(() => {
@@ -211,6 +259,16 @@ export default function BetoGuide() {
     };
   }, [step, closed, mobile, size, px, py, sx, sy, bubbleDx]);
 
+  // On arrival he waves and says hi first, then starts the tour.
+  const [greet, setGreet] = useState(true);
+  useEffect(() => {
+    if (closed || !greet) return;
+    play("hi");
+    const id = window.setTimeout(() => setGreet(false), reduce ? 1200 : 2400);
+    return () => window.clearTimeout(id);
+  }, [closed, greet, reduce]);
+  const waving = greet && step === 0;
+
   // He points once he has arrived next to the section, for as long as he is
   // explaining it, then puts his hands away.
   const [pointing, setPointing] = useState(false);
@@ -228,8 +286,13 @@ export default function BetoGuide() {
 
   // Typewriter, counted per line so a new line restarts it.
   const [chars, setChars] = useState({ key: "", n: 0 });
-  const line = poke !== null ? t(POKES[poke].en, POKES[poke].pt) : t(STEPS[step].en, STEPS[step].pt);
-  const lineKey = `${step}-${poke}-${lang}`;
+  const line =
+    poke !== null
+      ? t(POKES[poke].en, POKES[poke].pt)
+      : waving
+        ? t(GREETING.en, GREETING.pt)
+        : t(STEPS[step].en, STEPS[step].pt);
+  const lineKey = `${step}-${poke}-${lang}-${waving}`;
   useEffect(() => {
     if (reduce) return;
     const id = window.setInterval(() => {
@@ -303,11 +366,15 @@ export default function BetoGuide() {
     "below-r": "right-0 top-[calc(100%+34px)]",
   };
   const bubbleCls = BUBBLE[bubbleSide] ?? BUBBLE.left;
+  // The waving hand goes on the side facing the page, so it never leaves the screen.
+  const waveLeft = bubbleSide === "left" || bubbleSide.endsWith("-r");
+  const wave = waveLeft ? [-25, 15] : [25, -15];
 
   return (
     <AnimatePresence>
       <motion.div
         key="beto"
+        data-no-cursor
         className="pointer-events-none fixed left-0 top-0 z-[45]"
         style={{ x: sx, y: sy }}
         initial={{ opacity: 0, scale: 0.6 }}
@@ -330,18 +397,79 @@ export default function BetoGuide() {
             transition={{ duration: 1.1, ease: "easeOut" }}
           >
             {/* idle: float and sway; hover and click get a reaction */}
-            <motion.button
-              type="button"
-              aria-label="Beto"
-              onClick={() => setPoke((p) => ((p ?? -1) + 1) % POKES.length)}
-              className="pointer-events-auto block cursor-pointer"
-              animate={reduce ? undefined : { y: [0, -9, 0], rotate: [-6, 2, -6] }}
-              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-              whileHover={reduce ? undefined : { scale: 1.12, rotate: -14 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Image src="/images/orbz/beto.png" alt="" width={size} height={size} priority />
-            </motion.button>
+            {/* the touch: pushed away from where he was clicked, then bounces back */}
+            <motion.div animate={push}>
+              <motion.button
+                type="button"
+                aria-label="Beto"
+                data-sound-own
+                onClick={(e) => {
+                  setPoke((p) => ((p ?? -1) + 1) % POKES.length);
+                  setBlink((b) => b + 1);
+                  play("poke");
+                  if (reduce) return;
+                  const r = e.currentTarget.getBoundingClientRect();
+                  // Keyboard clicks have no position: nudge him up.
+                  let vx = e.detail ? r.left + r.width / 2 - e.clientX : 0;
+                  let vy = e.detail ? r.top + r.height / 2 - e.clientY : 1;
+                  const len = Math.hypot(vx, vy) || 1;
+                  vx /= len;
+                  vy /= len;
+                  const d = size * 0.16;
+                  push.start({
+                    x: [0, vx * d, -vx * d * 0.35, vx * d * 0.12, 0],
+                    y: [0, vy * d, -vy * d * 0.35, vy * d * 0.12, 0],
+                    // Squashed along the push, stretched across it.
+                    scaleX: [1, 1 - Math.abs(vx) * 0.14 + Math.abs(vy) * 0.08, 1.04, 0.99, 1],
+                    scaleY: [1, 1 - Math.abs(vy) * 0.14 + Math.abs(vx) * 0.08, 0.97, 1.01, 1],
+                    rotate: [0, vx * 12, -vx * 5, vx * 2, 0],
+                    transition: { duration: 0.7, times: [0, 0.18, 0.45, 0.72, 1], ease: "easeOut" },
+                  });
+                }}
+                className="pointer-events-auto relative block cursor-pointer"
+                animate={reduce ? undefined : { y: [0, -9, 0], rotate: [-6, 2, -6] }}
+                transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+                whileHover={reduce ? undefined : { scale: 1.12, rotate: -14 }}
+              >
+                <Image src="/images/orbz/beto.png" alt="" width={size} height={size} priority />
+                {/* eyelids: he blinks when touched */}
+                {blink > 0 &&
+                  [30, 61.5].map((cx) => (
+                    <motion.span
+                      key={`${blink}-${cx}`}
+                      aria-hidden
+                      className="absolute top-[33%] h-[22%] w-[23%] origin-top -translate-x-1/2 rounded-full border-b-2 border-[#2f6f5c]/60"
+                      style={{ left: `${cx}%`, background: "radial-gradient(circle at 50% 30%, #6fd3b4, #4fb894)" }}
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: [0, 1, 1, 0, 0, 1, 0] }}
+                      transition={{ duration: 0.6, times: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 1], ease: "easeInOut" }}
+                    />
+                  ))}
+              </motion.button>
+            </motion.div>
+            {/* the hello: one hand up, waving */}
+            <AnimatePresence>
+              {waving && (
+                <motion.span
+                  key="wave"
+                  aria-hidden
+                  className={`absolute top-[-22%] block w-[38%] ${waveLeft ? "left-[-22%]" : "left-[84%]"}`}
+                  initial={{ opacity: 0, scale: 0.2 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.2 }}
+                  transition={{ duration: 0.3, ease: [0.2, 0.9, 0.3, 1.2] }}
+                >
+                  <motion.span
+                    className="block origin-[50%_95%]"
+                    initial={{ rotate: wave[0] }}
+                    animate={reduce ? undefined : { rotate: [...wave, ...wave, wave[0]] }}
+                    transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <OpenHand className={`w-full drop-shadow-[0_3px_3px_rgba(0,0,0,.2)] ${waveLeft ? "-scale-x-100" : ""}`} />
+                  </motion.span>
+                </motion.span>
+              )}
+            </AnimatePresence>
             {/* hands only come out while he is pointing at something */}
             <AnimatePresence>
               {pointing &&

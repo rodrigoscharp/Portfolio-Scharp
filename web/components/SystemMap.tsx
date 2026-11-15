@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useLang } from "@/lib/i18n";
+import { play } from "@/lib/sound";
 
 type Node = { id: string; label: string; detail: string; detailPt: string; x: number; y: number; href?: string; wide?: boolean };
 
@@ -61,6 +62,7 @@ export default function SystemMap({ className = "" }: { className?: string }) {
     const packets: Packet[] = [];
     const mouse = { x: -9999, y: -9999 };
     let hover = -1;
+    let hoverEdge = -1;
     let raf = 0;
     let visible = true;
     let last = performance.now();
@@ -152,7 +154,7 @@ export default function SystemMap({ className = "" }: { className?: string }) {
       ctx.strokeStyle = ink;
       ctx.lineWidth = 1;
       edges.forEach((e) => {
-        const on = hover >= 0 && (e.a === hover || e.b === hover);
+        const on = (hover >= 0 && (e.a === hover || e.b === hover)) || edges[hoverEdge] === e;
         ctx.globalAlpha = on ? 0.55 : 0.13;
         ctx.setLineDash(on ? [] : [3, 5]);
         ctx.beginPath();
@@ -172,6 +174,7 @@ export default function SystemMap({ className = "" }: { className?: string }) {
             if (nearEdge(e) < 140 && Math.random() < 0.55) addPacket(k);
           });
           if (hover >= 0) edges.forEach((e, k) => (e.a === hover || e.b === hover) && addPacket(k));
+          if (hoverEdge >= 0) addPacket(hoverEdge);
         }
       }
       ctx.fillStyle = accent;
@@ -198,8 +201,9 @@ export default function SystemMap({ className = "" }: { className?: string }) {
       // nodes
       ctx.font = "500 11px ui-monospace, SFMono-Regular, Menlo, monospace";
       ctx.textBaseline = "middle";
+      const lit = hoverEdge >= 0 ? edges[hoverEdge] : null;
       nodes.forEach((n, i) => {
-        const on = i === hover;
+        const on = i === hover || (!!lit && (lit.a === i || lit.b === i));
         const pulse = reduce ? 0 : (Math.sin(t / 700 + i) + 1) / 2;
         ctx.globalAlpha = 0.12 + pulse * 0.1;
         ctx.fillStyle = accent;
@@ -231,6 +235,22 @@ export default function SystemMap({ className = "" }: { className?: string }) {
         ctx.fillStyle = paper;
         ctx.textAlign = "left";
         ctx.fillText(text, tx + 11, ty + 14);
+      } else if (hoverEdge >= 0) {
+        // A hovered line names the two systems it connects, next to the cursor.
+        const e = edges[hoverEdge];
+        ctx.font = "400 12px ui-sans-serif, system-ui, sans-serif";
+        const text = `${nodes[e.a].label} ↔ ${nodes[e.b].label}`;
+        const tw = ctx.measureText(text).width + 22;
+        const tx = Math.min(Math.max(mouse.x - tw / 2, 8), w - tw - 8);
+        const ty = mouse.y + (mouse.y > h * 0.7 ? -48 : 20);
+        ctx.globalAlpha = 0.96;
+        ctx.fillStyle = ink;
+        roundRect(tx, ty, tw, 28, 14);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = paper;
+        ctx.textAlign = "left";
+        ctx.fillText(text, tx + 11, ty + 14);
       }
       ctx.globalAlpha = 1;
 
@@ -252,17 +272,40 @@ export default function SystemMap({ className = "" }: { className?: string }) {
       });
       // Text and buttons sit above the map; only claim the pointer over empty space.
       const over = (e.target as Element | null)?.closest("a,button,h1,p,[role=switch]");
+      const was = hover;
+      const wasEdge = hoverEdge;
       hover = over ? -1 : best;
-      // The site cursor is a frosted lens that would cover the tooltip; hide it over a node.
-      if (hover >= 0) document.documentElement.dataset.cursor = "off";
-      else delete document.documentElement.dataset.cursor;
+      hoverEdge = -1;
+      if (!over && hover < 0) {
+        let ed = 10;
+        edges.forEach((e, k) => {
+          const d = nearEdge(e);
+          if (d < ed) {
+            ed = d;
+            hoverEdge = k;
+          }
+        });
+      }
+      if (hover >= 0 && hover !== was) play("node");
+      else if (hoverEdge >= 0 && hoverEdge !== wasEdge && hover < 0) play("edge");
+      // The site cursor and the x-ray lens would cover the map; hide both over a node or line.
+      const root = document.documentElement;
+      if (hover >= 0 || hoverEdge >= 0) {
+        root.dataset.cursor = "off";
+        root.dataset.map = "on";
+      } else {
+        delete root.dataset.cursor;
+        delete root.dataset.map;
+      }
       canvas.parentElement?.style.setProperty("cursor", hover >= 0 && nodes[hover].href ? "pointer" : "");
       if (reduce) requestAnimationFrame(draw);
     };
     const onLeave = () => {
       mouse.x = mouse.y = -9999;
       hover = -1;
+      hoverEdge = -1;
       delete document.documentElement.dataset.cursor;
+      delete document.documentElement.dataset.map;
     };
     const onClick = () => {
       const n = hover >= 0 ? nodes[hover] : null;
@@ -287,7 +330,8 @@ export default function SystemMap({ className = "" }: { className?: string }) {
     });
     io.observe(canvas);
 
-    if (finePointer) window.addEventListener("pointermove", onMove);
+    // Capture phase: runs before the x-ray lens reads data-map on the same move.
+    if (finePointer) window.addEventListener("pointermove", onMove, true);
     document.documentElement.addEventListener("pointerleave", onLeave);
     const section = canvas.parentElement;
     section?.addEventListener("click", onClick);
@@ -296,7 +340,7 @@ export default function SystemMap({ className = "" }: { className?: string }) {
       ro.disconnect();
       io.disconnect();
       themeObs.disconnect();
-      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointermove", onMove, true);
       document.documentElement.removeEventListener("pointerleave", onLeave);
       section?.removeEventListener("click", onClick);
     };

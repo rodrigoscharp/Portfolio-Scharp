@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import Toggle3D from "@/components/Toggle3D";
 import SystemMap from "@/components/SystemMap";
 import XRay from "@/components/XRay";
 import { SITE } from "@/lib/data";
-import { INTRO_SECONDS, introPending } from "@/lib/intro";
+import { INTRO_SECONDS, introPending, onIntroStart } from "@/lib/intro";
 import { useLang } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -252,10 +252,15 @@ export default function Hero() {
   // Lands from the intro's zoom: starts a little closer and settles back.
   // Set after mount (hidden under the intro) so server and client HTML match.
   const land = useAnimationControls();
+  // Bumped when the intro starts, to replay the entrances in sync with it.
+  const [run, setRun] = useState(0);
   useEffect(() => {
     if (!introPending()) return;
     land.set({ scale: 1.18 });
-    land.start({ scale: 1, transition: { duration: 1.1, delay: INTRO_SECONDS - 0.55, ease: [0.16, 1, 0.3, 1] } });
+    return onIntroStart(() => {
+      setRun(1);
+      land.start({ scale: 1, transition: { duration: 1.1, delay: INTRO_SECONDS - 0.55, ease: [0.16, 1, 0.3, 1] } });
+    });
   }, [land]);
 
   return (
@@ -265,7 +270,7 @@ export default function Hero() {
       animate={land}
     >
       <SystemMap />
-      <HeroLayout />
+      <HeroLayout key={run} />
       <XRay>
         <HeroLayout xray />
       </XRay>

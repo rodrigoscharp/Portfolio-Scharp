@@ -31,7 +31,7 @@ export default function Home() {
       </main>
       <Footer />
       <BetoGuide />
-      <OpeningIntro />
+      <OpeningIntro gate />
     </>
   );
 }

@@ -33,9 +33,10 @@ export default function Cursor() {
         sy.jump(e.clientY);
       }
       // Hidden over map nodes and inside the hero's x-ray lens, which is its own cursor.
+      // Also hidden over the header and Beto, where its blur would cover text.
       const ds = document.documentElement.dataset;
-      setShown(ds.cursor !== "off" && ds.xray !== "on");
       const t = e.target as Element | null;
+      setShown(ds.cursor !== "off" && ds.xray !== "on" && !t?.closest("header,[data-no-cursor]"));
       if (t?.closest("a,button,[role=switch],[data-cursor=hover]")) setMode("hover");
       else if (t?.closest("#top")) setMode("hero");
       else setMode("idle");

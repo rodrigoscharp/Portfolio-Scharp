@@ -132,6 +132,11 @@ body {
   }
 }
 
+@keyframes sound-bar {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.35); }
+}
+
 @keyframes sticker-spin {
   to {
     transform: rotate(360deg);

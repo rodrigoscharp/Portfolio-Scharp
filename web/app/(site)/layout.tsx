@@ -9,6 +9,7 @@ import {
 import Providers from "@/components/Providers";
 import Cursor from "@/components/Cursor";
 import CommandPalette from "@/components/CommandPalette";
+import SoundFX from "@/components/SoundFX";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
           <Cursor />
           <CommandPalette />
+          <SoundFX />
         </Providers>
       </body>
     </html>

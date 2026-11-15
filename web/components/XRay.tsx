@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { animate, motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { play } from "@/lib/sound";
 
 /* Syntax-coloured lines of the "back-end" behind the hero. t: token kind. */
 type Tok = [string, "k" | "t" | "s" | "c" | "n" | "p" | "f"];
@@ -78,9 +79,14 @@ export default function XRay({ children }: { children?: React.ReactNode }) {
       x.set(e.clientX - b.left);
       y.set(e.clientY - b.top);
       const overUi = (e.target as Element | null)?.closest("a,button,[role=switch]");
-      r.set(overUi ? 0 : size());
+      // Close the lens over a node or line of the system map so it stays readable.
+      const overMap = document.documentElement.dataset.map === "on";
+      r.set(overUi || overMap ? 0 : size());
     };
-    const enter = () => (document.documentElement.dataset.xray = "on");
+    const enter = () => {
+      document.documentElement.dataset.xray = "on";
+      play("scan");
+    };
     const leave = () => {
       r.set(0);
       delete document.documentElement.dataset.xray;

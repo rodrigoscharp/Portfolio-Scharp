@@ -2,12 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
-import { introDone, introPending, markIntroSeen } from "@/lib/intro";
+import { introDone, introPending, markIntroSeen, startIntro } from "@/lib/intro";
+import { play, setSound } from "@/lib/sound";
 import css from "./OpeningIntro.module.css";
 
 /* Opening, all centred: a big "00" glitches in (not top 1, top 00) while a ring
    draws around it, the name types in under it, then the camera rushes into the
-   centre while a round hole opens and reveals the hero. */
+   centre while a round hole opens and reveals the hero. With `gate` it first
+   waits on a "click to enter" screen: browsers block sound until a click, and
+   that click lets the opening play with its sound. */
 
 const R = 46;
 const C = 2 * Math.PI * R;
@@ -41,10 +44,12 @@ function liquidClip(w: number, h: number, r: number, t: number, phase = 0) {
   return `path(evenodd, "M0 0H${w}V${h}H0Z${d}Z")`;
 }
 
-export default function OpeningIntro() {
+export default function OpeningIntro({ gate = false }: { gate?: boolean }) {
   // Rendered from the server so it covers the page before the first paint; CSS
   // only shows it when the inline script in the layout marked the intro pending.
   const [show, setShow] = useState(true);
+  const [entered, setEntered] = useState(!gate);
+  const [pt, setPt] = useState(false);
   const ring = useMotionValue(0);
   const dash = useTransform(ring, (v) => C * (1 - v));
   // The zoom: content rushes toward the viewer while a round hole grows from the centre.
@@ -60,6 +65,23 @@ export default function OpeningIntro() {
       return () => window.cancelAnimationFrame(off);
     }
     markIntroSeen();
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
+    // Keeps the cover up past the inline script's safety timeout while waiting.
+    if (gate) root.classList.add("intro-gate");
+    try {
+      const l = localStorage.getItem("lang");
+      const id = window.requestAnimationFrame(() =>
+        setPt(l === "pt" || (!l && navigator.language.toLowerCase().startsWith("pt"))),
+      );
+      return () => window.cancelAnimationFrame(id);
+    } catch {}
+  }, [gate]);
+
+  useEffect(() => {
+    if (!entered || !introPending()) return;
+    startIntro();
+    play("intro");
     document.documentElement.style.overflow = "hidden";
     let done = false;
     const draw = animate(ring, 1, { duration: 1.1, delay: 0.25, ease: [0.65, 0, 0.35, 1] });
@@ -67,6 +89,7 @@ export default function OpeningIntro() {
       if (done) return;
       done = true;
       draw.stop();
+      play("whoosh");
       animate(zoom, 14, { duration: 0.75, ease: [0.7, 0, 0.84, 0] });
       // Liquid opening: the dark layer's blob leads, an orange rim follows it.
       const w = window.innerWidth;
@@ -81,7 +104,7 @@ export default function OpeningIntro() {
       animate(hole, 1, { duration: 1.05, delay: 0.1, ease: [0.55, 0, 0.3, 1] }).then(() => {
         unsub();
         document.documentElement.style.overflow = "";
-        document.documentElement.classList.remove("intro-pending");
+        document.documentElement.classList.remove("intro-pending", "intro-gate");
         introDone();
         setShow(false);
       });
@@ -95,7 +118,12 @@ export default function OpeningIntro() {
       window.removeEventListener("pointerdown", skip);
       document.documentElement.style.overflow = "";
     };
-  }, [ring, zoom, hole]);
+  }, [entered, ring, zoom, hole]);
+
+  const enter = (sound: boolean) => {
+    setSound(sound);
+    setEntered(true);
+  };
 
   if (!show) return null;
 
@@ -114,55 +142,73 @@ export default function OpeningIntro() {
           style={{ scale: zoom }}
         />
 
-        <motion.div className={css.stack} style={{ scale: zoom, opacity: fade }}>
-          <div className={css.ring}>
-            <svg viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r={R} fill="none" stroke="rgba(255,255,255,.08)" strokeWidth="1.2" />
-              <motion.circle
-                cx="50"
-                cy="50"
-                r={R}
-                fill="none"
-                stroke="#ff7a3a"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeDasharray={C}
-                style={{ strokeDashoffset: dash }}
-              />
-            </svg>
-            <motion.p
-              className={`${css.display} ${css.zero}`}
-              initial={{ opacity: 0, scale: 2.2, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: [0, -6, 5, -3, 0] }}
-              transition={{ duration: 0.55, ease: [0.2, 0.9, 0.3, 1] }}
-            >
-              00
-            </motion.p>
-          </div>
-
-          {/* the name and the title, letter by letter */}
-          <p className={`${css.display} ${css.name}`}>
-            {"RODRIGO SCHARP".split("").map((ch, k) => (
-              <motion.span
-                key={k}
-                className={css.letter}
-                initial={{ opacity: 0, y: 18, rotateX: 90 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{ duration: 0.35, delay: 0.45 + k * 0.03, ease: [0.2, 0.9, 0.3, 1] }}
-              >
-                {ch === " " ? " " : ch}
-              </motion.span>
-            ))}
-          </p>
-          <motion.p
-            className={css.cmd}
-            initial={{ opacity: 0, y: 6 }}
+        {!entered ? (
+          <motion.div
+            className={css.gate}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.9 }}
+            transition={{ duration: 0.6, ease: [0.2, 0.9, 0.3, 1] }}
           >
-            <span className={css.prompt}>$ </span>rodrigoscharp <span className={css.flag}>--top 00</span>
-          </motion.p>
-        </motion.div>
+            <p className={`${css.display} ${css.zero}`}>00</p>
+            {/* data-sound-toggle: the page-wide sound unlock leaves these clicks to us */}
+            <button type="button" data-sound-toggle autoFocus className={css.enter} onClick={() => enter(true)}>
+              {pt ? "Entrar ♪" : "Enter ♪"}
+            </button>
+            <button type="button" data-sound-toggle className={css.mute} onClick={() => enter(false)}>
+              {pt ? "entrar sem som" : "enter without sound"}
+            </button>
+          </motion.div>
+        ) : (
+          <motion.div className={css.stack} style={{ scale: zoom, opacity: fade }}>
+            <div className={css.ring}>
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r={R} fill="none" stroke="rgba(255,255,255,.08)" strokeWidth="1.2" />
+                <motion.circle
+                  cx="50"
+                  cy="50"
+                  r={R}
+                  fill="none"
+                  stroke="#ff7a3a"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeDasharray={C}
+                  style={{ strokeDashoffset: dash }}
+                />
+              </svg>
+              <motion.p
+                className={`${css.display} ${css.zero}`}
+                initial={{ opacity: 0, scale: 2.2, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: [0, -6, 5, -3, 0] }}
+                transition={{ duration: 0.55, ease: [0.2, 0.9, 0.3, 1] }}
+              >
+                00
+              </motion.p>
+            </div>
+
+            {/* the name and the title, letter by letter */}
+            <p className={`${css.display} ${css.name}`}>
+              {"RODRIGO SCHARP".split("").map((ch, k) => (
+                <motion.span
+                  key={k}
+                  className={css.letter}
+                  initial={{ opacity: 0, y: 18, rotateX: 90 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ duration: 0.35, delay: 0.45 + k * 0.03, ease: [0.2, 0.9, 0.3, 1] }}
+                >
+                  {ch === " " ? " " : ch}
+                </motion.span>
+              ))}
+            </p>
+            <motion.p
+              className={css.cmd}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
+            >
+              <span className={css.prompt}>$ </span>rodrigoscharp <span className={css.flag}>--top 00</span>
+            </motion.p>
+          </motion.div>
+        )}
       </motion.div>
     </>
   );
