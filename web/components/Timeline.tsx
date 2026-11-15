@@ -10,16 +10,20 @@ import {
 } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { ROWS, type Row } from "@/lib/data";
+import { ROWS_PT } from "@/lib/data.pt";
+import { useL, useLang } from "@/lib/i18n";
 
-const cta: Record<NonNullable<Row["cta"]>, { label: string; cls: string }> = {
-  case: { label: "Case Study", cls: "bg-[#eb6c34]" },
-  live: { label: "Website Live", cls: "bg-ink text-bg!" },
-  repo: { label: "View Repo", cls: "bg-accent-2" },
-  soon: { label: "Em breve", cls: "bg-ink/35" },
+const cta: Record<NonNullable<Row["cta"]>, { label: [string, string]; cls: string }> = {
+  case: { label: ["Case Study", "Estudo de caso"], cls: "bg-[#eb6c34]" },
+  live: { label: ["Website Live", "Ver site"], cls: "bg-ink text-bg!" },
+  repo: { label: ["View Repo", "Ver repositório"], cls: "bg-accent-2" },
+  soon: { label: ["Em breve", "Em breve"], cls: "bg-ink/35" },
 };
 
 export default function Timeline() {
   const [hover, setHover] = useState<number | null>(null);
+  const { t } = useLang();
+  const rows = useL(ROWS, ROWS_PT);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 260, damping: 26, mass: 0.6 });
@@ -29,7 +33,7 @@ export default function Timeline() {
     <section id="timeline" className="px-5 pb-28 md:px-8 md:pb-44">
       <Reveal>
         <h2 className="mb-10 font-display text-[clamp(2.8rem,6vw,5.4rem)] font-extrabold leading-none tracking-[-0.05em] [font-stretch:100%] md:mb-14">
-          Projects Timeline
+          {t("Projects Timeline", "Linha do tempo")}
         </h2>
       </Reveal>
 
@@ -41,15 +45,15 @@ export default function Timeline() {
         onMouseLeave={() => setHover(null)}
       >
         <div className="hidden grid-cols-[42%_1fr_auto] pb-3 text-[12px] font-bold uppercase md:grid">
-          <span>Year</span>
-          <span>Projects</span>
-          <span className="invisible">Action</span>
+          <span>{t("Year", "Ano")}</span>
+          <span>{t("Projects", "Projetos")}</span>
+          <span className="invisible">{t("Action", "Ação")}</span>
         </div>
 
         <ul className="border-t border-ink md:border-t-0">
-          {ROWS.map((r, i) => (
+          {rows.map((r, i) => (
             <li
-              key={r.title}
+              key={r.href ?? r.title}
               onMouseEnter={() => setHover(i)}
               className="border-b border-ink"
             >
@@ -68,7 +72,7 @@ export default function Timeline() {
                   <span
                     className={`order-2 cursor-default justify-self-end rounded-full px-5 py-2.5 text-[13px] tracking-[0.06em] text-white md:order-none md:px-7 md:py-3 ${cta[r.cta].cls}`}
                   >
-                    {cta[r.cta].label}
+                    {t(...cta[r.cta].label)}
                   </span>
                 ) : (
                   <a
@@ -77,7 +81,7 @@ export default function Timeline() {
                     rel="noopener noreferrer"
                     className={`order-2 justify-self-end rounded-full px-5 py-2.5 text-[13px] tracking-[0.06em] text-white transition-transform duration-200 hover:scale-[1.04] md:order-none md:px-7 md:py-3 ${cta[r.cta].cls}`}
                   >
-                    {cta[r.cta].label}
+                    {t(...cta[r.cta].label)}
                   </a>
                 )}
               </motion.div>
@@ -87,7 +91,7 @@ export default function Timeline() {
       </div>
 
       <AnimatePresence>
-        {hover !== null && ROWS[hover].image && (
+        {hover !== null && rows[hover].image && (
           <motion.div
             key="preview"
             aria-hidden
@@ -99,7 +103,7 @@ export default function Timeline() {
             className="pointer-events-none fixed left-0 top-0 z-40 hidden h-[170px] w-[270px] overflow-hidden rounded-xl border border-ink bg-paper shadow-xl md:block"
           >
             <Image
-              src={ROWS[hover].image!}
+              src={rows[hover].image!}
               alt=""
               fill
               sizes="270px"

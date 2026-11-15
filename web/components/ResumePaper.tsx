@@ -1,3 +1,5 @@
+"use client";
+
 import { CV_PDF, SITE } from "@/lib/data";
 import {
   AWARDS,
@@ -7,11 +9,27 @@ import {
   SKILLS_GROUPS,
   SUMMARY,
 } from "@/lib/resume";
+import {
+  AWARDS_PT,
+  EDUCATION_PT,
+  JOBS_PT,
+  PROJECTS_PT,
+  SKILLS_GROUPS_PT,
+  SUMMARY_PT,
+} from "@/lib/resume.pt";
+import { useL, useLang } from "@/lib/i18n";
 
 const sec = "mb-3 border-b border-ink/60 pb-1 text-[15px] font-semibold";
 const sub = "mb-1 text-[11px] font-semibold";
 
 export default function ResumePaper() {
+  const { t } = useLang();
+  const jobs = useL(JOBS, JOBS_PT);
+  const projects = useL(PROJECTS, PROJECTS_PT);
+  const awards = useL(AWARDS, AWARDS_PT);
+  const skills = useL(SKILLS_GROUPS, SKILLS_GROUPS_PT);
+  const education = useL(EDUCATION, EDUCATION_PT);
+  const summary = useL(SUMMARY, SUMMARY_PT);
   return (
     <div className="mx-auto max-w-[1040px] px-3 md:px-6">
       <article className="rounded-[26px] border border-[#eb6c34]/70 bg-paper p-6 shadow-[0_18px_50px_-24px_rgba(235,108,52,.35)] md:p-12">
@@ -21,10 +39,11 @@ export default function ResumePaper() {
               Rodrigo Scharp
             </h1>
             <p className="mt-2 text-[11px] font-semibold uppercase">
-              Backend Software Engineer <span className="font-normal">|</span> Java &amp; Spring Boot{" "}
-              <span className="font-normal">|</span> Distributed Systems
+              {t("Backend Software Engineer", "Engenheiro de Software Back-end")}{" "}
+              <span className="font-normal">|</span> Java &amp; Spring Boot{" "}
+              <span className="font-normal">|</span> {t("Distributed Systems", "Sistemas Distribuídos")}
             </p>
-            <p className="mt-3 max-w-[60ch] text-[10.5px] leading-relaxed">{SUMMARY}</p>
+            <p className="mt-3 max-w-[60ch] text-[10.5px] leading-relaxed">{summary}</p>
           </header>
           <div className="text-[10.5px] leading-relaxed md:pt-1">
             <p>
@@ -40,15 +59,15 @@ export default function ResumePaper() {
               <b>GitHub:</b> github.com/rodrigoscharp
             </p>
             <p>
-              <b>Location:</b> Ubatuba, São Paulo, Brazil
+              <b>{t("Location", "Localização")}:</b> Ubatuba, São Paulo, {t("Brazil", "Brasil")}
             </p>
           </div>
         </div>
 
         <div className="mt-8 grid gap-10 md:grid-cols-[1.6fr_1fr]">
           <div>
-            <h2 className={sec}>Work Experience</h2>
-            {JOBS.map((j) => (
+            <h2 className={sec}>{t("Work Experience", "Experiência Profissional")}</h2>
+            {jobs.map((j) => (
               <section key={j.company} className="mb-6">
                 <p className="text-[12px] font-bold text-accent-2">
                   {j.company.toUpperCase()}{" "}
@@ -65,15 +84,15 @@ export default function ResumePaper() {
                       ))}
                     </ul>
                     <p className="mt-1.5 text-[10px]">
-                      <b>Technologies:</b> {r.tech}
+                      <b>{t("Technologies", "Tecnologias")}:</b> {r.tech}
                     </p>
                   </div>
                 ))}
               </section>
             ))}
 
-            <h2 className={`${sec} mt-8`}>Technical Projects</h2>
-            {PROJECTS.map((p) => (
+            <h2 className={`${sec} mt-8`}>{t("Technical Projects", "Projetos Técnicos")}</h2>
+            {projects.map((p) => (
               <section key={p.name} className="mb-4">
                 <p className="text-[11px] font-bold">
                   <span className="text-accent-2">{p.name}</span>
@@ -92,18 +111,18 @@ export default function ResumePaper() {
           </div>
 
           <aside>
-            <h2 className={sec}>Recognition</h2>
+            <h2 className={sec}>{t("Recognition", "Reconhecimentos")}</h2>
             <ul className="mb-7 list-disc space-y-2 pl-4 text-[10.5px] leading-snug">
-              {AWARDS.map((a) => (
+              {awards.map((a) => (
                 <li key={a.name}>
                   <b>{a.name}</b> - {a.text}
                 </li>
               ))}
             </ul>
 
-            <h2 className={sec}>Skills</h2>
+            <h2 className={sec}>{t("Skills", "Competências")}</h2>
             <div className="mb-7 space-y-3">
-              {SKILLS_GROUPS.map((g) => (
+              {skills.map((g) => (
                 <div key={g.label}>
                   <p className={sub}>{g.label}</p>
                   <p className="text-[10.5px] leading-snug">
@@ -113,15 +132,15 @@ export default function ResumePaper() {
               ))}
             </div>
 
-            <h2 className={sec}>Education</h2>
+            <h2 className={sec}>{t("Education", "Formação")}</h2>
             <div className="mb-7 space-y-3 text-[10.5px] leading-snug">
               <div>
-                <p className="font-bold text-accent-2">{EDUCATION.school}</p>
+                <p className="font-bold text-accent-2">{education.school}</p>
                 <p>
-                  {EDUCATION.degree} | {EDUCATION.dates}
+                  {education.degree} | {education.dates}
                 </p>
               </div>
-              {EDUCATION.certs.map((c) => (
+              {education.certs.map((c) => (
                 <div key={c.name}>
                   <p className="font-bold text-accent-2">{c.name}</p>
                   <p>
@@ -132,9 +151,9 @@ export default function ResumePaper() {
               ))}
             </div>
 
-            <h2 className={sec}>Languages</h2>
+            <h2 className={sec}>{t("Languages", "Idiomas")}</h2>
             <p className="text-[10.5px] leading-snug">
-              {EDUCATION.languages.map((l) => `${l.name}: ${l.level}`).join("  |  ")}
+              {education.languages.map((l) => `${l.name}: ${l.level}`).join("  |  ")}
             </p>
           </aside>
         </div>
@@ -148,7 +167,7 @@ export default function ResumePaper() {
           download
           className="inline-block rounded-full bg-ink px-7 py-3 text-[13px] text-paper"
         >
-          Download Resume
+          {t("Download Resume", "Baixar currículo (EN)")}
         </a>
       </div>
     </div>

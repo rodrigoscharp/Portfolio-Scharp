@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { EVENTS } from "@/lib/events";
+import { EVENTS_PT } from "@/lib/events.pt";
+import { useL, useLang } from "@/lib/i18n";
 import { quadMatrix3d } from "@/lib/quad";
 
 const INTRO = { bg: "#0d0d0d", accent: "#46647f", ink: "#ffffff" };
@@ -32,6 +34,8 @@ const LOCK_MS = 1250;
 const EASE = [0.7, 0, 0.15, 1] as const;
 
 export default function EventsMobile() {
+  const { t } = useLang();
+  const events = useL(EVENTS, EVENTS_PT);
   const [index, setIndex] = useState(0); // 0 = intro, 1..N = events
   const [moving, setMoving] = useState(false);
   const [vp, setVp] = useState({ w: 1440, h: 800 });
@@ -127,7 +131,7 @@ export default function EventsMobile() {
 
   const intro = index === 0;
   const active = index - 1;
-  const ev = intro ? null : EVENTS[active];
+  const ev = intro ? null : events[active];
   const bg = ev?.bg ?? INTRO.bg;
   const accent = ev?.accent ?? INTRO.accent;
   const ink = ev?.ink ?? INTRO.ink;
@@ -167,7 +171,7 @@ export default function EventsMobile() {
           Rodrigo Scharp
         </Link>
         <Link href="/" className={nav}>
-          Home
+          {t("Home", "Início")}
         </Link>
       </motion.div>
 
@@ -182,7 +186,7 @@ export default function EventsMobile() {
           animate={{ y: trackY, skewY: moving ? -5 : 0, scaleY: moving ? 1.05 : 1 }}
           transition={{ duration: 1.2, ease: EASE }}
         >
-          {EVENTS.map((e, i) => {
+          {events.map((e, i) => {
             const isActive = i === active;
             return (
               <div
@@ -230,10 +234,10 @@ export default function EventsMobile() {
                 className="events-title text-[clamp(2.8rem,7.4vw,6.6rem)] leading-none"
                 style={{ color: accent, WebkitTextStroke: "0.02em currentColor" }}
               >
-                Events
+                {t("Events", "Eventos")}
               </h1>
               <p className="mt-4 text-[14px] font-bold uppercase tracking-[2px] md:text-[16px]">
-                Conferences · Summits · Forums
+                {t("Conferences · Summits · Forums", "Conferências · Summits · Fóruns")}
               </p>
             </motion.div>
           ) : (
@@ -275,7 +279,10 @@ export default function EventsMobile() {
             animate={{ opacity: 1, y: 0, transition: { delay: 0.8, duration: 0.7 } }}
             exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }}
           >
-            Role pra ver por onde eu passei, {N} eventos de norte a sul do Brasil ↓
+            {t(
+              `Scroll to see where I've been: ${N} events across Brazil ↓`,
+              `Role pra ver por onde eu passei, ${N} eventos de norte a sul do Brasil ↓`,
+            )}
           </motion.p>
         )}
       </AnimatePresence>
@@ -328,11 +335,11 @@ export default function EventsMobile() {
         animate={{ opacity: intro ? 0 : 1 }}
         transition={{ duration: 0.6 }}
       >
-        {EVENTS.map((e, i) => (
+        {events.map((e, i) => (
           <li key={e.slug}>
             <button
               type="button"
-              aria-label={`Go to ${e.title}`}
+              aria-label={t(`Go to ${e.title}`, `Ir para ${e.title}`)}
               aria-current={i === active}
               tabIndex={intro ? -1 : 0}
               onClick={() => go(i + 1)}

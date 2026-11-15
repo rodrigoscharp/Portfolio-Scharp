@@ -11,6 +11,8 @@ import {
   useTransform,
 } from "framer-motion";
 import { EVENTS, TEASERS, parseFocus } from "@/lib/events";
+import { EVENTS_PT } from "@/lib/events.pt";
+import { useL, useLang } from "@/lib/i18n";
 import { EventsScene } from "@/lib/eventsScene";
 import { Lethargy, easeInOutQuart, easeInQuad, easeOutQuad } from "@/lib/motion";
 
@@ -140,6 +142,7 @@ type FastNavProps = {
 };
 
 function FastNav({ index, fastIndex, open, wide, onOpen, onHover, onClose, onPick }: FastNavProps) {
+  const events = useL(EVENTS, EVENTS_PT);
   const p = useMotionValue(0);
   const skew = useTransform(p, [0, 0.5, 1], [0, 45, 0]);
   const barW = useTransform(p, [0, 0.5, 1], ["0%", "100%", "0%"]);
@@ -205,7 +208,7 @@ function FastNav({ index, fastIndex, open, wide, onOpen, onHover, onClose, onPic
               if (openRef.current) onClose(true);
             }}
           >
-            {EVENTS.map((e, i) => {
+            {events.map((e, i) => {
               const isCur = i === cur;
               const labelColor = open ? "#ffffff" : e.ink;
               const bulletColor = open
@@ -213,8 +216,8 @@ function FastNav({ index, fastIndex, open, wide, onOpen, onHover, onClose, onPic
                   ? e.accent
                   : "#ffffff"
                 : i === index
-                  ? EVENTS[index].accent
-                  : EVENTS[index].ink;
+                  ? events[index].accent
+                  : events[index].ink;
               return (
                 <motion.div
                   key={e.slug}
@@ -272,6 +275,7 @@ function Loader({
   leaving: boolean;
   teaser: string;
 }) {
+  const { t } = useLang();
   const barH = useTransform(progress, (v) => `${v * 100}%`);
   const fillClip = useTransform(progress, (v) => `inset(${100 * (1 - v)}% 0 0 0)`);
   const clip = useMotionValue(0);
@@ -312,7 +316,7 @@ function Loader({
               className="events-title text-[clamp(3rem,7vw,6.6rem)] leading-none"
               style={{ color: "transparent", WebkitTextStroke: `2px ${LOADER_ACCENT}` }}
             >
-              Events
+              {t("Events", "Eventos")}
             </h1>
             <motion.div
               aria-hidden
@@ -323,7 +327,7 @@ function Loader({
                 className="block events-title text-[clamp(3rem,7vw,6.6rem)] leading-none"
                 style={{ color: LOADER_ACCENT }}
               >
-                Events
+                {t("Events", "Eventos")}
               </span>
             </motion.div>
           </div>
@@ -331,7 +335,7 @@ function Loader({
             className="mt-2 text-[14px] font-bold uppercase tracking-[2px] text-white min-[1600px]:text-[16px]"
             style={item(1)}
           >
-            Conferences · Summits · Forums
+            {t("Conferences · Summits · Forums", "Conferências · Summits · Fóruns")}
           </p>
         </div>
         <p
@@ -383,6 +387,8 @@ export default function EventsShow() {
   const [shownDelta, setShownDelta] = useState(1);
   const [fastOpen, setFastOpen] = useState(false);
   const [fastIndex, setFastIndex] = useState<number | null>(null);
+  const { t } = useLang();
+  const events = useL(EVENTS, EVENTS_PT);
   const [teaser, setTeaser] = useState(TEASERS[0]);
 
   useEffect(() => {
@@ -397,8 +403,8 @@ export default function EventsShow() {
     return () => cancelAnimationFrame(id);
   }, []);
 
-  const cur = EVENTS[index];
-  const shownEv = EVENTS[shown];
+  const cur = events[index];
+  const shownEv = events[shown];
 
   /* -------- scene lifecycle -------- */
   useEffect(() => {
@@ -586,9 +592,9 @@ export default function EventsShow() {
     return (
       <div className="fixed inset-0 grid place-items-center bg-[#0d0d0d] px-6 text-center text-white">
         <p>
-          Este navegador não conseguiu iniciar o WebGL.{" "}
+          {t("This browser couldn't start WebGL.", "Este navegador não conseguiu iniciar o WebGL.")}{" "}
           <Link href="/" className="underline">
-            Voltar ao portfólio
+            {t("Back to the portfolio", "Voltar ao portfólio")}
           </Link>
         </p>
       </div>
@@ -728,7 +734,7 @@ export default function EventsShow() {
           className="text-[14px] font-bold uppercase leading-[1.5em] tracking-[2px] min-[1600px]:text-[16px]"
           style={{ color: cur.ink, transition: `color .65s ${SINE}`, pointerEvents: "auto" }}
         >
-          Home
+          {t("Home", "Início")}
         </Link>
       </motion.div>
 
