@@ -15,9 +15,12 @@ export type LinkCard = {
   image?: string;
   /** Phone mockup aspect ratio, for product cards. */
   aspect?: string;
-  /** Product cards: background gradient and accent color. */
+  /** Product cards: solid brand background, accent color, the brand symbol
+      drawn huge behind the phone, and two drifting glows. */
   bg?: string;
   accent?: string;
+  mark?: string;
+  glow?: [string, string];
 };
 
 export const LINK_PROFILE = {
@@ -30,6 +33,7 @@ export const LINK_PROFILE = {
 export const LINK_SOCIALS = [
   { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/rodrigoscharp" },
   { id: "github", label: "GitHub", href: "https://github.com/rodrigoscharp" },
+  { id: "youtube", label: "YouTube", href: "https://www.youtube.com/@rodrigoscharp" },
   { id: "email", label: "E-mail", href: "mailto:rodrigoscharp@gmail.com" },
 ] as const;
 
@@ -51,10 +55,12 @@ export const LINK_CARDS: LinkCard[] = [
     title: "Muno",
     subtitle: "PDV e cardápio digital para restaurantes",
     href: `https://munoapp.com.br?${UTM}`,
-    image: "/images/muno-mobile-v4.png",
-    aspect: "714 / 953",
-    bg: "linear-gradient(160deg,#ff8a3d 0%,#fd601a 45%,#b83200 100%)",
+    image: "/images/muno-iphone-app.jpg",
+    aspect: "393 / 852",
+    bg: "#c4521e",
     accent: "#fd601a",
+    mark: "/images/logos/muno-mark.png",
+    glow: ["#ff9a5c", "#1e3d2f"],
   },
   {
     id: "myhub",
@@ -63,9 +69,44 @@ export const LINK_CARDS: LinkCard[] = [
     title: "MyHub",
     subtitle: "Sua rotina inteira em um só lugar",
     href: `https://usemyhub.com?${UTM}`,
-    image: "/images/myhub-mobile-v2.png",
-    aspect: "581 / 921",
-    bg: "linear-gradient(160deg,#a970ff 0%,#7b2ff2 50%,#3b1180 100%)",
+    image: "/images/myhub-iphone-app.jpg",
+    aspect: "393 / 852",
+    bg: "#0b0b0d",
     accent: "#b8f04f",
+    mark: "/images/logos/myhub-mark.svg",
+    glow: ["#8c8c91", "#4a4a4f"],
+  },
+];
+
+/* Discount coupons from partners. Every code is the same: my surname. */
+export type Coupon = {
+  id: string;
+  brand: string;
+  what: string;
+  code: string;
+  href: string;
+  /** Card colors: background and accent. */
+  bg: string;
+  accent: string;
+};
+
+export const LINK_COUPONS: Coupon[] = [
+  {
+    id: "rocketseat",
+    brand: "Rocketseat",
+    what: "Cursos e formações de programação",
+    code: "SCHARP",
+    href: "https://www.rocketseat.com.br/oferta/influencer/v2/scharp",
+    bg: "#121214",
+    accent: "#8257e5",
+  },
+  {
+    id: "minimal",
+    brand: "Minimal Club",
+    what: "Roupas básicas masculinas",
+    code: "SCHARP",
+    href: "https://minimalclub.com.br",
+    bg: "#f2f0ea",
+    accent: "#111111",
   },
 ];
