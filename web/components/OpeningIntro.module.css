@@ -1,0 +1,103 @@
+/* Opening animation. Plain CSS (no Tailwind) so it also runs on the
+   link-in-bio page, which has its own stylesheet. */
+
+/* Shown only while the layout's inline script marks the intro pending, so the
+   cover is there from the first paint and never flashes for return visits. */
+.cover {
+  display: none;
+  position: fixed;
+  inset: 0;
+}
+
+:global(html.intro-pending) .cover {
+  display: flex;
+}
+
+.rim {
+  z-index: 79;
+  background: #ff7a3a;
+  pointer-events: none;
+}
+
+.dark {
+  z-index: 80;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0e0e13;
+  color: #e9e4d8;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+}
+
+.stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(200px, 32vmin, 320px);
+  height: clamp(200px, 32vmin, 320px);
+}
+
+.ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.display {
+  margin: 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 900;
+  font-stretch: 125%;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.zero {
+  font-size: clamp(4.4rem, 12vmin, 8rem);
+  color: #ff7a3a;
+}
+
+.name {
+  margin-top: 28px;
+  font-size: clamp(1.6rem, 3.6vw, 2.8rem);
+  color: #e9e4d8;
+}
+
+.letter {
+  display: inline-block;
+}
+
+.cmd {
+  margin: 16px 0 0;
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: #b7b2a8;
+}
+
+.prompt {
+  color: #7d7a72;
+}
+
+.flag {
+  color: #ff7a3a;
+}

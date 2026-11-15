@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, Poppins, Space_Mono } from "next/font/google";
 import { LINK_PROFILE } from "@/lib/links";
 import "./links.css";
+import OpeningIntro from "@/components/OpeningIntro";
 
 // Own root layout: the link-in-bio page is a standalone mobile screen, without
 // the portfolio's navbar, cursor or theme toggle.
@@ -53,9 +54,20 @@ export default function LinksLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
+      suppressHydrationWarning
       className={`${poppins.variable} ${archivo.variable} ${spaceMono.variable}`}
     >
-      <body>{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("intro-seen")!=="1"&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement;r.classList.add("intro-pending");setTimeout(function(){r.classList.remove("intro-pending")},6000)}}catch(e){}`,
+          }}
+        />
+      </head>
+      <body>
+        {children}
+        <OpeningIntro />
+      </body>
     </html>
   );
 }

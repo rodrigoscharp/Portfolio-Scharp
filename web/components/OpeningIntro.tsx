@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { introDone, introPending, markIntroSeen } from "@/lib/intro";
+import css from "./OpeningIntro.module.css";
 
 /* Opening, all centred: a big "00" glitches in (not top 1, top 00) while a ring
    draws around it, the name types in under it, then the camera rushes into the
@@ -101,27 +102,21 @@ export default function OpeningIntro() {
   return (
     <>
       {/* orange liquid rim, just behind the dark layer's edge */}
-      <div ref={rim} aria-hidden className="intro-cover pointer-events-none fixed inset-0 z-[79] bg-[#ff7a3a]" />
+      <div ref={rim} aria-hidden className={`${css.cover} ${css.rim}`} />
       <motion.div
         ref={dark}
         aria-hidden
-        className="intro-cover pointer-events-auto fixed inset-0 z-[80] items-center justify-center overflow-hidden bg-[#0e0e13] text-[#e9e4d8]"
+        className={`${css.cover} ${css.dark}`}
       >
         {/* faint grid, zooming with everything else */}
         <motion.div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            scale: zoom,
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-            backgroundPosition: "center",
-          }}
+          className={css.grid}
+          style={{ scale: zoom }}
         />
 
-        <motion.div className="relative flex flex-col items-center" style={{ scale: zoom, opacity: fade }}>
-          <div className="relative grid h-[clamp(200px,32vmin,320px)] w-[clamp(200px,32vmin,320px)] place-items-center">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
+        <motion.div className={css.stack} style={{ scale: zoom, opacity: fade }}>
+          <div className={css.ring}>
+            <svg viewBox="0 0 100 100">
               <circle cx="50" cy="50" r={R} fill="none" stroke="rgba(255,255,255,.08)" strokeWidth="1.2" />
               <motion.circle
                 cx="50"
@@ -136,7 +131,7 @@ export default function OpeningIntro() {
               />
             </svg>
             <motion.p
-              className="display text-[clamp(4.4rem,12vmin,8rem)] leading-none text-[#ff7a3a]"
+              className={`${css.display} ${css.zero}`}
               initial={{ opacity: 0, scale: 2.2, filter: "blur(10px)" }}
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: [0, -6, 5, -3, 0] }}
               transition={{ duration: 0.55, ease: [0.2, 0.9, 0.3, 1] }}
@@ -146,11 +141,11 @@ export default function OpeningIntro() {
           </div>
 
           {/* the name and the title, letter by letter */}
-          <p className="display mt-7 text-[clamp(1.6rem,3.6vw,2.8rem)] leading-none text-[#e9e4d8]">
+          <p className={`${css.display} ${css.name}`}>
             {"RODRIGO SCHARP".split("").map((ch, k) => (
               <motion.span
                 key={k}
-                className="inline-block"
+                className={css.letter}
                 initial={{ opacity: 0, y: 18, rotateX: 90 }}
                 animate={{ opacity: 1, y: 0, rotateX: 0 }}
                 transition={{ duration: 0.35, delay: 0.45 + k * 0.03, ease: [0.2, 0.9, 0.3, 1] }}
@@ -160,12 +155,12 @@ export default function OpeningIntro() {
             ))}
           </p>
           <motion.p
-            className="mt-4 font-mono text-[clamp(13px,1.2vw,16px)] text-[#b7b2a8]"
+            className={css.cmd}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            <span className="text-[#7d7a72]">$ </span>rodrigoscharp <span className="text-[#ff7a3a]">--top 00</span>
+            <span className={css.prompt}>$ </span>rodrigoscharp <span className={css.flag}>--top 00</span>
           </motion.p>
         </motion.div>
       </motion.div>

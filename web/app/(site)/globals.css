@@ -162,11 +162,3 @@ body {
 html.lang-pending body {
   opacity: 0;
 }
-
-/* Opening animation cover: only on a first visit (class set by the layout's inline script). */
-.intro-cover {
-  display: none;
-}
-html.intro-pending .intro-cover {
-  display: flex;
-}
