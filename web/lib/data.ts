@@ -58,10 +58,28 @@ export const SKILLS: Skill[] = [
   { label: "&", style: "circle-lg" },
 ];
 
+/* Impact strip on the home page. Every number is also stated in CAREER or CASES. */
+export const METRICS: { tag: string; value: number; prefix?: string; suffix?: string; label: string }[] = [
+  { tag: "Muno", value: 120, suffix: "+", label: "restaurants running on a POS I built from zero" },
+  { tag: "Ubatuba", value: 100, suffix: "k+", label: "citizens served by public systems I helped ship" },
+  { tag: "Gov", value: 6, suffix: "+", label: "government systems my squad took to production" },
+  { tag: "Consulting", value: 30, suffix: "+", label: "Java and Spring Boot back-ends delivered" },
+  { tag: "Awards", value: 2, label: "national awards, including Smart City" },
+];
+
 export type Slide = {
-  kind: "laptop" | "phone" | "art" | "mark" | "device";
+  kind: "laptop" | "phone" | "art" | "mark" | "device" | "devices";
   image: string;
+  /** "devices" only: iPhone screenshot (393x852 viewport) and its status bar. */
+  phone?: string;
+  statusBg?: string;
+  statusDark?: boolean;
   bg: string;
+  /** Two brand glows drifting over the solid background. */
+  glow?: [string, string];
+  /** Brand symbol drawn huge behind the devices, as a gradient "shadow". */
+  mark?: string;
+  markAspect?: string;
   label?: string;
   title?: string;
   chips?: string[];
@@ -77,6 +95,10 @@ export type Case = {
   slides: Slide[];
   image: string;
   insights: { value: string; label: string }[];
+  /** App icon shown in the top-left corner of the slide. */
+  logo?: string;
+  /** The logo is a wordmark (shown alone on a light pill) instead of an app icon. */
+  logoWide?: boolean;
   live?: string;
   repo?: string;
   caseHref?: string;
@@ -96,15 +118,26 @@ export const CASES: Case[] = [
     ],
     tags: ["WEB", "MOBILE", "SAAS"],
     slides: [
-      { kind: "laptop", image: "/images/muno-hero.jpg", bg: "linear-gradient(135deg,#fd601a 0%,#d93f00 100%)" },
-      { kind: "device", image: "/images/muno-mobile-v4.png", bg: "linear-gradient(135deg,#1f3d33 0%,#0d1f19 100%)", aspect: "714 / 953" },
+      {
+        kind: "devices",
+        image: "/images/muno-desktop.jpg",
+        phone: "/images/muno-iphone-app.jpg",
+        statusBg: "#1e3d2f",
+        bg: "#c4521e",
+        glow: ["#ff9a5c", "#1e3d2f"],
+        mark: "/images/logos/muno-mark.png",
+        markAspect: "491 / 461",
+      },
     ],
-    image: "/images/muno-hero.jpg",
+    logo: "/images/logos/muno-wordmark.png",
+    logoWide: true,
+    image: "/images/muno-desktop.jpg",
     insights: [
       { value: "Live", label: "100% digital POS replacing paper-based tickets" },
       { value: "02/2025", label: "shipped from zero as sole founder & CTO" },
     ],
     live: "https://munoapp.com.br",
+    caseHref: "/work/muno",
     layout: "full",
   },
   {
@@ -119,65 +152,58 @@ export const CASES: Case[] = [
     ],
     tags: ["WEB", "SAAS", "PRODUCTIVITY"],
     slides: [
-      { kind: "laptop", image: "/images/myhub-hero.jpg", bg: "linear-gradient(135deg,#9342fc 0%,#5b21b6 100%)" },
-      { kind: "device", image: "/images/myhub-mobile-v2.png", bg: "linear-gradient(135deg,#b8f04f 0%,#6fae1f 100%)", aspect: "581 / 921" },
+      {
+        kind: "devices",
+        image: "/images/myhub-desktop-app.jpg",
+        phone: "/images/myhub-iphone-app.jpg",
+        statusBg: "#0f0e0e",
+        bg: "#0b0b0d",
+        glow: ["#8c8c91", "#4a4a4f"],
+        mark: "/images/logos/myhub-mark.svg",
+        markAspect: "1 / 1",
+      },
     ],
-    image: "/images/myhub-hero.jpg",
+    logo: "/images/logos/myhub-app.svg",
+    image: "/images/myhub-desktop-app.jpg",
     insights: [
       { value: "Live", label: "productivity SaaS to run your whole routine in one place" },
     ],
     live: "https://usemyhub.com",
+    caseHref: "/work/myhub",
     layout: "half",
   },
   {
-    slug: "prefeitura",
+    slug: "campo",
     n: "03",
-    read: "Inovação",
+    read: "Franquias",
     headline: [
-      { text: "Ubatuba City Hall", bold: true },
-      { text: ": one of the people behind Ubatuba's digital innovation, reaching " },
-      { text: "+100k residents", bold: true },
+      { text: "Campo", bold: true },
+      { text: ": a virtual field consultant that shows " },
+      { text: "franchise networks", bold: true },
+      { text: " where each store leaves money on the table" },
     ],
-    tags: ["GOVTECH", "WEB", "INNOVATION"],
-    slides: [
-      { kind: "laptop", image: "/images/prefeitura-hero.jpg", bg: "linear-gradient(135deg,#0b1f33 0%,#1d5a85 100%)" },
-      { kind: "art", image: "/images/prefeitura-phone.jpg", bg: "#0b1f33" },
-    ],
-    image: "/images/prefeitura-hero.jpg",
-    insights: [
-      { value: "+100k", label: "residents reached by Ubatuba's digital innovation" },
-      { value: "2", label: "national awards, incl. Smart City" },
-    ],
-    layout: "half",
-  },
-  {
-    slug: "pixlab",
-    n: "04",
-    read: "Fintech",
-    headline: [
-      { text: "PixLab", bold: true },
-      { text: ": a chaos lab that proves every cent of a " },
-      { text: "Pix or boleto", bold: true },
-      { text: " is credited exactly once" },
-    ],
-    tags: ["BACK-END", "JAVA", "FINTECH"],
+    tags: ["STARTUP", "WEB", "SAAS"],
     slides: [
       {
-        kind: "mark",
-        image: "",
-        bg: "radial-gradient(140% 110% at 20% 10%, #1b2a44 0%, #0e1420 55%, #050810 100%)",
-        label: "Fintech · Chaos engineering",
-        title: "PixLab",
-        chips: ["p99 16.5 ms", "500 req/s", "127 tests", "ledger = 0"],
+        kind: "devices",
+        image: "/images/campo-desktop-app.jpg",
+        phone: "/images/campo-iphone-app.jpg",
+        statusBg: "#f1f4ec",
+        statusDark: true,
+        bg: "#1d2a1f",
+        glow: ["#2f8f5b", "#7fd3a0"],
+        mark: "/images/logos/campo-mark.svg",
+        markAspect: "45 / 53",
       },
     ],
-    image: "",
+    logo: "/images/logos/campo-app.svg",
+    image: "/images/campo-desktop-app.jpg",
     insights: [
-      { value: "127", label: "unit, property, integration & E2E tests" },
-      { value: "16.5 ms", label: "p99 at 500 req/s with 30% redeliveries" },
+      { value: "Startup", label: "every store compared with stores of the same profile, every day" },
     ],
-    repo: "https://github.com/rodrigoscharp/PixLab",
-    layout: "full",
+    soon: true,
+    caseHref: "/work/campo",
+    layout: "half",
   },
 ];
 
@@ -195,6 +221,8 @@ export type CareerStep = {
   note: string;
   current?: boolean;
   tag?: string;
+  /** Case studies of what was built in this role. */
+  built?: { label: string; href: string }[];
 };
 
 /* Career path shown on /work, oldest first (left to right on the track). */
@@ -227,7 +255,8 @@ export const CAREER: CareerStep[] = [
     short: "Muno",
     logo: "/images/logos/muno.png",
     logoBg: "#e6e5e0",
-    note: "Founded Muno to take restaurants off paper: a 100% digital POS and menu platform, from the order on the table to the ticket in the kitchen, now serving 120+ restaurants. I lead product, engineering and operations, and built the back-end in Java and Spring Boot on AWS.",
+    note: "Founded Muno to take restaurants off paper: a 100% digital POS and menu platform, from the order on the table to the ticket in the kitchen, now serving 120+ restaurants. I lead product, engineering and operations, and built the whole platform myself.",
+    built: [{ label: "Muno case study", href: "/work/muno" }],
     current: true,
   },
   {
@@ -254,6 +283,10 @@ export const CAREER: CareerStep[] = [
   },
 ];
 
+/* Real quotes only: name, role and the person's OK to publish.
+   The section stays hidden while this list is empty. */
+export const TESTIMONIALS: { quote: string; name: string; role: string; photo?: string }[] = [];
+
 export type Row = {
   year: string;
   title: string;
@@ -263,12 +296,11 @@ export type Row = {
 };
 
 export const ROWS: Row[] = [
-  { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "live", href: "https://munoapp.com.br", image: "/images/muno-hero.jpg" },
-  { year: "2026", title: "MyHub — Productivity SaaS", cta: "live", href: "https://usemyhub.com", image: "/images/myhub-hero.jpg" },
-  { year: "2025", title: "PixLab — Pix & Boleto Reconciliation Lab", cta: "repo", href: "https://github.com/rodrigoscharp/PixLab" },
-  { year: "2026", title: "PONTE — AAC App for Autistic Children", cta: "repo", href: "https://github.com/rodrigoscharp/PONTE" },
-  { year: "2025", title: "Athena Matching Engine", cta: "repo", href: "https://github.com/rodrigoscharp/Athena-Matching-Engine" },
-  { year: "2025", title: "HelpNote IA", cta: "repo", href: "https://github.com/rodrigoscharp/HelpNote_-IA" },
-  { year: "2025", title: "WalletCore — Digital Wallet API", cta: "repo", href: "https://github.com/rodrigoscharp/WalletCore" },
-  { year: "2025", title: "BETO IA — Self-hosted Assistant", cta: "repo", href: "https://github.com/rodrigoscharp/BETO-IA" },
+  { year: "2025 - Now", title: "Muno — POS & Digital Menu", cta: "case", href: "/work/muno", image: "/images/muno-desktop.jpg" },
+  { year: "2026", title: "MyHub — Productivity SaaS", cta: "case", href: "/work/myhub", image: "/images/myhub-desktop-app.jpg" },
+  { year: "2026", title: "Campo — Virtual Field Consultant for Franchises", cta: "case", href: "/work/campo", image: "/images/campo-desktop-app.jpg" },
+  { year: "2025", title: "PixLab — Pix & Boleto Reconciliation Lab", cta: "case", href: "/work/pixlab" },
+  { year: "2026", title: "PONTE — AAC App for Autistic Children", cta: "case", href: "/work/ponte" },
+  { year: "2025", title: "Athena — Order Matching Engine", cta: "case", href: "/work/athena" },
+  { year: "2025", title: "WalletCore — Digital Wallet API", cta: "case", href: "/work/walletcore" },
 ];
