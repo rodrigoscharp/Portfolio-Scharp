@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { SITE } from "@/lib/data";
+import { useLang } from "@/lib/i18n";
 
 function Cursor3D({ className = "" }: { className?: string }) {
   return (
@@ -64,7 +66,27 @@ function BigHand({ className = "" }: { className?: string }) {
   );
 }
 
+function CopyEmail() {
+  const { t } = useLang();
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        navigator.clipboard?.writeText(SITE.email).then(() => {
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1800);
+        });
+      }}
+      className="mt-5 text-[clamp(1rem,1.5vw,1.25rem)] font-light underline-offset-4 hover:underline"
+    >
+      {copied ? t("Copied to clipboard ✓", "Copiado ✓") : `${SITE.email} · ${t("copy", "copiar")}`}
+    </button>
+  );
+}
+
 export default function FinalCTA() {
+  const { t } = useLang();
   return (
     <section
       id="contact"
@@ -73,22 +95,32 @@ export default function FinalCTA() {
       <Reveal>
         <h2 className="display-tight relative mx-auto max-w-[1300px] whitespace-nowrap text-[min(8.2vw,9.2rem)] md:text-[min(9vw,9.2rem)]">
           <span className="relative inline-block">
-            Interested in
+            {t("Interested in", "Vamos construir")}
             <BigHand className="absolute -right-[1.25em] -top-[0.78em] h-[1.5em] w-[1.5em]" />
           </span>
           <br />
-          Working together?
+          {t("Working together?", "algo juntos?")}
         </h2>
       </Reveal>
 
-      <Reveal delay={0.1} className="relative mx-auto mt-8 w-fit">
-        <p className="text-[clamp(1.1rem,1.8vw,1.5rem)] font-light">Contact me:</p>
-        <a
-          href={`mailto:${SITE.email}`}
-          className="text-[clamp(1.1rem,1.8vw,1.5rem)] font-medium hover:underline"
-        >
-          {SITE.email}
-        </a>
+      <Reveal delay={0.1} className="relative mx-auto mt-10 w-fit">
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={`mailto:${SITE.email}?subject=${encodeURIComponent(t("Let's work together", "Vamos trabalhar juntos"))}`}
+            className="rounded-full bg-ink px-8 py-4 text-[clamp(1rem,1.5vw,1.25rem)] font-medium text-bg transition-transform hover:scale-[1.04]"
+          >
+            {t("Let's talk →", "Vamos conversar →")}
+          </a>
+          <a
+            href={SITE.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-ink px-8 py-4 text-[clamp(1rem,1.5vw,1.25rem)] font-medium transition-colors hover:bg-ink hover:text-bg"
+          >
+            LinkedIn
+          </a>
+        </div>
+        <CopyEmail />
         <Cursor3D className="pointer-events-none absolute -right-[clamp(70px,9vw,130px)] top-[55%] h-[clamp(64px,8vw,110px)] w-[clamp(56px,7vw,96px)]" />
       </Reveal>
     </section>

@@ -1,21 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CV_PDF, NAV, SITE } from "@/lib/data";
+import { NAV_PT } from "@/lib/data.pt";
+import { LangSwitch, useL, useLang } from "@/lib/i18n";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const path = usePathname();
   const home = path === "/";
   const resume = path === "/resume";
-  const links = home ? NAV : [{ label: "Home", href: "/" }, ...NAV];
+  const { t } = useLang();
+  const nav = useL(NAV, NAV_PT);
+  const links = home ? nav : [{ label: t("Home", "Início"), href: "/" }, ...nav];
+
+  // Hides while scrolling down so it never sits on top of the big titles,
+  // comes back on scroll up with its own backdrop.
+  const [hidden, setHidden] = useState(false);
+  const [solid, setSolid] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      const past = y > (home ? window.innerHeight * 0.9 : 80);
+      setSolid(past);
+      if (Math.abs(y - last) > 6) {
+        setHidden(past && y > last);
+        last = y;
+      }
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [home]);
+  const show = !hidden || open;
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 ${
-        home ? "text-white mix-blend-difference" : "bg-bg/85 text-ink backdrop-blur-sm"
+      className={`fixed inset-x-0 top-0 z-50 transition-[transform,background-color] duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${
+        show ? "translate-y-0" : "-translate-y-full"
+      } ${
+        home && !solid && !open
+          ? "text-white mix-blend-difference"
+          : "border-b border-ink/10 bg-bg/80 text-ink backdrop-blur-md"
       }`}
     >
       <div className="relative mx-auto flex items-center justify-between px-5 py-5 text-[13px] uppercase md:px-12 md:py-6 md:text-[14px]">
@@ -35,33 +64,31 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {resume ? (
-          <a
-            href={CV_PDF}
-            download
-            className="hidden rounded-full bg-ink px-6 py-3 text-[12px] font-normal normal-case text-paper transition-transform hover:scale-[1.03] md:block"
-          >
-            Download Resume
-          </a>
-        ) : (
-          <a
-            href={SITE.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden font-normal hover:opacity-60 md:block"
-          >
-            LinkedIn
-          </a>
-        )}
+        <div className="hidden items-center gap-6 md:flex">
+          <LangSwitch className="font-normal" />
+          {resume ? (
+            <a
+              href={CV_PDF}
+              download
+              className="rounded-full bg-ink px-6 py-3 text-[12px] font-normal normal-case text-paper transition-transform hover:scale-[1.03]"
+            >
+              {t("Download Resume", "Baixar currículo")}
+            </a>
+          ) : (
+            <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" className="font-normal hover:opacity-60">
+              LinkedIn
+            </a>
+          )}
+        </div>
 
         <button
           type="button"
           aria-expanded={open}
-          aria-label="Toggle menu"
+          aria-label={t("Toggle menu", "Abrir menu")}
           onClick={() => setOpen((o) => !o)}
           className="font-normal md:hidden"
         >
-          {open ? "Close" : "Menu"}
+          {open ? t("Close", "Fechar") : "Menu"}
         </button>
       </div>
 
@@ -77,9 +104,10 @@ export default function Navbar() {
           </a>
           {resume && (
             <a href={CV_PDF} download>
-              Download Resume
+              {t("Download Resume", "Baixar currículo")}
             </a>
           )}
+          <LangSwitch className="mt-2 text-[14px]" />
         </nav>
       )}
     </header>
