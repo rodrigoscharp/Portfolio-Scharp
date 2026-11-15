@@ -2,14 +2,18 @@
 
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { CAREER } from "@/lib/data";
+import { CAREER_PT } from "@/lib/career.pt";
+import { useL, useLang } from "@/lib/i18n";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Sticker on a current role: tilted, gently floating, with a live dot. */
 function NowSticker({ still }: { still: boolean }) {
+  const { t } = useLang();
   return (
     <motion.span
       aria-hidden
@@ -23,7 +27,7 @@ function NowSticker({ still }: { still: boolean }) {
           <span className="absolute inline-flex size-full animate-ping rounded-full bg-white" />
           <span className="relative size-2 rounded-full bg-white" />
         </span>
-        now
+        {t("now", "agora")}
       </span>
     </motion.span>
   );
@@ -53,6 +57,7 @@ function Sonar({ still }: { still: boolean }) {
  * middle. It draws itself the first time it scrolls into view.
  */
 function PromotedArrow({ lit }: { lit: boolean }) {
+  const { t } = useLang();
   const color = lit ? "var(--accent)" : "color-mix(in srgb, var(--ink) 35%, transparent)";
   return (
     <span aria-hidden className="pointer-events-none absolute inset-0">
@@ -97,7 +102,7 @@ function PromotedArrow({ lit }: { lit: boolean }) {
         viewport={{ once: true, amount: 0.6 }}
         transition={{ duration: 0.5, delay: 1.6, ease: EASE }}
       >
-        promoted!
+        {t("promoted!", "promovido!")}
       </motion.span>
     </span>
   );
@@ -109,10 +114,12 @@ function PromotedArrow({ lit }: { lit: boolean }) {
  * On phones the track scrolls sideways and keeps the selected stop in view.
  */
 export default function Career() {
-  const last = CAREER.length - 1;
+  const { t } = useLang();
+  const steps = useL(CAREER, CAREER_PT);
+  const last = steps.length - 1;
   const [active, setActive] = useState(last);
   const stops = useRef<(HTMLButtonElement | null)[]>([]);
-  const c = CAREER[active];
+  const c = steps[active];
   const still = !!useReducedMotion();
   const track = useRef<HTMLDivElement>(null);
   const first = useRef(true);
@@ -139,17 +146,17 @@ export default function Career() {
 
   // Track fill runs from the first stop's center to the active stop's center.
   const fill = last === 0 ? 0 : active / last;
-  const edge = `${50 / CAREER.length}%`;
+  const edge = `${50 / steps.length}%`;
 
   return (
     <section className="mx-auto max-w-[1080px] px-5 pb-20 md:px-8 md:pb-28">
       <Reveal>
         <div className="mb-8 flex items-end justify-between gap-4 md:mb-12">
           <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] font-extrabold leading-none tracking-[-0.05em]">
-            Career
+            {t("Career", "Carreira")}
           </h2>
           <span className="pb-1 text-[10px] font-light uppercase tracking-[0.9px] text-ink-soft">
-            2023 - Now
+            {t("2023 - Now", "2023 - Atual")}
           </span>
         </div>
       </Reveal>
@@ -161,10 +168,10 @@ export default function Career() {
         >
           <div
             role="tablist"
-            aria-label="Career timeline"
+            aria-label={t("Career timeline", "Linha do tempo da carreira")}
             onKeyDown={onKey}
             className="relative grid min-w-[820px] pt-24 md:min-w-0"
-            style={{ gridTemplateColumns: `repeat(${CAREER.length}, minmax(0, 1fr))` }}
+            style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}
           >
             {/* Track between the first and last logo centers. */}
             <span aria-hidden className="absolute top-[128px] h-px bg-ink/15" style={{ left: edge, right: edge }} />
@@ -183,14 +190,14 @@ export default function Career() {
                 <span
                   key={`promo-${i}`}
                   className="absolute top-[30px] h-[64px]"
-                  style={{ left: `${((i - 0.5) / CAREER.length) * 100}%`, width: `${100 / CAREER.length}%` }}
+                  style={{ left: `${((i - 0.5) / steps.length) * 100}%`, width: `${100 / steps.length}%` }}
                 >
                   <PromotedArrow lit={i <= active} />
                 </span>
               ) : null,
             )}
 
-            {CAREER.map((s, i) => {
+            {steps.map((s, i) => {
               const on = i === active;
               const reached = i <= active;
               return (
@@ -220,7 +227,7 @@ export default function Career() {
                     <span className="relative size-full overflow-hidden rounded-[15px]">
                       <Image
                         src={s.logo}
-                        alt={`${s.company} logo`}
+                        alt={t(`${s.company} logo`, `Logo ${s.company}`)}
                         fill
                         sizes="64px"
                         className={`object-contain p-2 transition-[filter,opacity] duration-300 ${
@@ -265,7 +272,7 @@ export default function Career() {
                 <h3 className="text-[19px] font-medium leading-snug md:text-[24px]">{c.role}</h3>
                 {c.current && (
                   <span className="rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.08em] text-white">
-                    Now
+                    {t("Now", "Atual")}
                   </span>
                 )}
                 {c.tag && (
@@ -278,6 +285,19 @@ export default function Career() {
               <p className="mt-3 max-w-[560px] text-[14px] font-light leading-relaxed text-ink-soft md:text-[16px]">
                 {c.note}
               </p>
+              {c.built && (
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {c.built.map((b) => (
+                    <Link
+                      key={b.href}
+                      href={b.href}
+                      className="inline-flex items-center gap-1 rounded-full bg-ink px-4 py-1.5 text-[13px] text-bg transition-transform hover:scale-[1.03]"
+                    >
+                      {b.label} →
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         </AnimatePresence>
