@@ -110,20 +110,13 @@ export const PROJECTS = [
     stack: "Java 21, Spring Boot, Kafka, Redis, gRPC",
   },
   {
-    name: "HelpNote AI - AI Note-Taking Assistant",
-    repo: "github.com/rodrigoscharp/HelpNote_-IA",
+    name: "Orbz - Team of Personal AI Agents",
+    repo: "github.com/rodrigoscharp/Orbz",
     bullets: [
-      "Assistant that transcribes lecture and event audio, extracts keywords, and generates AI-enriched summaries.",
+      "Five AI agents, each owning one area (finance, calendar, research, code, coordination), talking by voice, text and Telegram inside a 3D room.",
+      "Integrates Google Calendar, Gmail, Spotify, GitHub and Claude Code tasks, each run in an isolated branch and worktree.",
     ],
-    stack: "Java, Spring Boot, PostgreSQL, LLM integration",
-  },
-  {
-    name: "BETO AI - Self-Hosted Personal Assistant",
-    repo: "github.com/rodrigoscharp/BETO-IA",
-    bullets: [
-      "Voice-based personal assistant with Spotify, Google Calendar, and GitHub integrations, with no third-party subscriptions.",
-    ],
-    stack: "Next.js 14, TypeScript, Groq (LLaMA), ElevenLabs, Supabase",
+    stack: "Next.js 15, TypeScript, three.js, Claude, Supabase, Telegram Bot API",
   },
 ];
 
