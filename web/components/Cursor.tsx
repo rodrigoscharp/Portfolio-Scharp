@@ -32,13 +32,17 @@ export default function Cursor() {
         sx.jump(e.clientX);
         sy.jump(e.clientY);
       }
-      setShown(true);
+      // Hidden over map nodes and inside the hero's x-ray lens, which is its own cursor.
+      const ds = document.documentElement.dataset;
+      setShown(ds.cursor !== "off" && ds.xray !== "on");
       const t = e.target as Element | null;
       if (t?.closest("a,button,[role=switch],[data-cursor=hover]")) setMode("hover");
       else if (t?.closest("#top")) setMode("hero");
       else setMode("idle");
     };
     const leave = () => setShown(false);
+    // Embedded scenes (the Orbz stage) report pointer moves the page can't see.
+    window.addEventListener("cursor-hide", leave);
     const dn = () => setDown(true);
     const up = () => setDown(false);
 
@@ -48,6 +52,7 @@ export default function Cursor() {
     window.addEventListener("pointerup", up);
     return () => {
       window.removeEventListener("pointermove", move);
+      window.removeEventListener("cursor-hide", leave);
       document.documentElement.removeEventListener("pointerleave", leave);
       window.removeEventListener("pointerdown", dn);
       window.removeEventListener("pointerup", up);
