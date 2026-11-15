@@ -72,6 +72,11 @@ export default function Dots({
     themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     const draw = (t: number) => {
+      // ~30 fps is plenty for slow drifting dust and halves the redraw cost.
+      if (!reduce && visible && t - last < 32) {
+        raf = requestAnimationFrame(draw);
+        return;
+      }
       const dt = Math.min((t - last) / 1000, 0.05);
       last = t;
       g.clearRect(0, 0, w, h);

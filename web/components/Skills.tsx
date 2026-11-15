@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { SKILLS, type Skill } from "@/lib/data";
+import { useLang } from "@/lib/i18n";
 
 const size = "text-[clamp(1.05rem,2.5vw,2.35rem)]";
 
@@ -23,12 +24,13 @@ const styles: Record<Skill["style"], string> = {
 
 export default function Skills() {
   const box = useRef<HTMLDivElement>(null);
+  const { t } = useLang();
 
   return (
-    <section className="px-5 pt-8 md:px-0">
+    <section id="skills" className="px-5 pt-8 md:px-12">
       <Reveal>
         <p className="mb-5 text-[clamp(1.15rem,2vw,1.75rem)] font-normal">
-          with my skills in:
+          {t("with my skills in:", "com experiência em:")}
         </p>
       </Reveal>
 

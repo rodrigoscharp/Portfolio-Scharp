@@ -1,230 +1,281 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { useEffect } from "react";
+import { motion, useAnimationControls } from "framer-motion";
 import Toggle3D from "@/components/Toggle3D";
-import Dots from "@/components/Dots";
+import SystemMap from "@/components/SystemMap";
+import XRay from "@/components/XRay";
 import { SITE } from "@/lib/data";
+import { INTRO_SECONDS, introPending } from "@/lib/intro";
+import { useLang } from "@/lib/i18n";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-function Word({ children, i }: { children: React.ReactNode; i: number }) {
+/* The hero is drawn twice from this one layout: the "skin" everyone sees, and
+   the "x-ray" shown inside the lens, where the same page appears as a
+   blueprint with its markup. Same boxes, so the two layers line up exactly. */
+
+/* Entrances wait for the opening animation when it is about to play. */
+const introDelay = () => (introPending() ? INTRO_SECONDS - 0.35 : 0);
+
+function Word({ children, i, xray }: { children: React.ReactNode; i: number; xray: boolean }) {
+  if (xray) return <span className="inline-block">{children}</span>;
   return (
     <motion.span
       className="inline-block"
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.1 + i * 0.12, ease }}
+      transition={{ duration: 0.8, delay: introDelay() + 0.1 + i * 0.08, ease }}
     >
       {children}
     </motion.span>
   );
 }
 
-function HeroCard() {
+/* Small mono tag that only exists in the x-ray layer. */
+function Tag({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <span className={`pointer-events-none absolute whitespace-nowrap font-mono text-[11px] font-normal normal-case tracking-normal text-[#7fd3c4] ${className}`}>
+      {children}
+    </span>
+  );
+}
+
+const ROLES = [
+  { logo: "/images/logos/ubatuba.png", bg: "#f7f7f7", role: ["Tech Lead", "Tech Lead"], org: ["Municipality of Ubatuba", "Prefeitura de Ubatuba"] },
+  { logo: "/images/logos/muno.png", bg: "#e6e5e0", role: ["Founder & CTO", "Fundador & CTO"], org: ["Muno", "Muno"] },
+] as const;
+
+function NowCard({ xray }: { xray: boolean }) {
+  const { t } = useLang();
+  if (xray) {
+    return (
+      <div className="relative w-full rounded-2xl border border-dashed border-[#ff7a3a]/70 p-4 font-mono text-[12px] leading-relaxed text-[#e9e4d8] md:w-[300px]">
+        <Tag className="-top-5 left-0">{"<aside class=\"now\">"}</Tag>
+        <span className="text-[#7d7a72]">{"// GET /api/rodrigo/now"}</span>
+        <br />
+        {"{"}
+        <br />
+        &nbsp;&nbsp;<span className="text-[#b98bff]">&quot;roles&quot;</span>: [
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#b9e27a]">&quot;Tech Lead @ Ubatuba&quot;</span>,
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#b9e27a]">&quot;Founder &amp; CTO @ Muno&quot;</span>
+        <br />
+        &nbsp;&nbsp;],
+        <br />
+        &nbsp;&nbsp;<span className="text-[#b98bff]">&quot;restaurants&quot;</span>: <span className="text-[#ffd25e]">120</span>,
+        <br />
+        &nbsp;&nbsp;<span className="text-[#b98bff]">&quot;status&quot;</span>: <span className="text-[#b9e27a]">&quot;operational&quot;</span>
+        <br />
+        {"}"}
+      </div>
+    );
+  }
   return (
     <motion.aside
-      initial={{ opacity: 0, y: 24, rotate: 3 }}
-      animate={{ opacity: 1, y: 0, rotate: 0 }}
-      transition={{ duration: 0.9, delay: 0.5, ease }}
-      className="w-[min(24vw,300px)] shrink-0 rounded-2xl bg-paper/70 p-2 text-[14px] shadow-[0_10px_30px_-12px_rgba(3,3,9,.25)] ring-1 ring-ink/5 backdrop-blur max-md:w-full"
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, delay: introDelay() + 0.7, ease }}
+      className="w-full rounded-2xl bg-paper/80 p-4 text-[14px] shadow-[0_10px_30px_-12px_rgba(3,3,9,.25)] ring-1 ring-ink/5 md:w-[300px]"
     >
-      <div className="relative aspect-[16/8] overflow-hidden rounded-xl">
-        <Image
-          src={SITE.portrait}
-          alt=""
-          fill
-          sizes="640px"
-          className="object-cover object-[52%_25%]"
-        />
-      </div>
-      <p className="px-2 pb-2 pt-3 text-[13px] leading-snug text-ink-soft">
-        Clean code que{" "}
-        <span className="font-semibold text-accent">escala</span>: back-end simples de manter,
-        pronto pra crescer.
+      <p className="flex items-center justify-between text-[11px] font-medium uppercase tracking-[0.12em] text-ink-soft">
+        {t("Now", "Agora")}
+        <span className="flex items-center gap-1.5 font-mono normal-case tracking-normal">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#4be08a]" />
+          {t("all systems operational", "todos os sistemas operando")}
+        </span>
       </p>
+      <ul className="mt-3 space-y-3">
+        {ROLES.map((r) => (
+          <li key={r.org[0]} className="flex items-center gap-3">
+            <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-lg ring-1 ring-ink/10" style={{ background: r.bg }}>
+              <Image src={r.logo} alt="" fill sizes="36px" className="object-contain p-1" />
+            </span>
+            <span className="leading-tight">
+              <span className="block font-semibold">{t(r.role[0], r.role[1])}</span>
+              <span className="block text-[12px] text-ink-soft">{t(r.org[0], r.org[1])}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <Link
+        href="/work/muno"
+        className="mt-3 flex items-center gap-2 rounded-xl bg-ink px-3 py-2.5 text-[13px] text-bg transition-transform hover:scale-[1.02]"
+      >
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4be08a] opacity-70 motion-reduce:hidden" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4be08a]" />
+        </span>
+        <span>
+          <strong className="font-semibold">{t("120+ restaurants", "120+ restaurantes")}</strong>{" "}
+          {t("live on Muno", "no ar com o Muno")}
+        </span>
+      </Link>
     </motion.aside>
   );
 }
 
-export default function Hero() {
+export function HeroLayout({ xray = false }: { xray?: boolean }) {
+  const { t, lang } = useLang();
+  /* In the x-ray the letters lose their fill and keep only an orange outline. */
+  const outline = xray ? { color: "transparent", WebkitTextStroke: "1.5px #ff7a3a" } : undefined;
+  const fade = (delay: number) =>
+    xray
+      ? {}
+      : { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, delay: introDelay() + delay, ease } };
+
   return (
-    <section
-      id="top"
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-5 pb-16 pt-28 md:px-12"
-    >
-      <Dots className="opacity-70" />
+    <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[1320px] flex-col justify-center px-5 pb-20 pt-28 md:px-12">
+      {/* eyebrow */}
+      <motion.p
+        {...fade(0.05)}
+        className={`relative flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[clamp(11px,1vw,14px)] uppercase tracking-[0.16em] ${
+          xray ? "text-[#7d7a72]" : "text-ink-soft"
+        }`}
+      >
+        {xray && <Tag className="-top-5 left-0">{"<p class=\"eyebrow\">"}</Tag>}
+        <span className={xray ? "text-[#e9e4d8]" : "text-ink"}>{t("Software engineer", "Engenheiro de software")}</span>
+      </motion.p>
 
-      <div className="relative w-full max-w-[1240px] text-[min(11.2vw,9.4rem)] md:text-[min(10.2vw,9.4rem)]">
-        {/* line 1 — dot-matrix */}
-        <div className="flex items-center justify-between gap-4">
-          <h1 className="relative m-0">
-            <Word i={0}>
-              <span className="dotmatrix block text-[1.22em] leading-[0.95] text-ink-soft">
-                Back-end
+      {/* the name */}
+      <h1
+        className={`display relative mt-[0.18em] text-[min(12.6vw,10.6rem)] leading-[0.84] ${xray ? "" : "text-ink"}`}
+        aria-label={xray ? undefined : "Rodrigo Scharp"}
+      >
+        {xray && <Tag className="-top-4 left-0 md:-top-6">{"<h1 class=\"display\" font-size=\"10.6rem\">"}</Tag>}
+        <span className="flex items-center whitespace-nowrap" style={outline} aria-hidden>
+          <Word i={0} xray={xray}>R</Word>
+          <Word i={1} xray={xray}>
+            {xray ? (
+              <span className="relative mx-[0.04em] block h-[0.74em] w-[1.6em] -translate-y-[0.045em] rounded-full border-[1.5px] border-[#ff7a3a]">
+                <span className="absolute left-[0.1em] top-[0.09em] h-[0.56em] w-[0.56em] rounded-full border-[1.5px] border-[#ff7a3a]" />
+                <Tag className="left-[1.9em] top-1/2 -translate-y-1/2 text-[10px] text-[#ffd25e]">{"<Toggle3D theme />"}</Tag>
               </span>
-            </Word>
-
-            {/* AWS mark, spinning above the B — transparent, aws text + smile only */}
-            <motion.span
-              aria-hidden
-              className="absolute -top-[0.3em] left-[-0.02em] h-[0.46em] w-[0.46em] text-ink"
-              initial={{ opacity: 0, y: -16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease }}
-            >
-              <motion.svg
-                viewBox="0 0 100 100"
-                className="h-full w-full"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 18, ease: "linear", repeat: Infinity }}
-              >
-                <text
-                  x="50"
-                  y="55"
-                  textAnchor="middle"
-                  fontFamily="Archivo, sans-serif"
-                  fontWeight="800"
-                  fontSize="46"
-                  fill="currentColor"
-                  letterSpacing="-1.5"
-                >
-                  aws
-                </text>
-                <path
-                  d="M18 74 Q50 90 82 74"
-                  stroke="#ff9900"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-                <path
-                  d="M72 68 L84 73 L79 85"
-                  stroke="#ff9900"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-              </motion.svg>
-            </motion.span>
-          </h1>
-
-          <div className="hidden md:block"><HeroCard /></div>
-        </div>
-
-        {/* line 2 — SOFTWARE with a live 3D switch as the O */}
-        <div className="display flex items-center whitespace-nowrap text-accent">
-          <Word i={1}>S</Word>
-          <Word i={2}>
-            <Toggle3D />
+            ) : (
+              <Toggle3D />
+            )}
           </Word>
-          <Word i={3}>FTWARE</Word>
-        </div>
-
-        {/* line 3 — ENGINEER with a photo capsule as the I */}
-        <div className="display relative inline-flex items-center whitespace-nowrap text-ink-soft">
-          <Word i={4}>ENG</Word>
-          <Word i={5}>
-            <span className="relative mx-[0.06em] inline-block h-[0.76em] w-[0.42em] overflow-hidden rounded-full align-baseline">
-              <Image
-                src={SITE.cartoon}
-                alt="Rodrigo Scharp, cartoon portrait"
-                fill
-                sizes="260px"
-                className="object-cover"
-              />
+          <Word i={2} xray={xray}>DR</Word>
+          <Word i={3} xray={xray}>
+            <span
+              className={`relative mx-[0.05em] inline-block h-[0.74em] w-[0.4em] overflow-hidden rounded-full align-baseline ${
+                xray ? "border-[1.5px] border-[#ff7a3a]" : ""
+              }`}
+            >
+              {!xray && (
+                <Image src={SITE.cartoon} alt="" fill sizes="260px" priority className="object-cover" />
+              )}
             </span>
           </Word>
-          <Word i={6}>NEER</Word>
+          <Word i={4} xray={xray}>GO</Word>
+        </span>
+        <span
+          className={`flex whitespace-nowrap ${xray ? "" : "text-accent"}`}
+          style={outline}
+          aria-hidden
+        >
+          <Word i={5} xray={xray}>SCHARP</Word>
+        </span>
+      </h1>
 
-          {/* Java mark (official Devicon), spinning below the first E of ENGINEER */}
-          <motion.span
-            aria-hidden
-            className="absolute bottom-[-0.34em] left-[-0.02em] h-[0.46em] w-[0.46em]"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 + 4 * 0.12, ease }}
+      {/* bottom row */}
+      <div className="mt-[clamp(20px,3.5vw,48px)] grid items-end gap-6 md:grid-cols-[1fr_auto] md:gap-10">
+        <div>
+          <motion.p
+            {...fade(0.8)}
+            className={`relative max-w-[30em] text-[clamp(17px,1.8vw,26px)] leading-snug tracking-[-0.01em] ${
+              xray ? "font-mono text-[clamp(13px,1.3vw,18px)] text-[#7d7a72]" : "font-light"
+            }`}
           >
-            <motion.svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 128 128"
-              className="h-full w-full"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 18, ease: "linear", repeat: Infinity }}
-            >
-              <path
-                fill="#0074BD"
-                d="M47.617 98.12s-4.767 2.774 3.397 3.71c9.892 1.13 14.947.968 25.845-1.092 0 0 2.871 1.795 6.873 3.351-24.439 10.47-55.308-.607-36.115-5.969zm-2.988-13.665s-5.348 3.959 2.823 4.805c10.567 1.091 18.91 1.18 33.354-1.6 0 0 1.993 2.025 5.132 3.131-29.542 8.64-62.446.68-41.309-6.336z"
-              />
-              <path
-                fill="#EA2D2E"
-                d="M69.802 61.271c6.025 6.935-1.58 13.17-1.58 13.17s15.289-7.891 8.269-17.777c-6.559-9.215-11.587-13.792 15.635-29.58 0 .001-42.731 10.67-22.324 34.187z"
-              />
-              <path
-                fill="#0074BD"
-                d="M102.123 108.229s3.529 2.91-3.888 5.159c-14.102 4.272-58.706 5.56-71.094.171-4.451-1.938 3.899-4.625 6.526-5.192 2.739-.593 4.303-.485 4.303-.485-4.953-3.487-32.013 6.85-13.743 9.815 49.821 8.076 90.817-3.637 77.896-9.468zM49.912 70.294s-22.686 5.389-8.033 7.348c6.188.828 18.518.638 30.011-.326 9.39-.789 18.813-2.474 18.813-2.474s-3.308 1.419-5.704 3.053c-23.042 6.061-67.544 3.238-54.731-2.958 10.832-5.239 19.644-4.643 19.644-4.643zm40.697 22.747c23.421-12.167 12.591-23.86 5.032-22.285-1.848.385-2.677.72-2.677.72s.688-1.079 2-1.543c14.953-5.255 26.451 15.503-4.823 23.725 0-.002.359-.327.468-.617z"
-              />
-              <path
-                fill="#EA2D2E"
-                d="M76.491 1.587S89.459 14.563 64.188 34.51c-20.266 16.006-4.621 25.13-.007 35.559-11.831-10.673-20.509-20.07-14.688-28.815C58.041 28.42 81.722 22.195 76.491 1.587z"
-              />
-              <path
-                fill="#0074BD"
-                d="M52.214 126.021c22.476 1.437 57-.8 57.817-11.436 0 0-1.571 4.032-18.577 7.231-19.186 3.612-42.854 3.191-56.887.874 0 .001 2.875 2.381 17.647 3.331z"
-              />
-            </motion.svg>
-          </motion.span>
+            {xray ? (
+              <>
+                <Tag className="-top-5 left-0">{"<p class=\"pitch\">"}</Tag>
+                <span className="text-[#b98bff]">return</span> products.<span className="text-[#ffd25e]">fromZero</span>()
+                .<span className="text-[#ffd25e]">toProduction</span>()
+                <br />
+                <span className="text-[#7d7a72]">{"// 120+ restaurants · 100k+ citizens · 5 AI agents"}</span>
+              </>
+            ) : lang === "pt" ? (
+              <>
+                Levo produtos <strong className="font-semibold">do zero à produção</strong>:{" "}
+                <span className="whitespace-nowrap">120+ restaurantes</span>,{" "}
+                <span className="whitespace-nowrap">100 mil+ cidadãos</span> e um time de{" "}
+                <span className="whitespace-nowrap">5 agentes de IA</span> rodam em sistemas que eu construí.
+              </>
+            ) : (
+              <>
+                I take products <strong className="font-semibold">from zero to production</strong>:{" "}
+                <span className="whitespace-nowrap">120+ restaurants</span>,{" "}
+                <span className="whitespace-nowrap">100k+ citizens</span> and a team of{" "}
+                <span className="whitespace-nowrap">5 AI agents</span> run on systems I built.
+              </>
+            )}
+          </motion.p>
 
-          {/* IntelliJ IDEA mark, spinning where the asterisk used to be */}
-          <motion.span
-            aria-hidden
-            className="absolute -right-[0.34em] bottom-[-0.08em] h-[0.4em] w-[0.4em]"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 + 6 * 0.12, ease }}
-          >
-          <motion.svg
-            viewBox="0 0 100 100"
-            className="h-full w-full drop-shadow-[0_6px_6px_rgba(3,3,9,.3)]"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 18, ease: "linear", repeat: Infinity }}
-          >
-            <defs>
-              <linearGradient id="ij-a" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#fe315d" />
-                <stop offset="0.55" stopColor="#f97a12" />
-                <stop offset="1" stopColor="#ffd83a" />
-              </linearGradient>
-              <linearGradient id="ij-b" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0" stopColor="#087cfa" />
-                <stop offset="0.6" stopColor="#7c59f0" stopOpacity="0.85" />
-                <stop offset="1" stopColor="#fe315d" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <rect width="100" height="100" rx="8" fill="url(#ij-a)" />
-            <rect width="100" height="100" rx="8" fill="url(#ij-b)" />
-            <rect x="15" y="15" width="70" height="70" fill="#000" />
-            <rect x="22" y="26" width="9" height="30" fill="#fff" />
-            <path
-              d="M59 26V49a10 10 0 0 1-10 10h-3"
-              fill="none"
-              stroke="#fff"
-              strokeWidth="9"
-            />
-            <rect x="22" y="68" width="28" height="6" fill="#fff" />
-          </motion.svg>
-          </motion.span>
+          <motion.div {...fade(0.95)} className="relative mt-6 flex flex-wrap gap-3 text-[clamp(14px,1.1vw,16px)]">
+            {xray ? (
+              <>
+                <span className="rounded-full border border-dashed border-[#ff7a3a]/70 px-6 py-3 font-mono text-[13px] text-[#e9e4d8]">
+                  {"<a href=\"#work\">"}
+                </span>
+                <span className="rounded-full border border-dashed border-[#ff7a3a]/70 px-6 py-3 font-mono text-[13px] text-[#e9e4d8]">
+                  {"<a href=\"#contact\">"}
+                </span>
+              </>
+            ) : (
+              <>
+                <a href="#work" className="rounded-full bg-ink px-6 py-3 font-medium text-bg transition-transform hover:scale-[1.04]">
+                  {t("View work ↓", "Ver projetos ↓")}
+                </a>
+                <a
+                  href="#contact"
+                  className="rounded-full border border-ink px-6 py-3 font-medium transition-colors hover:bg-ink hover:text-bg"
+                >
+                  {t("Let's talk", "Vamos conversar")}
+                </a>
+              </>
+            )}
+          </motion.div>
         </div>
 
-        <div className="mt-8 text-base md:hidden">
-          <HeroCard />
-        </div>
+        <NowCard xray={xray} />
       </div>
+    </div>
+  );
+}
 
-      <span className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-light uppercase tracking-[0.9px]">
-        Scroll ↓
+export default function Hero() {
+  const { t } = useLang();
+  // Lands from the intro's zoom: starts a little closer and settles back.
+  // Set after mount (hidden under the intro) so server and client HTML match.
+  const land = useAnimationControls();
+  useEffect(() => {
+    if (!introPending()) return;
+    land.set({ scale: 1.18 });
+    land.start({ scale: 1, transition: { duration: 1.1, delay: INTRO_SECONDS - 0.55, ease: [0.16, 1, 0.3, 1] } });
+  }, [land]);
+
+  return (
+    <motion.section
+      id="top"
+      className="relative overflow-hidden"
+      animate={land}
+    >
+      <SystemMap />
+      <HeroLayout />
+      <XRay>
+        <HeroLayout xray />
+      </XRay>
+
+      <span className="pointer-events-none absolute bottom-6 left-1/2 z-30 -translate-x-1/2 whitespace-nowrap text-[10px] font-light uppercase tracking-[0.9px]">
+        <span className="hidden md:inline">
+          {t("Move the cursor to x-ray the back-end · ", "Passe o cursor para ver o back-end em raio-x · ")}
+        </span>
+        {t("Scroll ↓", "Role ↓")}
       </span>
-    </section>
+    </motion.section>
   );
 }
