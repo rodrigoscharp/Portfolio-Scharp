@@ -1,0 +1,15 @@
+# Bloco do portfólio no Caddy do Muno (importado de /etc/caddy/sites/*.caddy).
+# Só entra em /opt/borda/sites depois que o DNS apontar para a VPS
+# (publicar.sh --dominio). Antes disso o Caddy tentaria o certificado,
+# falharia e bateria no limite de falhas do Let's Encrypt.
+www.rodrigoscharp.com {
+	redir https://rodrigoscharp.com{uri} 308
+}
+
+rodrigoscharp.com, links.rodrigoscharp.com {
+	encode zstd gzip
+	reverse_proxy portfolio:3000 {
+		lb_try_duration 30s
+		lb_try_interval 250ms
+	}
+}
