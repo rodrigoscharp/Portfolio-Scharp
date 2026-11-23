@@ -1,0 +1,26 @@
+# Produção na VPS da Hostinger, em /opt/portfolio. Quem sobe é
+# deploy/publicar.sh, rodado da máquina local.
+#
+# A VPS é dividida com o Muno e o MyHub, e a porta de entrada (Caddy, 80 e
+# 443) é a do Muno. O portfólio entra na rede `borda`, que o Caddy enxerga.
+#
+# Nome de serviço único, nunca `app`: o Docker registra o nome do serviço
+# como apelido em toda rede. Na `borda`, um `app` roubaria o tráfego do Muno.
+services:
+  portfolio:
+    image: portfolio:atual
+    expose:
+      - "3000"
+    networks:
+      - borda
+    restart: unless-stopped
+    mem_limit: 384m
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  borda:
+    external: true
